@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -8,66 +9,181 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="158.0" prefWidth="728.0">
+      <HBox prefHeight="277.0" prefWidth="886.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="167.0">
                <children>
                   <Label text="Ngày Đãi Tiệc" />
                   <DatePicker editable="false" prefHeight="25.0" prefWidth="150.0" promptText="Chọn ngày đặt tiệc..." />
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="128.0">
-               <children>
-                  <Label text="Chọn Thời Gian" />
-                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Sáng (8h - 11h)">
+                  <VBox alignment="TOP_CENTER" prefHeight="235.0" prefWidth="167.0">
+                     <children>
+                        <Label text="Chọn Thời Gian" />
+                        <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Sáng (8h - 11h)">
+                           <opaqueInsets>
+                              <Insets right="1.0" />
+                           </opaqueInsets>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="time" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Trưa (11h - 1h)" toggleGroup="$time">
+                           <opaqueInsets>
+                              <Insets top="10.0" />
+                           </opaqueInsets>
+                        </RadioButton>
+                        <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Chiều (1h - 15h)" toggleGroup="$time" />
+                        <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Tối (18-22h)" toggleGroup="$time" />
+                        <Label text="Chọn Sảnh" />
+                        <CheckBox mnemonicParsing="false" text="Sảnh A (Lớn)" />
+                        <CheckBox mnemonicParsing="false" text="Sảnh B (Nhỏ)" />
+                        <CheckBox mnemonicParsing="false" text="Sảnh C (Vừa)" />
+                        <CheckBox mnemonicParsing="false" text="Sảnh D (VIP)" />
+                     </children>
                      <opaqueInsets>
-                        <Insets right="1.0" />
+                        <Insets />
                      </opaqueInsets>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="time" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Trưa (11h - 1h)" toggleGroup="$time">
-                     <opaqueInsets>
-                        <Insets top="10.0" />
-                     </opaqueInsets>
-                  </RadioButton>
-                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Chiều (1h - 15h)" toggleGroup="$time" />
-                  <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Tối (18-22h)" toggleGroup="$time" />
+                  </VBox>
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="277.0" prefWidth="241.0">
                <children>
-                  <Label text="Chọn Món Ăn" />
+                  <Label text="Chọn Thực Đơn" />
+                  <ComboBox prefHeight="25.0" prefWidth="229.0" />
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="103.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="126.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Món Khai Vị" />
+                        <Label text="Món Chính 1" GridPane.rowIndex="1" />
+                        <Label text="Món Chính 2" GridPane.rowIndex="2" />
+                        <Label text="Món Chính 3" GridPane.rowIndex="3" />
+                        <Label text="Món Tráng Miệng" GridPane.rowIndex="4" />
+                        <Label text="Đồ Uống" GridPane.rowIndex="5" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" text="Heo Rừng Nướng" GridPane.columnIndex="1" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <Button mnemonicParsing="false" text="Thêm món" />
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="298.0" prefWidth="291.0">
                <children>
-                  <Label text="Dịch Vụ khác" />
+                  <Label text="Bố cục trang trí" />
+                  <ComboBox prefHeight="25.0" prefWidth="181.0" />
+                  <GridPane prefHeight="120.0" prefWidth="274.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="84.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="204.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Màu chủ đạo" />
+                        <Label text="Khăn trải bàn" GridPane.rowIndex="1" />
+                        <Label text="Phông " GridPane.rowIndex="2" />
+                        <Label text="Vòng hoa " GridPane.rowIndex="3" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" text="Khăn trải bàn khẻ sọc trắng-tím" GridPane.columnIndex="1" />
+                        <TextField prefHeight="25.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+                  <Button mnemonicParsing="false" text="Thêm bố cục mới" />
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" />
+            <VBox prefHeight="298.0" prefWidth="166.0">
+               <children>
+                  <Label text="Chọn Dịch Vụ Giải Trí" />
+                  <ComboBox prefWidth="150.0" />
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="78.0" minWidth="10.0" prefWidth="59.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="107.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="MC" />
+                        <Label text="Ca Sĩ" GridPane.rowIndex="1" />
+                        <Label text="Ban Nhạc" GridPane.rowIndex="2" />
+                        <Label text="DJ" GridPane.rowIndex="3" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" />
+                        <TextField prefHeight="25.0" prefWidth="126.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+                  <Button mnemonicParsing="false" text="Thêm dịch vụ" />
+               </children></VBox>
          </children>
       </HBox>
-      <HBox prefHeight="180.0" prefWidth="728.0">
+      <HBox prefHeight="171.0" prefWidth="886.0">
          <children>
             <TitledPane animated="false" prefHeight="247.0" prefWidth="730.0" text="Thông tin khách hàng">
                <content>
-                  <HBox prefHeight="130.0" prefWidth="726.0">
+                  <HBox prefHeight="145.0" prefWidth="873.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Button" />
-                        <RadioButton mnemonicParsing="false" text="RadioButton" />
-                        <ToggleButton mnemonicParsing="false" text="ToggleButton" />
+                        <GridPane prefHeight="134.0" prefWidth="675.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="171.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="102.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="233.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Họ và tên đệm" />
+                              <Label text="Tên" GridPane.rowIndex="1" />
+                              <Label text="Giới tính" GridPane.rowIndex="2" />
+                              <Label text="Số Điện Thoại" GridPane.columnIndex="2" />
+                              <Label text="Địa chỉ" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="1" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="3" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
                      </children>
                   </HBox>
                </content>
             </TitledPane>
          </children>
       </HBox>
+      <Label text="Tiền đặt phòng" />
+      <Label text="Tiền trang trí" />
+      <Label text="Tiền đồ ăn" />
+      <Label text="Tiền dich vụ giải trí" />
+      <Label text="Giảm giá" />
+      <Label text="Thuế" />
+      <Label text="Tổng tiền" />
    </children>
 </VBox>
