@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Books.FXMLMenuController">
+  <tabs>
+    <Tab text="Món Khai Vị">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TableView prefHeight="371.0" prefWidth="294.0">
+                    <columns>
+                      <TableColumn prefWidth="108.0" text="Tên Món" />
+                      <TableColumn prefWidth="81.0" text="Giá" />
+                        <TableColumn prefWidth="103.0" text="Mô Tả" />
+                    </columns>
+                  </TableView>
+                  <VBox prefHeight="500.0" prefWidth="365.0">
+                     <children>
+                        <ImageView fitHeight="204.0" fitWidth="362.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../Gaquay.png" />
+                           </image>
+                        </ImageView>
+                        <GridPane prefHeight="179.0" prefWidth="362.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="67.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="295.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Món:" />
+                              <TextField GridPane.columnIndex="1" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Giá:" GridPane.rowIndex="1" />
+                              <Label text="Mô Tả:" GridPane.rowIndex="2" />
+                              <TextField prefHeight="87.0" prefWidth="295.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                        <Button mnemonicParsing="false" text="Đặt Món" />
+                        <HBox prefHeight="42.0" prefWidth="362.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Thêm món" />
+                              <Button mnemonicParsing="false" text="Sửa thông tin" />
+                              <Button mnemonicParsing="false" text="Xóa món" />
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" text="Lưu" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+    </Tab>
+    <Tab text="Món Chính">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+      <Tab text="Món Trang Miệng">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+      <Tab text="Đồ Uống">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>

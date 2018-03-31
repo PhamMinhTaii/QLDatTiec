@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 31, 2018 4:31:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Booking" table="booking" catalog="qltieccuoi" optimistic-lock="version">
+        <id name="bookingId" type="string">
+            <column name="booking_id" length="50" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="customer" class="entity.Customer" fetch="select">
+            <column name="customter_id" length="50" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="entity.User" fetch="select">
+            <column name="user_id" length="50" not-null="true" />
+        </many-to-one>
+        <property name="bookingDate" type="timestamp">
+            <column name="booking_date" length="19" />
+        </property>
+        <property name="shift" type="string">
+            <column name="shift" length="45" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="65535" />
+        </property>
+        <one-to-one name="bookingDetail" class="entity.BookingDetail"></one-to-one>
+    </class>
+</hibernate-mapping>
