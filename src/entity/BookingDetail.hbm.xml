@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 31, 2018 4:31:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.BookingDetail" table="booking_detail" catalog="qltieccuoi" optimistic-lock="version">
+        <id name="bookingId" type="string">
+            <column name="booking_id" length="50" />
+            <generator class="foreign">
+                <param name="property">booking</param>
+            </generator>
+        </id>
+        <one-to-one name="booking" class="entity.Booking" constrained="true"></one-to-one>
+        <many-to-one name="concept" class="entity.Concept" fetch="select">
+            <column name="concept_id" length="50" />
+        </many-to-one>
+        <many-to-one name="menu" class="entity.Menu" fetch="select">
+            <column name="menu_id" length="50" />
+        </many-to-one>
+        <many-to-one name="room" class="entity.Room" fetch="select">
+            <column name="room_id" length="50" not-null="true" />
+        </many-to-one>
+        <many-to-one name="service" class="entity.Service" fetch="select">
+            <column name="service_id" length="50" />
+        </many-to-one>
+        <property name="quantity" type="java.lang.Byte">
+            <column name="quantity" />
+        </property>
+        <property name="price" type="string">
+            <column name="price" length="45" />
+        </property>
+        <property name="discount" type="string">
+            <column name="discount" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

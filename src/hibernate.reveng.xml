@@ -41,5 +41,14 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="qltieccuoi"/>
+  <table-filter match-name="concept"/>
   <table-filter match-name="user"/>
+  <table-filter match-name="room"/>
+  <table-filter match-name="service"/>
+  <table-filter match-name="category"/>
+  <table-filter match-name="booking_detail"/>
+  <table-filter match-name="customer"/>
+  <table-filter match-name="booking"/>
+  <table-filter match-name="title_menu"/>
+  <table-filter match-name="menu"/>
 </hibernate-reverse-engineering>

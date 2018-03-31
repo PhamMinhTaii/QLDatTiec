@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 31, 2018 4:31:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Room" table="room" catalog="qltieccuoi" optimistic-lock="version">
+        <id name="roomId" type="string">
+            <column name="room_id" length="50" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="category" class="entity.Category" fetch="select">
+            <column name="category_id" length="50" not-null="true" />
+        </many-to-one>
+        <property name="roomName" type="string">
+            <column name="room_name" length="45" />
+        </property>
+        <property name="location" type="string">
+            <column name="location" length="45" />
+        </property>
+        <property name="price" type="string">
+            <column name="price" length="45" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="65535" />
+        </property>
+        <property name="status" type="java.lang.Boolean">
+            <column name="status" />
+        </property>
+        <set name="bookingDetails" table="booking_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="room_id" length="50" not-null="true" />
+            </key>
+            <one-to-many class="entity.BookingDetail" />
+        </set>
+    </class>
+</hibernate-mapping>

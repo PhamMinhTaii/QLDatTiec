@@ -46,6 +46,14 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://localhost/qltieccuoi</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">123456</property>
+    <mapping resource="entity/Concept.hbm.xml"/>
+    <mapping resource="entity/BookingDetail.hbm.xml"/>
     <mapping resource="entity/User.hbm.xml"/>
+    <mapping resource="entity/Category.hbm.xml"/>
+    <mapping resource="entity/Customer.hbm.xml"/>
+    <mapping resource="entity/Service.hbm.xml"/>
+    <mapping resource="entity/Booking.hbm.xml"/>
+    <mapping resource="entity/Room.hbm.xml"/>
+    <mapping resource="entity/Menu.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

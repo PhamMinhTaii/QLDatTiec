@@ -3,41 +3,29 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Mar 31, 2018 4:31:13 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="entity.User" table="user" catalog="qltieccuoi" optimistic-lock="version">
-        <id name="id" type="string">
-            <column name="id" length="50" />
+    <class name="entity.Customer" table="customer" catalog="qltieccuoi" optimistic-lock="version">
+        <id name="customterId" type="string">
+            <column name="customter_id" length="50" />
             <generator class="assigned" />
         </id>
-        <property name="userName" type="string">
-            <column name="user_name" length="45" not-null="true" />
-        </property>
-        <property name="password" type="string">
-            <column name="password" length="45" not-null="true" />
-        </property>
         <property name="firstName" type="string">
             <column name="first_name" length="45" />
         </property>
         <property name="lastName" type="string">
             <column name="last_name" length="45" />
         </property>
-        <property name="role" type="boolean">
-            <column name="role" not-null="true" />
-        </property>
-        <property name="active" type="boolean">
-            <column name="active" not-null="true" />
+        <property name="phone" type="string">
+            <column name="phone" length="50" />
         </property>
         <property name="address" type="string">
             <column name="address" length="65535" />
-        </property>
-        <property name="email" type="string">
-            <column name="email" length="45" />
         </property>
         <property name="gender" type="java.lang.Boolean">
             <column name="gender" />
         </property>
         <set name="bookings" table="booking" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="user_id" length="50" not-null="true" />
+                <column name="customter_id" length="50" not-null="true" />
             </key>
             <one-to-many class="entity.Booking" />
         </set>
