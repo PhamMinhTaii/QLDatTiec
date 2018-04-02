@@ -15,6 +15,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -31,13 +32,19 @@ public class MenuDAO {
         transaction = session.beginTransaction();
     }
 
-    public List<Menu> loadMenu() {
+    public List<Menu> loadMenu(String titleMenu) {
         try {
-            List<Menu> dsMenu = null;
-            String hql = "SELECT * FROM menu";
-            Query query = session.createQuery(hql);
-            dsMenu = query.list();
-            return dsMenu;
+            Session session = HibernateUtil.getSessionFactory().openSession();
+//            Criteria cr = session.createCriteria(Menu.class);            
+//            Menu mn=new Menu();
+//            cr.add(Restrictions.eq(mn.getTitleMenu().toString(),"TM"));            
+//            return cr.list();
+
+            String hql="FROM Menu mn WHERE mn.titleMenu = '"+titleMenu+"' AND status=1";
+            Query query=session.createQuery(hql);
+            List<Menu> listMenu=query.list();
+           
+            return listMenu;
         } catch (Exception ex) {
             return null;
         } finally {

@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class MenuBUS {
     MenuDAO menuDAO=new MenuDAO();
-    public List<Menu> loadMenu(){
-        return menuDAO.loadMenu();
+    public List<Menu> loadMenu(String titleMenu){
+        return menuDAO.loadMenu(titleMenu);
     }
     
 }

@@ -48,6 +48,7 @@ Contributor(s):
     <property name="hibernate.connection.password">123456</property>
     <mapping resource="entity/Concept.hbm.xml"/>
     <mapping resource="entity/BookingDetail.hbm.xml"/>
+    <mapping resource="entity/TitleMenu.hbm.xml"/>
     <mapping resource="entity/User.hbm.xml"/>
     <mapping resource="entity/Category.hbm.xml"/>
     <mapping resource="entity/Customer.hbm.xml"/>
