@@ -24,8 +24,7 @@ public class UserDAO {
             return (User)session.createSQLQuery(query).addEntity(User.class).list().stream().findFirst().get();
         } catch (Exception e) {
            return  null;
-        }finally{
-            
+        }finally{            
             session.close();
         }
     }
