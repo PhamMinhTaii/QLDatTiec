@@ -1,5 +1,4 @@
 package Login;
-
 import BUS.UserBUS;
 import java.io.IOException;
 import java.net.URL;
@@ -27,12 +26,9 @@ public class FXMLLoginController implements Initializable {
 
     private UserBUS userBUS;
 
-    @FXML
-    private TextField txtUser;
-    @FXML
-    private TextField txtPassWord;
-    @FXML
-    private Button btnOpenMain;
+    @FXML private TextField txtUser;
+    @FXML private TextField txtPassWord;
+    @FXML private Button btnOpenMain;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,9 +55,7 @@ public class FXMLLoginController implements Initializable {
             Platform.exit();
         }
     }
-    
-    
-     class OpenMain implements EventHandler<ActionEvent>{
+     class OpenMain implements EventHandler<ActionEvent>{  
 
         @Override
         public void handle(ActionEvent e) {
@@ -76,8 +70,7 @@ public class FXMLLoginController implements Initializable {
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setScene(scene);
-                    stage.show();
-                    
+                    stage.show();                   
                     ((((Node)(e.getSource())).getScene()).getWindow()).hide();
                 } catch (IOException ex) {
                     Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,6 +99,9 @@ public class FXMLLoginController implements Initializable {
         }
         
     }
+    
+    
+    
 }
 
  
