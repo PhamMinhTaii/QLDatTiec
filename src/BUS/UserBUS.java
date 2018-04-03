@@ -31,7 +31,7 @@ public class UserBUS {
             // so sánh pass truyền vào với pass mã hoá trong csdl
             if (user.getPassword().equals(Encryption.sha1(PassWord))) {
 
-                if (user.isActive() == true) {
+                if ("Kích Hoạt".equals(user.getActive())) {
                     return 1;
                 } else {
                     return -1;

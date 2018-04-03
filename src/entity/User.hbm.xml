@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 3, 2018 4:37:04 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.User" table="user" catalog="qltieccuoi" optimistic-lock="version">
+        <id name="id" type="string">
+            <column name="id" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="userName" type="string">
+            <column name="user_name" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="45" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="45" />
+        </property>
+        <property name="role" type="string">
+            <column name="role" length="15" not-null="true" />
+        </property>
+        <property name="active" type="string">
+            <column name="active" length="15" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="65535" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="gender" type="string">
+            <column name="gender" length="15" />
+        </property>
+        <property name="image" type="string">
+            <column name="image" length="65535" />
+        </property>
+        <set name="bookings" table="booking" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" length="50" not-null="true" />
+            </key>
+            <one-to-many class="entity.Booking" />
+        </set>
+    </class>
+</hibernate-mapping>
