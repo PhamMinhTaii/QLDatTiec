@@ -78,7 +78,8 @@ public class FXMLAddController implements Initializable {
         }
         
         User user = new User(id, txtUserName.getText(), txtPassWord.getText(), txtFistName.getText(),
-                    txtLastName.getText(), role, active, txtAddress.getText(), txtEmail.getText(), gender);
+                    txtLastName.getText(), cbRole.getValue(), cbActive.getValue(), txtAddress.getText(),
+                txtEmail.getText(), cbGender.getValue());
 
         try {
             int kq = userBUS.addUser(user, txtConfirm.getText());
