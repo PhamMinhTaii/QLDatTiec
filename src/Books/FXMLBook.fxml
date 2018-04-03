@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Books.FXMLBookController">
    <children>
       <HBox prefHeight="277.0" prefWidth="886.0">
          <children>
@@ -79,7 +79,7 @@
                         <TextField prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <Button mnemonicParsing="false" text="Thêm món" />
+                  <Button mnemonicParsing="false" onAction="#selectAction" text="Chọn Món" />
                </children>
             </VBox>
             <VBox prefHeight="298.0" prefWidth="291.0">
