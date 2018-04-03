@@ -14,7 +14,19 @@
 .ImageView{
 
 }
+.ComboBox{
+    -fx-spacing: 10;
+    -fx-font-size: 16;
+    -fx-background-color: #ccccff;
+    -fx-border-color: #00007f;
+    -fx-border-width: 2;
+    -fx-font-family:tahoma;
+    -fx-font-style: bold;
+   
+  
+}
 .TextField{
+    -fx-spacing: 10;
     -fx-font-size: 16;
 
 }
@@ -32,7 +44,7 @@
     -fx-border-color: #329932;
     -fx-border-width: 2;
     -fx-border-style: solid;
-    -fx-fo-family:tahoma;
+    -fx-font-family:tahoma;
     -fx-font-size:20;
 
 
