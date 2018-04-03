@@ -1,52 +1,72 @@
-
 package DAO;
+
 import entity.*;
+import java.util.List;
+import java.util.NoSuchElementException;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
-public class UserDAO {       
-    
+public class UserDAO {
+
     private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    private   Session   session ;
-    private  Transaction trans;
+    private Session session;
+    private Transaction trans;
 
-    public UserDAO() {
+    public void connettion() {
         session = sessionFactory.openSession();
         trans = session.beginTransaction();
     }
-    
-    public User Login(String userName){
-        
-        try {            
-            String query = String.format("select * from user where user_name = '%s'", userName);          
-            // Hack con mẹ nó não mày cái return này... =]]. 2 tiếng google của t đó.
-            return (User)session.createSQLQuery(query).addEntity(User.class).list().stream().findFirst().get();
-        } catch (Exception e) {
-           return  null;
-        }finally{
+
+    public List<User> findListUser() {
+        connettion();
+        try {
             
+            return  session.createCriteria(User.class).list();           
+        } catch (HibernateException e) {
+            return null;
+        } finally {
             session.close();
         }
     }
-    
-    public  boolean insertUser(){
-        
-        User user = new User("US5","Tìnhh", "passs", true, true);      
-        
-        try{            
+
+    public User findUserName(String userName) {
+        connettion();
+        Criteria cr = session.createCriteria(User.class);
+
+        try {
+            Criterion user = Restrictions.eq("userName", userName);
+            cr.add(user);
+            return (User) cr.list().stream().findFirst().get();
+
+        } catch (NoSuchElementException e) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    public User Login(String userName) {
+        return findUserName(userName);
+    }
+
+    public boolean insertUser(User entity) {
+        User user = new User(entity.getId(), entity.getUserName(), entity.getPassword(), entity.getFirstName(), entity.getLastName(),
+                entity.isRole(), entity.isActive(), entity.getAddress(), entity.getEmail(), entity.getGender());
+        connettion();
+        try {
             session.save(user);
             trans.commit();
             return true;
-            
+
         } catch (Exception e) {
             throw e;
-        }finally{            
+        } finally {
             session.close();
         }
     }
-    
-    
-    
-    
 }
