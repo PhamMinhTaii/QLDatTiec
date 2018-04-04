@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
+import CommonConstance.SetStage;
+import frmUserManagement.FXMLUserManagementController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,31 +11,45 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-/**
- * FXML Controller class
- *
- * @author Minh Taii
- */
 public class FXMLMainController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Label lbUserSession;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        
-    }    
+
+    }
 
     @FXML
     private void datTiecCuoiAction(ActionEvent event) throws IOException {
-         Parent root = FXMLLoader.load(getClass().getResource("/Books/FXMLBook.fxml"));        
+        Parent root = FXMLLoader.load(getClass().getResource("/Books/FXMLBook.fxml"));
         Scene scene = new Scene(root);
-        Stage stage=new Stage();
+        Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
     }
-    
+
+    @FXML
+    void moveUserForm(ActionEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/frmUserManagement/FXMLUserManagement.fxml"));
+        Parent root = loader.load();
+        FXMLUserManagementController display = loader.getController();
+        display.getSessionUser(lbUserSession.getText());
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Hệ Thống Tiệc Cưới T&T");
+        stage.initStyle(StageStyle.UTILITY);
+        SetStage.setStage(stage, scene, 645, 500);
+    }
+
+    public void getsessionUser(String userSession) {
+        lbUserSession.setText(userSession);
+    }
+
 }

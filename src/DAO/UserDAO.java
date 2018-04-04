@@ -25,9 +25,10 @@ public class UserDAO {
     public List<User> findListUser() {
         connettion();
         try {
-            
-            return  session.createCriteria(User.class).list();           
+
+            return session.createCriteria(User.class).list();
         } catch (HibernateException e) {
+            trans.rollback();
             return null;
         } finally {
             session.close();
@@ -54,16 +55,31 @@ public class UserDAO {
         return findUserName(userName);
     }
 
-    public boolean insertUser(User entity) {
-        User user = new User(entity.getId(), entity.getUserName(), entity.getPassword(), entity.getFirstName(), entity.getLastName(),
-                entity.getRole(), entity.getActive(), entity.getAddress(), entity.getEmail(), entity.getGender());
+    public int insertUser(User entity) {
         connettion();
         try {
-            session.save(user);
+            session.save(entity);
             trans.commit();
-            return true;
+            return 1;
 
         } catch (Exception e) {
+            trans.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public int updateUser(User entity) {
+    
+        connettion();
+        try {           
+            session.update(entity);          
+            trans.commit();
+            return 1;
+
+        } catch (Exception e) {
+            trans.rollback();
             throw e;
         } finally {
             session.close();

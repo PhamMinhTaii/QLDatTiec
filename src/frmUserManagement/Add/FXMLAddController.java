@@ -3,6 +3,7 @@ package frmUserManagement.Add;
 import BUS.UserBUS;
 import Common.Action.BackFrmUser;
 import CommonConstance.Alert;
+import CommonConstance.ComBoBox;
 import entity.User;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,8 +19,8 @@ import javafx.scene.control.TextField;
 public class FXMLAddController implements Initializable {
 
     private UserBUS userBUS;
-    @FXML private Button btnBack;
-
+    @FXML
+    private Button btnBack;
     @FXML
     private TextField txtUserName;
     @FXML
@@ -33,63 +34,42 @@ public class FXMLAddController implements Initializable {
     @FXML
     private ComboBox<String> cbActive;
     @FXML
+    private ComboBox<String> cbGender;
+    @FXML
     private TextField txtLastName;
     @FXML
     private TextField txtAddress;
     @FXML
     private TextField txtEmail;
-    @FXML
-    private ComboBox<String> cbGender;
-    boolean role = false;
-    boolean active = false;
-    boolean gender = false;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setComBoBox();
+        ComBoBox.setComBoBox(cbRole,cbActive,cbGender);
         btnBack.setOnAction(new BackFrmUser());
 
     }
 
-    public void setComBoBox() {
 
-        cbRole.getItems().addAll("Quản Lý", "Nhân Viên");
-        cbRole.setValue("Nhân Viên");
-        cbActive.getItems().addAll("Khoá", "Kích Hoạt");
-        cbActive.setValue("Kích Hoạt");
-        cbGender.getItems().addAll("Nữ", "Nam");
-        cbGender.setValue("Nam");
-
-    }
 
     public void addUser(ActionEvent event) {
 
         userBUS = new UserBUS();
         String id = UUID.randomUUID().toString();
 
-        if (cbRole.getValue().equals("Quản Lý")) {
-            role = true;
-        }
-        if (cbActive.getValue().equals("Kích Hoạt")) {
-            active = true;
-        }
-        if (cbGender.getValue().equals("Nam")) {
-            gender = true;
-        }
-        
         User user = new User(id, txtUserName.getText(), txtPassWord.getText(), txtFistName.getText(),
-                    txtLastName.getText(), cbRole.getValue(), cbActive.getValue(), txtAddress.getText(),
+                txtLastName.getText(), cbRole.getValue(), cbActive.getValue(), txtAddress.getText(),
                 txtEmail.getText(), cbGender.getValue());
 
         try {
             int kq = userBUS.addUser(user, txtConfirm.getText());
-            alert(kq);
+            setAlert(kq);
         } catch (Exception e) {
             Alert.alert("Lỗi Hệ Thống !!");
         }
     }
 
-    public void alert(int kq) {
+    public void setAlert(int kq) {
         if (kq == -10) {
             Alert.alert("Tài Khoản Đã Tồn Tại");
             txtUserName.clear();

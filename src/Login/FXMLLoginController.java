@@ -1,5 +1,6 @@
 package Login;
 import BUS.UserBUS;
+import CommonConstance.SetStage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.FXMLMainController;
 
 public class FXMLLoginController implements Initializable {
 
@@ -35,11 +37,6 @@ public class FXMLLoginController implements Initializable {
 
         btnOpenMain.setOnAction(new OpenMain());
     }
-    
-    
-   
-    
- 
     @FXML
     private void exitAction(ActionEvent event) {
 
@@ -64,24 +61,30 @@ public class FXMLLoginController implements Initializable {
             int result = userBUS.Login(txtUser.getText(),txtPassWord.getText());
 
             if (result == 1) {
-
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/main/FXMLMain.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/FXMLMain.fxml"));
+                    Parent root = loader.load();
+                    FXMLMainController display = loader.getController();
+                    display.getsessionUser(txtUser.getText()); // chuyển tài khoản ssang form User
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
+                    //SetStage.setStage(stage, scene, null, null);
                     stage.setScene(scene);
                     stage.show();                   
                     ((((Node)(e.getSource())).getScene()).getWindow()).hide();
                 } catch (IOException ex) {
                     Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                } 
+            } else {       
+                alert(result);
+            }            
+        }        
+    }
+     
+     public void alert(int result){
+         Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Thông Báo Đăng Nhập");
                 alert.setHeaderText(null);
-
                 switch (result) {
                     case -1:
                         alert.setContentText("Tài Khoản Đang Bị Khoá");
@@ -94,14 +97,10 @@ public class FXMLLoginController implements Initializable {
                         break;
                 }
                 alert.show();
-            }
-            
-        }
-        
-    }
-    
-    
-    
+     }
+     
 }
+
+
 
  

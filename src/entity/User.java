@@ -70,7 +70,7 @@ public class User  implements java.io.Serializable {
        this.lastName = item.getLastName();
        this.role = item.getRole();
        this.active = item.getActive();
-       this.address = item.getActive();
+       this.address = item.getAddress();
        this.email = item.getEmail();
        this.gender = item.getGender();
        this.image = item.getImage();

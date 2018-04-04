@@ -15,7 +15,7 @@
       <VBox alignment="CENTER" prefHeight="181.0" prefWidth="600.0" styleClass="Vbox">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txtname" text="Quản Lý Tài Khoản" textAlignment="CENTER" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <VBox prefHeight="100.0" prefWidth="116.0" styleClass="Vbox-1">
                      <children>
@@ -28,6 +28,14 @@
                      <children>
                         <Button mnemonicParsing="false" text="Chi Tiết Nhân Viên" />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="Lịch Sử  Khách Hàng" />
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="86.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox prefHeight="86.0" prefWidth="149.0" styleClass="Vbox-1">
+                     <children>
+                        <Label text="Tài Khoản" />
+                        <Label fx:id="lbUserSession" prefHeight="17.0" prefWidth="110.0" style="-fx-background-color: red;" />
+                        <Button mnemonicParsing="false" text="Button" />
                      </children>
                   </VBox>
                </children>
