@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="328.0" prefWidth="462.0" styleClass="root" stylesheets="@fxmllogin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.FXMLLoginController">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Text" text="Login" wrappingWidth="142.763671875" />
+      <HBox prefHeight="61.0" prefWidth="509.0" styleClass="HBox-1">
+         <children>
+            <Label styleClass="Label" text="USER">
+               <opaqueInsets>
+                  <Insets top="30.0" />
+               </opaqueInsets>
+            </Label>
+            <TextField fx:id="txtUser" promptText="Nhập User.." styleClass="txtcolor" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox prefHeight="44.0" prefWidth="509.0" styleClass="HBox-2">
+         <children>
+            <Label styleClass="Label" text="PASSWORD" />
+            <PasswordField fx:id="txtPassWord" promptText="Nhập Password.." styleClass="txtcolor" />
+         </children>
+      </HBox>
+      <HBox prefHeight="42.0" prefWidth="509.0" styleClass="HBox-3">
+         <children>
+            <Button fx:id="btnOpenMain" mnemonicParsing="false" styleClass="Button" text="Login" />
+            <Button mnemonicParsing="false" onAction="#exitAction" styleClass="Button" text="Exit" />
+         </children>
+      </HBox>
+      
+   </children>
+</VBox>
