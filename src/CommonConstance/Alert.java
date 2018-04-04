@@ -8,5 +8,4 @@ public class Alert {
             alert.setHeaderText(null);
             alert.show();
     }
-
 }

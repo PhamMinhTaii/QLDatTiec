@@ -19,6 +19,17 @@
   </rowConstraints>
    <children>
       <Button mnemonicParsing="false" onAction="#datTiecCuoiAction" text="Đặt Tiệc Cưới" />
-      <TextField promptText="Tìm kiếm tiệc cưới..." GridPane.columnIndex="1" />
+      <VBox GridPane.columnIndex="1">
+         <children>
+            <HBox>
+               <children>
+                  <Label fx:id="lbUserSession" alignment="CENTER" prefHeight="42.0" prefWidth="128.0" style="-fx-background-color: red;" styleClass="lbusername" textAlignment="CENTER" textFill="#221e1e" />
+                  <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="170.0" text="Đăng Xuất" />
+               </children>
+            </HBox>
+            <TextField promptText="Tìm kiếm tiệc cưới..." GridPane.columnIndex="1" />
+         </children>
+      </VBox>
+      <Button mnemonicParsing="false" onAction="#moveUserForm" text="Quản Lý Tài Khoản" GridPane.rowIndex="1" />
    </children>
 </GridPane>

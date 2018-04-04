@@ -24,7 +24,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
@@ -88,9 +87,6 @@ public class FXMLMenuController implements Initializable {
     private Button btnXoaMon;
     @FXML
     private Button btnLuu;
-    @FXML
-    private ComboBox cbbLoaiMon;
-    
     MenuBUS menubus = new MenuBUS();
     ObservableList<Menu> lsMenu;
     CheckBox cbDatMon = new CheckBox();
@@ -115,9 +111,6 @@ public class FXMLMenuController implements Initializable {
         imageMonAn.setFitHeight(230);
         imageMonAn.setFitWidth(360);
         imageMonAn.setPreserveRatio(true);
-        // gan du lieu cho ComboBox
-        
-        
 
         // gan gia tri cho cac cot trong TableView                
         colTenMon.setCellValueFactory(new PropertyValueFactory("menuName"));

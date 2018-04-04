@@ -9,9 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Books.FXMLMenuController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="738.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Books.FXMLMenuController">
    <children>
-       <HBox prefHeight="544.0" prefWidth="754.0">
+       <HBox prefHeight="500.0" prefWidth="734.0">
                <children>
                   <HBox>
                      <children>
@@ -25,9 +25,9 @@
                         </TableView>
                      </children>
                   </HBox>
-                  <VBox prefHeight="535.0" prefWidth="409.0" styleClass="VBox" stylesheets="@fxmlmenu.css">
+                  <VBox prefHeight="500.0" prefWidth="393.0" styleClass="VBox" stylesheets="@fxmlmenu.css">
                      <children>
-                        <ImageView fx:id="imageMonAn" fitHeight="214.0" fitWidth="383.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageMonAn" fitHeight="230.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../Gaquay.png" />
                            </image>
@@ -35,19 +35,18 @@
                               <Rectangle2D />
                            </viewport>
                         </ImageView>
-                  <ComboBox fx:id="cbbLoaiMon" prefHeight="37.0" prefWidth="249.0" promptText="loại món" styleClass="ComboBox" />
                         <GridPane fx:id="girdThemMon" prefHeight="179.0" prefWidth="362.0">
                           <columnConstraints>
                             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="52.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="320.0" minWidth="10.0" prefWidth="310.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints maxHeight="40.0" minHeight="7.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Tên món:" />
+                              <Label text="Món:" />
                               <TextField fx:id="txtMonAn" editable="false" styleClass="TextField" GridPane.columnIndex="1" />
                               <TextField fx:id="txtGia" editable="false" styleClass="TextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Giá:" GridPane.rowIndex="1" />
