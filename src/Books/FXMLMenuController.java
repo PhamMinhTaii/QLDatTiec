@@ -10,8 +10,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import BUS.MenuBUS;
 import DAO.HibernateUtil;
-import entity.Menu;
+import entity.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Observable;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -24,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
@@ -64,14 +69,6 @@ public class FXMLMenuController implements Initializable {
     @FXML
     private TextArea txtMoTa;
     @FXML
-    private Tab tabKhaiVi;
-    @FXML
-    private Tab tabMonChinh;
-    @FXML
-    private Tab tabMonTrangMieng;
-    @FXML
-    private Tab tabDoUong;
-    @FXML
     private TableColumn colChon;
     @FXML
     private GridPane girdThemMon;
@@ -87,24 +84,50 @@ public class FXMLMenuController implements Initializable {
     private Button btnXoaMon;
     @FXML
     private Button btnLuu;
+    @FXML
+    private ComboBox cbbLoaiMon;
     MenuBUS menubus = new MenuBUS();
     ObservableList<Menu> lsMenu;
     CheckBox cbDatMon = new CheckBox();
-    // CheckBox cbChon = new CheckBox();
+    String titleID = null;
+    List<Menu> listChonMon = new ArrayList<>();
 
+    // CheckBox cbChon = new CheckBox();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        load();
+        load("KV", "Món khai vị");
         // su kien click TableView
         mouseClickTableview();
         // Tao column chon mon
         taoCheckBox();
     }
 
-    private void load() {
+    // khoi tao ComboBox
+    @FXML
+    private void comboBoxAction(ActionEvent event) {
+        if (cbbLoaiMon.getValue().equals("Món khai vị")) {
+            cbbLoaiMon.getItems().clear();
+            load("KV", "Món Khai Vị");
+        }
+        if (cbbLoaiMon.getValue().equals("Món tráng miệng")) {
+            cbbLoaiMon.getItems().clear();
+            load("TM", "Món Tráng Miệng");
+        }
+        if (cbbLoaiMon.getValue().equals("Nước uống")) {
+            cbbLoaiMon.getItems().clear();
+            load("N", "Đồ Uống");
+        }
+        if (cbbLoaiMon.getValue().equals("Món chính")) {
+            cbbLoaiMon.getItems().clear();
+            load("MC", "Món Chính");
+        }
+    }
+
+    // Form Load
+    private void load(String title, String promptText) {
         txtMonAn.setEditable(false);
         txtGia.setEditable(false);
         txtMoTa.setEditable(false);
@@ -112,12 +135,18 @@ public class FXMLMenuController implements Initializable {
         imageMonAn.setFitWidth(360);
         imageMonAn.setPreserveRatio(true);
 
-        // gan gia tri cho cac cot trong TableView                
+        // load ComboBox
+        cbbLoaiMon.setPromptText(promptText);
+        List<TitleMenu> listTitle = menubus.loadTitleMenu();
+        for (TitleMenu titlemenu : listTitle) {
+            cbbLoaiMon.getItems().add(titlemenu.getTitleName());
+        }
+        // gan gia tri cho cac cot trong TableView           
         colTenMon.setCellValueFactory(new PropertyValueFactory("menuName"));
         colGia.setCellValueFactory(new PropertyValueFactory("price"));
         colMoTa.setCellValueFactory(new PropertyValueFactory("description"));
         // hien dong du lieu
-        List<Menu> list = menubus.loadMenu("KV");
+        List<Menu> list = menubus.loadMenu(title);
         lsMenu = FXCollections.observableArrayList();
         list.forEach((s) -> {
             System.out.println(s.getMenuName());
@@ -149,36 +178,103 @@ public class FXMLMenuController implements Initializable {
         colChon.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Menu, CheckBox>, ObservableValue<CheckBox>>() {
             @Override
             public ObservableValue<CheckBox> call(CellDataFeatures<Menu, CheckBox> param) {
-                Menu mn = param.getValue();
+                Menu mn = param.getValue();                                                
                 CheckBox cbChon = new CheckBox();
                 cbChon.selectedProperty().setValue(mn.getIsSelect());
-                cbChon.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                        mn.setIsSelect(newValue);
-                        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        if (cbChon.isSelected()) {
-                            cbDatMon.setSelected(true);
-                        } else {
-                            cbDatMon.setSelected(false);
-                        }
+//-------------------------------------------------------------------------------//     
+                cbChon.setOnMouseClicked((MouseEvent e) -> {                   
+                    if (cbChon.isSelected()) {
+                        listChonMon.add(mn);
+                        System.out.println("-------Giao dien -------");
+                        System.out.println(mn.getMenuName() + " " + mn.getPrice());                                                                     
+                        mn.setIsSelect(true);
+                        menubus.luuCheckbox(mn);
+                    } else {
+                        listChonMon.remove(mn);
+                        System.out.println("Bo chon check box");
+                        mn.setIsSelect(false);
+                        menubus.luuCheckbox(mn);
                     }
+
                 });
 
+//-------------------------------------------------------------------------------//            
+//                cbChon.selectedProperty().addListener(new ChangeListener<Boolean>() {
+//                    @Override
+//                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//                        mn.setIsSelect(newValue);
+//                        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//                        tableMenu.setRowFactory(tv -> {
+//                            TableRow<Menu> row = new TableRow<>();
+//                            row.setOnMouseClicked((MouseEvent e) -> {
+//                                if (e.getClickCount() == 1 && !row.isEmpty()) {
+//                                    Menu mn = row.getItem();
+//                                    if (cbChon.isSelected()) {
+//                                        mn.setIsSelect(true);
+//                                        cbDatMon.setSelected(true);
+//                                    } else {
+//                                        mn.setIsSelect(false);
+//                                        cbDatMon.setSelected(false);
+//                                    }
+//                                }
+//                            });
+//                            return row;
+//                        });
+//                        //
+//                        if (cbChon.isSelected()) {
+//                            mn.setIsSelect(true);
+//                            cbDatMon.setSelected(true);
+//                        } else {
+//                            mn.setIsSelect(false);
+//                            cbDatMon.setSelected(false);
+//                        }
+//                    }
+//                });
                 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 return new SimpleObjectProperty<CheckBox>(cbChon);
-            }
 
+            }
         });
     }
 
     @FXML
     private void datmonAction(ActionEvent event) {
-        if (cbDatMon.isSelected()) {
-            System.out.println("co su ly");
+        if (listChonMon != null) {
+            listChonMon.forEach(s -> {
+                System.err.println(s.getMenuName() + " " + s.getPrice());
+            });
         } else {
-            System.out.println("Khong su ly");
+            System.out.println("Danh sach rong");
         }
+
+//        if (cbDatMon.isSelected()) {
+//
+//            System.out.println();
+//        } else {
+//            System.out.println("Khong su ly");
+//        }
+//        this.tableMenu.setRowFactory(tv -> {
+//            TableRow<Menu> row = new TableRow<>();
+//            Menu mn = row.getItem();
+////            if (cbDatMon.isSelected()) {
+////
+////                System.out.println("co su ly");
+////            } else {
+////                System.out.println("Khong su ly");
+////            }
+//
+//            if (mn.getIsSelect()) {
+//                System.out.println("co su ly");
+//            } else {
+//                System.out.println("Khong su ly");
+//            }
+//            return row;
+//        });
+//         if (mn.getIsSelect()) {
+//                System.out.println("co su ly");
+//            } else {
+//                System.out.println("Khong su ly");
+//            }
     }
 
     @FXML

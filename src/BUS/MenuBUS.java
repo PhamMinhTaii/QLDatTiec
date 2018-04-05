@@ -6,7 +6,7 @@
 package BUS;
 
 import DAO.MenuDAO;
-import entity.Menu;
+import entity.*;
 import java.util.List;
 
 /**
@@ -14,9 +14,22 @@ import java.util.List;
  * @author Minh Taii
  */
 public class MenuBUS {
-    MenuDAO menuDAO=new MenuDAO();
-    public List<Menu> loadMenu(String titleMenu){
+
+    MenuDAO menuDAO = new MenuDAO();
+
+    public List<Menu> loadMenu(String titleMenu) {
         return menuDAO.loadMenu(titleMenu);
     }
-    
+
+    // title menu
+    public List<TitleMenu> loadTitleMenu() {
+        return menuDAO.loadTitleMenu();
+    }
+    // Luu checkBox chon mon
+     public void luuCheckbox(Menu mn){
+         System.out.println("-------vao MenuBUS -------");
+         System.out.println(mn.getMenuId() + " " + mn.getMenuName()+ " " + mn.getTitleMenu());
+         menuDAO.luuCheckbox(mn);
+     }
+
 }
