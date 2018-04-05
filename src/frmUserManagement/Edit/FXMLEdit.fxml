@@ -9,19 +9,20 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="450.0" styleClass="main" stylesheets="@Edit.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frmUserManagement.Edit.FXMLEditController">
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt" text="Thông Tin Nhân Viên" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt" text="User information" />
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Hbox">
          <children>
-            <Button mnemonicParsing="false" onAction="#updateUser" prefHeight="31.0" prefWidth="58.0" styleClass="Button" text="Save" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="51.0" styleClass="Button" text="Delete" />
-            <Button fx:id="btnBack" mnemonicParsing="false" prefHeight="34.0" prefWidth="52.0" text="Back" />
+            <Button mnemonicParsing="false" onAction="#updateUser" prefHeight="30.0" prefWidth="55.0" styleClass="Button" text="Save" />
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" styleClass="Button" text="Delete" />
+            <Button fx:id="btnBack" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" text="Back" />
          </children></HBox>
-      <GridPane styleClass="grid">
+      <GridPane prefHeight="448.0" prefWidth="450.0" styleClass="grid">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="67.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.0" minWidth="10.0" prefWidth="353.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -35,28 +36,30 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="UserName" GridPane.rowIndex="1" />
-            <Label text="FistName" GridPane.rowIndex="4" />
-            <Label text="LastName" GridPane.rowIndex="5" />
-            <Label text="Role" GridPane.rowIndex="6" />
-            <Label text="Active" GridPane.rowIndex="7" />
-            <Label text="Address" GridPane.rowIndex="8" />
-            <Label text="Email" GridPane.rowIndex="9" />
-            <Label text="Gender" GridPane.rowIndex="10" />
-            <TextField fx:id="txtUserName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtFistName" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtLastName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox fx:id="cbRole" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox fx:id="cbActive" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="txtAddress" maxWidth="281.0" prefHeight="30.0" prefWidth="281.0" styleClass="txtaddress" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <ComboBox fx:id="cbGender" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label text="PassWord" GridPane.rowIndex="2" />
-            <PasswordField fx:id="txtPassWord" styleClass="txtpass" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <PasswordField fx:id="txtConfirm" styleClass="txtpass" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label layoutX="25.0" layoutY="87.0" text="Confirm" GridPane.rowIndex="3" />
-            <Label text="ID" />
-            <TextField fx:id="txtID" disable="true" GridPane.columnIndex="1" />
+            <Label text="UserName" GridPane.rowIndex="2" />
+            <Label text="FistName" GridPane.rowIndex="5" />
+            <Label text="LastName" GridPane.rowIndex="6" />
+            <Label text="Role" GridPane.rowIndex="7" />
+            <Label text="Active" GridPane.rowIndex="8" />
+            <Label text="Address" GridPane.rowIndex="9" />
+            <Label text="Email" GridPane.rowIndex="10" />
+            <Label text="Gender" GridPane.rowIndex="11" />
+            <TextField fx:id="txtUserName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtFistName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtLastName" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="cbRole" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="cbActive" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="txtAddress" maxWidth="281.0" prefHeight="30.0" prefWidth="281.0" styleClass="txtaddress" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <ComboBox fx:id="cbGender" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <Label text="PassWord" GridPane.rowIndex="3" />
+            <PasswordField fx:id="txtPassWord" styleClass="txtpass" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <PasswordField fx:id="txtConfirm" styleClass="txtpass" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label layoutX="25.0" layoutY="87.0" text="Confirm" GridPane.rowIndex="4" />
+            <Label text="ID" GridPane.rowIndex="1" />
+            <TextField fx:id="txtID" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Session" />
+            <TextField fx:id="txtUserSession" disable="true" styleClass="txtsession" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

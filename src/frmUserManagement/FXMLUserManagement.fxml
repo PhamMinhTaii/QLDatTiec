@@ -14,28 +14,29 @@
    <children>
       <VBox alignment="CENTER" prefHeight="181.0" prefWidth="600.0" styleClass="Vbox">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txtname" text="Quản Lý Tài Khoản" textAlignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txtname" text="User Management" textAlignment="CENTER" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <VBox prefHeight="100.0" prefWidth="116.0" styleClass="Vbox-1">
                      <children>
-                        <Button fx:id="btnAdd" mnemonicParsing="false" text="Thêm Nhân viên" />
-                        <Button fx:id="btnEdit" mnemonicParsing="false" text="Thay Đỗi" />
-                        <Button mnemonicParsing="false" styleClass="btndel" text="Xoá Nhân Viên" />
+                        <Button fx:id="btnAdd" mnemonicParsing="false" text="Insert" />
+                        <Button fx:id="btnEdit" mnemonicParsing="false" text="Edit" />
+                        <Button fx:id="btnDel" mnemonicParsing="false" styleClass="btndel" text="Delete" />
                      </children>
                   </VBox>
                   <VBox prefHeight="100.0" prefWidth="154.0" styleClass="Vbox-2">
                      <children>
-                        <Button mnemonicParsing="false" text="Chi Tiết Nhân Viên" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="Lịch Sử  Khách Hàng" />
+                        <Button mnemonicParsing="false" text="Details" />
+                        <Button mnemonicParsing="false" text="Advance" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="History Of Customer" />
                      </children>
                   </VBox>
                   <ImageView fitHeight="86.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true" />
                   <VBox prefHeight="86.0" prefWidth="149.0" styleClass="Vbox-1">
                      <children>
-                        <Label text="Tài Khoản" />
-                        <Label fx:id="lbUserSession" prefHeight="17.0" prefWidth="110.0" style="-fx-background-color: red;" />
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Label style="-fx-font-weight: bold;" text="Session" />
+                        <Label fx:id="lbUserSession" prefHeight="17.0" prefWidth="110.0" styleClass="lbsession" text="555" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="LogOut" />
                      </children>
                   </VBox>
                </children>
@@ -43,18 +44,18 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txtdanhsach" text="Danh Sách Tài Khoản" textAlignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txtdanhsach" text="List User" textAlignment="CENTER" />
          </children>
       </VBox>
       <ScrollPane hbarPolicy="NEVER" prefViewportHeight="307.0" prefViewportWidth="645.0">
          <content>
-            <TableView fx:id="tbUsers" prefHeight="367.0" prefWidth="703.0" style="-fx-background-color: #afb5bf;">
+            <TableView fx:id="tbUsers" prefHeight="308.0" prefWidth="643.0">
               <columns>
-                <TableColumn fx:id="cUserName" minWidth="120.0" prefWidth="75.0" text="UserName" />
                 <TableColumn fx:id="cFirstName" minWidth="120.0" prefWidth="75.0" text="FirstName" />
                   <TableColumn fx:id="cLastName" minWidth="120.0" prefWidth="75.0" text="LastName" />
-                  <TableColumn fx:id="cRole" minWidth="120.0" prefWidth="75.0" text="Cấp Bậc" />
-                  <TableColumn fx:id="cActibe" minWidth="120.0" prefWidth="75.0" text="Trạng Thái" />
+                  <TableColumn fx:id="cRole" minWidth="120.0" prefWidth="75.0" text="Role" />
+                  <TableColumn fx:id="cActibe" minWidth="120.0" prefWidth="75.0" text="Status" />
+                <TableColumn fx:id="cUserName" minWidth="120.0" prefWidth="75.0" text="UserName" />
               </columns>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
