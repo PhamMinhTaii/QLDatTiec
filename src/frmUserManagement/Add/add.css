@@ -21,6 +21,9 @@
 TextField{
     -fx-max-width: 300;
 }
+.txtsession{
+    -fx-max-width: 150;
+}
 .txtpass{
      -fx-max-width: 300;
 }

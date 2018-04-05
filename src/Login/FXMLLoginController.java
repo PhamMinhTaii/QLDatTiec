@@ -50,6 +50,7 @@ public class FXMLLoginController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == btnOK) {
             Platform.exit();
+          //  System.exit(0);
         }
     }
      class OpenMain implements EventHandler<ActionEvent>{  

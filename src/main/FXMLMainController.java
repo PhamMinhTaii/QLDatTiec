@@ -35,7 +35,7 @@ public class FXMLMainController implements Initializable {
     }
 
     @FXML
-    void moveUserForm(ActionEvent e) throws IOException {
+   public void moveUserForm(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/frmUserManagement/FXMLUserManagement.fxml"));
         Parent root = loader.load();
         FXMLUserManagementController display = loader.getController();

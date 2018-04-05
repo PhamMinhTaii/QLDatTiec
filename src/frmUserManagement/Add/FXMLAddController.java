@@ -16,11 +16,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+
 public class FXMLAddController implements Initializable {
 
     private UserBUS userBUS;
     @FXML
     private Button btnBack;
+    @FXML
+    private TextField txtUserSession;
     @FXML
     private TextField txtUserName;
     @FXML
@@ -46,12 +49,10 @@ public class FXMLAddController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ComBoBox.setComBoBox(cbRole,cbActive,cbGender);
-        btnBack.setOnAction(new BackFrmUser());
+        btnBack.setOnAction(new BackFrmUser(txtUserSession));
 
     }
-
-
-
+    
     public void addUser(ActionEvent event) {
 
         userBUS = new UserBUS();
@@ -113,5 +114,8 @@ public class FXMLAddController implements Initializable {
         txtEmail.clear();
         txtUserName.clear();
     }
-
+    // phunogư thức nhận dữ lệu userSesion lên form
+    public void getUserSession(String userSession){
+        txtUserSession.setText(userSession);
+    }
 }

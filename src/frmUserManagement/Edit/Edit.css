@@ -27,6 +27,9 @@ TextField{
 .txtaddress{
     -fx-min-width: 300;
 }
+.txtsession{
+    -fx-max-width: 150;
+}
 
 Label{
     -fx-font-weight: bold;

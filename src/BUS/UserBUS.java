@@ -21,6 +21,14 @@ public class UserBUS {
         }
        
     }
+    
+    public String findRole(String userName){
+        try {
+            return userDao.findRole(userName);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     public int Login(String userName, String PassWord) {
 
@@ -98,5 +106,13 @@ public class UserBUS {
             }
             return validUser(user.getUserName(), user.getPassword(), confirmPass,
                     user.getFirstName(), user.getLastName(), user.getEmail()); // return ra lỗi
-        }
+        }     
+     
+     public int deleteUser(String  userName){
+         try {             
+            return userDao.deleleUser(userDao.findUserName(userName));
+         } catch (Exception e) {
+             throw e;
+         }
+     }
 }

@@ -50,6 +50,22 @@ public class UserDAO {
             session.close();
         }
     }
+    
+     public String findRole(String userName) {
+        connettion();
+        Criteria cr = session.createCriteria(User.class);
+
+        try {
+            Criterion user = Restrictions.eq("userName", userName);
+            cr.add(user);
+            return ((User) cr.list().stream().findFirst().get()).getRole();
+
+        } catch (Exception e) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
 
     public User Login(String userName) {
         return findUserName(userName);
@@ -71,13 +87,28 @@ public class UserDAO {
     }
 
     public int updateUser(User entity) {
-    
+
         connettion();
-        try {           
-            session.update(entity);          
+        try {
+            session.update(entity);
             trans.commit();
             return 1;
 
+        } catch (Exception e) {
+            trans.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public int deleleUser(User entity) {
+
+        connettion();
+        try {
+            session.delete(entity);
+            trans.commit();
+            return 1;
         } catch (Exception e) {
             trans.rollback();
             throw e;
