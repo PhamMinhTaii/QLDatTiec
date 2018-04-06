@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,7 +30,7 @@ public class MenuDAO {
     private Transaction transaction;
 
     public MenuDAO() {
-      //  connect();
+        //  connect();
     }
 
     public void connect() {
@@ -58,6 +59,22 @@ public class MenuDAO {
         }
     }
 
+    // List load All
+    public List<Menu> loadAllMenu() {
+        try {
+            connect();
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "FROM Menu WHERE status=1";
+            Query query = session.createQuery(hql);
+            List<Menu> listMenu = query.list();
+            return listMenu;
+        } catch (Exception ex) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
     // List title menu
     public List<TitleMenu> loadTitleMenu() {
         try {
@@ -75,10 +92,8 @@ public class MenuDAO {
     }
 
     // Luu Checkbox chon mon
-    public void luuCheckbox(Menu mn) {
-        try {           
-            System.out.println("-------vao MenuDAO -------");
-            System.out.println(mn.getMenuId() + " " + mn.getTitleMenu() );
+    public void update(Menu mn) {
+        try {          
             connect();
 //            Session session=HibernateUtil.getSessionFactory().openSession();
 //            String hql="UPDATE Menu SET is_select = :is_select WHERE menu_id = :menu_id";  
@@ -88,10 +103,15 @@ public class MenuDAO {
 //            session.createQuery(hql);
 //           
 //            int result=query.executeUpdate();
-            session=HibernateUtil.getSessionFactory().getCurrentSession();
-            sessionFactory.getCurrentSession().merge(mn);
+//java.lang.Boolean
+            // session=HibernateUtil.getSessionFactory().getCurrentSession();
+            //  sessionFactory.getCurrentSession().merge(mn);
+            // session.update(mn);
+            //transaction.commit();
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
             session.update(mn);
-            transaction.commit();
+            session.getTransaction().commit();
 
         } catch (Exception ex) {
             //throw ex;
@@ -100,5 +120,11 @@ public class MenuDAO {
             session.close();
         }
 
+    }
+
+    // Reset isSelect 
+    public void resetSelect() {
+        connect();
+        Menu temp = new Menu();
     }
 }

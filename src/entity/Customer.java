@@ -16,7 +16,7 @@ public class Customer  implements java.io.Serializable {
      private String lastName;
      private String phone;
      private String address;
-     private Boolean gender;
+     private String gender;
      private Set bookings = new HashSet(0);
 
     public Customer() {
@@ -26,7 +26,7 @@ public class Customer  implements java.io.Serializable {
     public Customer(String customterId) {
         this.customterId = customterId;
     }
-    public Customer(String customterId, String firstName, String lastName, String phone, String address, Boolean gender, Set bookings) {
+    public Customer(String customterId, String firstName, String lastName, String phone, String address, String gender, Set bookings) {
        this.customterId = customterId;
        this.firstName = firstName;
        this.lastName = lastName;
@@ -34,6 +34,14 @@ public class Customer  implements java.io.Serializable {
        this.address = address;
        this.gender = gender;
        this.bookings = bookings;
+    }
+    public Customer(String customterId, String firstName, String lastName, String phone, String address, String gender) {
+       this.customterId = customterId;
+       this.firstName = firstName;
+       this.lastName = lastName;
+       this.phone = phone;
+       this.address = address;
+       this.gender = gender;       
     }
    
     public String getCustomterId() {
@@ -71,11 +79,11 @@ public class Customer  implements java.io.Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    public Boolean getGender() {
+    public String getGender() {
         return this.gender;
     }
     
-    public void setGender(Boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
     public Set getBookings() {
