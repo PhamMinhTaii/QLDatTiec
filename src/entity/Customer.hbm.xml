@@ -20,7 +20,7 @@
         <property name="address" type="string">
             <column name="address" length="65535" />
         </property>
-        <property name="gender" type="java.lang.Boolean">
+        <property name="gender" type="string">
             <column name="gender" />
         </property>
         <set name="bookings" table="booking" inverse="true" lazy="true" fetch="select">

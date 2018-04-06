@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import BUS.MenuBUS;
 import DAO.HibernateUtil;
 import entity.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -25,7 +26,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -44,6 +48,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.hibernate.Session;
 
@@ -98,7 +103,7 @@ public class FXMLMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        load("KV", "Món khai vị");
+        loadFirst();
         // su kien click TableView
         mouseClickTableview();
         // Tao column chon mon
@@ -134,7 +139,6 @@ public class FXMLMenuController implements Initializable {
         imageMonAn.setFitHeight(230);
         imageMonAn.setFitWidth(360);
         imageMonAn.setPreserveRatio(true);
-
         // load ComboBox
         cbbLoaiMon.setPromptText(promptText);
         List<TitleMenu> listTitle = menubus.loadTitleMenu();
@@ -155,6 +159,18 @@ public class FXMLMenuController implements Initializable {
         tableMenu.setItems(lsMenu);
     }
 
+    // load dau tien 
+    private void loadFirst() {
+        List<Menu> listAll = menubus.loadMenuAll();
+        listAll.forEach((mn) -> {
+            Menu mnTemp = new Menu(mn.getMenuId(), mn.getTitleMenu(),
+                    mn.getMenuName(), mn.getPrice(), mn.getDescription(), mn.getImage(),
+                    mn.getStatus(), false);
+            menubus.update(mnTemp);
+        });
+        load("KV", "Món khai vị");
+    }
+
     // su kien click TableView
     private void mouseClickTableview() {
         this.tableMenu.setRowFactory(tv -> {
@@ -163,7 +179,10 @@ public class FXMLMenuController implements Initializable {
                 if (e.getClickCount() == 1 && !row.isEmpty()) {
                     Menu mn = row.getItem();
                     txtMonAn.setText(mn.getMenuName());
-                    txtGia.setText(mn.getPrice());
+                    // dinh dang so tien
+                    float temp=Float.parseFloat(mn.getPrice());
+                    String money=String.format("%0,3.0fVNĐ", temp);
+                    txtGia.setText(money);
                     txtMoTa.setText(mn.getDescription());
                     imageMonAn.setImage(new Image(mn.getImage()));
                 }
@@ -178,61 +197,27 @@ public class FXMLMenuController implements Initializable {
         colChon.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Menu, CheckBox>, ObservableValue<CheckBox>>() {
             @Override
             public ObservableValue<CheckBox> call(CellDataFeatures<Menu, CheckBox> param) {
-                Menu mn = param.getValue();                                                
+                Menu mn = param.getValue();
+
                 CheckBox cbChon = new CheckBox();
                 cbChon.selectedProperty().setValue(mn.getIsSelect());
 //-------------------------------------------------------------------------------//     
-                cbChon.setOnMouseClicked((MouseEvent e) -> {                   
+                cbChon.setOnMouseClicked((MouseEvent e) -> {
+                    Menu mnCheckBox = new Menu(mn.getMenuId(), mn.getTitleMenu(),
+                            mn.getMenuName(), mn.getPrice(), mn.getDescription(), mn.getImage(),
+                            mn.getStatus(), mn.getIsSelect());
                     if (cbChon.isSelected()) {
-                        listChonMon.add(mn);
-                        System.out.println("-------Giao dien -------");
-                        System.out.println(mn.getMenuName() + " " + mn.getPrice());                                                                     
-                        mn.setIsSelect(true);
-                        menubus.luuCheckbox(mn);
+                        listChonMon.add(mnCheckBox);
+                        mnCheckBox.setIsSelect(true);
+                        menubus.update(mnCheckBox);
                     } else {
-                        listChonMon.remove(mn);
-                        System.out.println("Bo chon check box");
-                        mn.setIsSelect(false);
-                        menubus.luuCheckbox(mn);
+                        listChonMon.remove(mnCheckBox);
+                        mnCheckBox.setIsSelect(false);
+                        menubus.update(mnCheckBox);
                     }
-
                 });
-
 //-------------------------------------------------------------------------------//            
-//                cbChon.selectedProperty().addListener(new ChangeListener<Boolean>() {
-//                    @Override
-//                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-//                        mn.setIsSelect(newValue);
-//                        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                        tableMenu.setRowFactory(tv -> {
-//                            TableRow<Menu> row = new TableRow<>();
-//                            row.setOnMouseClicked((MouseEvent e) -> {
-//                                if (e.getClickCount() == 1 && !row.isEmpty()) {
-//                                    Menu mn = row.getItem();
-//                                    if (cbChon.isSelected()) {
-//                                        mn.setIsSelect(true);
-//                                        cbDatMon.setSelected(true);
-//                                    } else {
-//                                        mn.setIsSelect(false);
-//                                        cbDatMon.setSelected(false);
-//                                    }
-//                                }
-//                            });
-//                            return row;
-//                        });
-//                        //
-//                        if (cbChon.isSelected()) {
-//                            mn.setIsSelect(true);
-//                            cbDatMon.setSelected(true);
-//                        } else {
-//                            mn.setIsSelect(false);
-//                            cbDatMon.setSelected(false);
-//                        }
-//                    }
-//                });
-                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 return new SimpleObjectProperty<CheckBox>(cbChon);
-
             }
         });
     }
@@ -246,40 +231,22 @@ public class FXMLMenuController implements Initializable {
         } else {
             System.out.println("Danh sach rong");
         }
-
-//        if (cbDatMon.isSelected()) {
-//
-//            System.out.println();
-//        } else {
-//            System.out.println("Khong su ly");
-//        }
-//        this.tableMenu.setRowFactory(tv -> {
-//            TableRow<Menu> row = new TableRow<>();
-//            Menu mn = row.getItem();
-////            if (cbDatMon.isSelected()) {
-////
-////                System.out.println("co su ly");
-////            } else {
-////                System.out.println("Khong su ly");
-////            }
-//
-//            if (mn.getIsSelect()) {
-//                System.out.println("co su ly");
-//            } else {
-//                System.out.println("Khong su ly");
-//            }
-//            return row;
-//        });
-//         if (mn.getIsSelect()) {
-//                System.out.println("co su ly");
-//            } else {
-//                System.out.println("Khong su ly");
-//            }
     }
 
     @FXML
-    private void luuAction(ActionEvent event) {
-        System.out.println("Khong su ly");
+    private void luuAction(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLBook.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        closeAction();
+
+        //stage.show();
+    }
+
+    @FXML
+    private void closeAction() {
+        Stage stage = (Stage) btnDatMon.getScene().getWindow();
     }
 
     @FXML

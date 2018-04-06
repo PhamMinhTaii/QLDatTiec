@@ -39,6 +39,18 @@ public class Menu  implements java.io.Serializable {
        this.isSelect = isSelect;
        this.bookingDetails = bookingDetails;
     }
+    
+    public Menu(String menuId, TitleMenu titleMenu, String menuName, String price, String description, String image, Boolean status, Boolean isSelect) {
+       this.menuId = menuId;
+       this.titleMenu = titleMenu;
+       this.menuName = menuName;
+       this.price = price;
+       this.description = description;
+       this.image = image;
+       this.status = status;
+       this.isSelect = isSelect;
+       
+    }
    
     public String getMenuId() {
         return this.menuId;
