@@ -2,7 +2,7 @@ package frmUserManagement.Add;
 
 import BUS.UserBUS;
 import Common.Action.BackFrmUser;
-import CommonConstance.Alert;
+import CommonConstance.AlertOfMe;
 import CommonConstance.ComBoBox;
 import entity.User;
 import java.net.URL;
@@ -66,40 +66,40 @@ public class FXMLAddController implements Initializable {
             int kq = userBUS.addUser(user, txtConfirm.getText());
             setAlert(kq);
         } catch (Exception e) {
-            Alert.alert("Lỗi Hệ Thống !!");
+            AlertOfMe.alert("Lỗi Hệ Thống !!");
         }
     }
 
     public void setAlert(int kq) {
         if (kq == -10) {
-            Alert.alert("Tài Khoản Đã Tồn Tại");
+            AlertOfMe.alert("Tài Khoản Đã Tồn Tại");
             txtUserName.clear();
         }
         if (kq == -1) {
-            Alert.alert("Tài Khoản Không Hợp Lệ");
+            AlertOfMe.alert("Tài Khoản Không Hợp Lệ");
             txtUserName.clear();
         }
         if (kq == -2) {
-            Alert.alert("Mật Khẩu Không Hợp Lệ");
+            AlertOfMe.alert("Mật Khẩu Không Hợp Lệ");
             txtConfirm.clear();
             txtPassWord.clear();
         }
         if (kq == -3) {
-            Alert.alert("Xác Nhận Mật Khẩu Sai");
+            AlertOfMe.alert("Xác Nhận Mật Khẩu Sai");
             txtPassWord.clear();
             txtConfirm.clear();
         }
         if (kq == -4) {
-            Alert.alert("Tên Hoặc Tên Đệm Không Hợp Lệ");
+            AlertOfMe.alert("Tên Hoặc Tên Đệm Không Hợp Lệ");
             txtFistName.clear();
             txtLastName.clear();
         }
         if (kq == -5) {
-            Alert.alert("Email Không Hợp Lệ");
+            AlertOfMe.alert("Email Không Hợp Lệ");
             txtEmail.clear();
         }
         if (kq == 1) {
-            Alert.alert("Thêm Thành Công !!");
+            AlertOfMe.alert("Thêm Thành Công !!");
             clear();
 
         }

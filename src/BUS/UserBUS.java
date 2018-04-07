@@ -13,9 +13,9 @@ public class UserBUS {
         userDao  = new UserDAO();
     }
     
-    public List<User> findListUser(){
-        try {
-             return userDao.findListUser();
+    public List<User> findListUser(String keyword){
+        try {            
+             return userDao.findListUser(keyword);
         } catch (Exception e) {
             return null;
         }
@@ -28,6 +28,15 @@ public class UserBUS {
         } catch (Exception e) {
             throw e;
         }
+    }
+    
+    public int countColunms(String property, String value){
+        try {
+           return userDao.countColunms(property, value);
+        } catch (Exception e) {
+            throw e;
+        }
+        
     }
 
     public int Login(String userName, String PassWord) {
