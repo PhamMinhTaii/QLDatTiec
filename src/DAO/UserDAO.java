@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 public class UserDAO {
@@ -22,14 +23,43 @@ public class UserDAO {
         trans = session.beginTransaction();
     }
 
-    public List<User> findListUser() {
+    public List<User> findListUser(String keyword) {
         connettion();
         try {
+            Criteria criteria = session.createCriteria(User.class);
+            if (!keyword.isEmpty()) {
+                String s = String.format("%%%s%%", keyword);
+                Criterion c1 = Restrictions.ilike("userName", s);
+                Criterion c2 = Restrictions.ilike("firstName", s);
+                Criterion c3 = Restrictions.ilike("lastName", s);
+                Criterion c4 = Restrictions.ilike("role", s);
+                Criterion c5 = Restrictions.ilike("active", s);
+                Criterion c6 = Restrictions.ilike("gender", s);
+                Criterion c7 = Restrictions.ilike("address", s);
+                criteria.add(Restrictions.or(c1, c2, c3, c4, c5, c6, c7));
+            }
+            return criteria.list();
 
-            return session.createCriteria(User.class).list();
         } catch (HibernateException e) {
             trans.rollback();
             return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    public int countColunms(String property, String value) {
+        connettion();
+        Criteria criteria = session.createCriteria(User.class);
+        try {
+            if (!property.isEmpty()) {
+                Criterion c = Restrictions.ilike(property, value);
+                criteria.add(c);
+                return Integer.parseInt(criteria.setProjection(Projections.rowCount()).uniqueResult().toString());
+            }
+            return Integer.parseInt(criteria.setProjection(Projections.rowCount()).uniqueResult().toString());
+        } catch (HibernateException e) {
+            throw e;
         } finally {
             session.close();
         }
@@ -50,8 +80,8 @@ public class UserDAO {
             session.close();
         }
     }
-    
-     public String findRole(String userName) {
+
+    public String findRole(String userName) {
         connettion();
         Criteria cr = session.createCriteria(User.class);
 

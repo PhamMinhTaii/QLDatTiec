@@ -45,7 +45,7 @@ public class FXMLMainController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Hệ Thống Tiệc Cưới T&T");
         stage.initStyle(StageStyle.UTILITY);
-        SetStage.setStage(stage, scene, 645, 500);
+        SetStage.setStage(stage, scene, 645, 550);
     }
 
     public void getsessionUser(String userSession) {

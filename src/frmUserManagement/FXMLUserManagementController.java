@@ -1,12 +1,13 @@
 package frmUserManagement;
 
 import BUS.UserBUS;
+import Common.Action.Delete;
+import Common.Action.LogOut;
 import Common.Action.OpenAdd;
-import CommonConstance.Alert;
-import CommonConstance.ComBoBox;
-import CommonConstance.SetStage;
+import Common.Action.OpenAdvance;
+import Common.Action.OpenEditFrm;
+import CommonConstance.AlertOfMe;
 import entity.User;
-import frmUserManagement.Edit.FXMLEditController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -17,25 +18,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableRow;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class FXMLUserManagementController implements Initializable {
-    
-    private UserBUS userBUS = new UserBUS();
+
+    private final UserBUS userBUS = new UserBUS();
     private String userNameDel;
     private ObservableList<User> lsUsers;
     @FXML
@@ -46,7 +40,13 @@ public class FXMLUserManagementController implements Initializable {
     @FXML
     private Button btnAdd;
     @FXML
+    private Button btnAdvance;
+    @FXML
     private Button btnDel;
+    @FXML
+    private Button btnLogOut;
+    @FXML
+    private TextField txtKeyWord;
     @FXML
     private TableView<User> tbUsers;
     @FXML
@@ -59,30 +59,40 @@ public class FXMLUserManagementController implements Initializable {
     private TableColumn cRole;
     @FXML
     private TableColumn cActibe;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        this.loadUser();
+
+        this.loadUser("");
+        setTableView();
         getRowClick();
         btnAdd.setOnAction(new OpenAdd(lbUserSession));
         btnEdit.setOnAction(new OpenEdit());
         btnDel.setOnAction(new DeleteUser());
+        txtKeyWord.textProperty().addListener(e -> {
+            lsUsers.clear();
+            loadUser(txtKeyWord.getText());
+        });
+        btnLogOut.setOnAction(new LogOut());
+        btnAdvance.setOnAction(new OpenAdvance(lbUserSession));
     }
-    
-    public void loadUser() {
-        
+
+    public void loadUser(String keyWord) {
+
         lsUsers = FXCollections.observableArrayList();
         List<User> list;
         try {
-            list = userBUS.findListUser();
+            list = userBUS.findListUser(keyWord);
             list.forEach(e -> {
                 this.lsUsers.add(e);
             });
-            
         } catch (Exception e) {
-            Alert.alert("Lỗi Load Dữ Liệu");
+            AlertOfMe.alert("Lỗi Load Dữ Liệu");
         }
+
+    }
+
+    public void setTableView() {
         tbUsers.setItems(this.lsUsers);
         cUserName.setCellValueFactory(new PropertyValueFactory("userName"));
         cFirstName.setCellValueFactory(new PropertyValueFactory("firstName"));
@@ -90,7 +100,7 @@ public class FXMLUserManagementController implements Initializable {
         cRole.setCellValueFactory(new PropertyValueFactory("role"));
         cActibe.setCellValueFactory(new PropertyValueFactory("active"));
     }
-    
+
     public void getRowClick() {
         this.tbUsers.setRowFactory(tv -> {
             TableRow<User> row = new TableRow<>();
@@ -103,59 +113,30 @@ public class FXMLUserManagementController implements Initializable {
             return row;
         });
     }
-    
+
     class OpenEdit implements EventHandler<ActionEvent> {
-        
+
         @Override
         public void handle(ActionEvent e) {
             Stage stage = (Stage) (((Node) (e.getSource())).getScene()).getWindow();
-            try {
-                if (userEdit == null) { // chưa click trên table view thì user sẽ null;
-                    Alert.alert("Chưa chọn User để thay đổi");
-                    return;
-                }
-                 if (!userBUS.findRole(lbUserSession.getText()).equals(ComBoBox.admin)){
-                     Alert.alert("Tài Khoản Không Có Quyền Thay Đỗi Thông Tin Users ");
-                     return;                     
-                 }                
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/frmUserManagement/Edit/FXMLEdit.fxml"));
-                Parent root = loader.load();
-                FXMLEditController display = loader.getController();                
-                display.getData(userEdit, lbUserSession.getText());
-                Scene scene = new Scene(root);
-                SetStage.setStage(stage, scene, 500, 550);
-            } catch (IOException ex) {
-                Logger.getLogger(FXMLUserManagementController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            OpenEditFrm open = new OpenEditFrm();
+            open.openEdit(stage, userEdit, lbUserSession.getText());
         }
     }
-    
+
     class DeleteUser implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            try {                
-                if (userNameDel == null) {
-                    Alert.alert("Chưa Chọn User Để Xoá");
-                } else {
-                    if (userBUS.findRole(lbUserSession.getText()).equals(ComBoBox.admin)) {
-                        Optional<ButtonType> result = Alert.alertResult("Chắc Chắn Xoá User : " + userNameDel);
-                        if (result.get() == ButtonType.OK) {
-                            if (userBUS.deleteUser(userNameDel) == 1) {
-                                Alert.alert("Xoá Thành Công");
-                                lsUsers.clear();
-                                loadUser();
-                            }
-                        }
-                    } else
-                        Alert.alert("Tài Khoản Của Bạn Không Có Quyền Xoá");                    
-                }
-            } catch (Exception e) {
-                Alert.alert("Lỗi Hệ Thống");
+            Delete del = new Delete();
+            if (del.delete(userNameDel, lbUserSession.getText())) {
+                lsUsers.clear();
+                loadUser("");
             }
         }
     }
     
+
     public void getSessionUser(String userSession) {
         lbUserSession.setText(userSession);
     }
