@@ -5,6 +5,7 @@
  */
 package BUS;
 
+import CommonConstance.ReplaceString;
 import DAO.BooksDAO;
 import entity.*;
 import java.util.List;
@@ -21,13 +22,34 @@ public class BooksBUS {
         booksDao = new BooksDAO();
     }
 
-    public int addCustomer(Customer customer) {
+    public int addCustomer(Customer c) {
         try {
-            booksDao.addCustomer(customer);
-            return 1;
+            if (ktraCustomer(c.getFirstName(), c.getLastName(), c.getPhone(), c.getAddress()) == 1) {
+                booksDao.addCustomer(c);
+                return 1;
+            }
+            return ktraCustomer(c.getFirstName(), c.getLastName(),
+                    c.getPhone(), c.getAddress());
         } catch (Exception ex) {
             throw ex;
         }
+    }
+
+    public int ktraCustomer(String firstName, String lastName, String phone, String address) {
+        firstName = ReplaceString.UserName(firstName);// chuan hoa lai ten
+        lastName = ReplaceString.UserName(lastName);
+        String regexName = "[\\p{L}\\s]+";
+        if (!firstName.matches(regexName) || !lastName.matches(regexName)) {
+            return -1;
+        }
+        if (!phone.matches("\\d{10,13}")) {
+            return -2;
+        }
+        if (!address.matches("[\\p{L}\\s\\d/]+")) {
+            return -3;
+        }
+        return 1;
+
     }
 
     public List<Menu> loadListMenu() {
