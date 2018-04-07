@@ -6,7 +6,7 @@
 package Books;
 
 import BUS.BooksBUS;
-import CommonConstance.Alert;
+import CommonConstance.*;
 import entity.*;
 import java.io.IOException;
 import java.net.URL;
@@ -77,17 +77,18 @@ public class FXMLBookController implements Initializable {
     }
 
     private void setAlert(int kq) {
+        
         if (kq == -1) {
-            Alert.alert("Tên không đúng định dạng");
+            AlertOfMe.alert("Tên không đúng định dạng");
         }
         if (kq == -2) {
-            Alert.alert("SĐT không đúng định dạng");
+            AlertOfMe.alert("SĐT không đúng định dạng");
         }
         if (kq == -3) {
-            Alert.alert("Địa chỉ không đúng định dạng");
+            AlertOfMe.alert("Địa chỉ không đúng định dạng");
         }
         if (kq == 1) {
-            Alert.alert("Thêm khách hàng thành công!");
+            AlertOfMe.alert("Thêm khách hàng thành công!");
             txtAddress.clear();
             txtFirstName.clear();
             txtLastName.clear();

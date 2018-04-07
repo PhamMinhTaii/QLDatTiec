@@ -1,5 +1,6 @@
 package Login;
 
+import CommonConstance.SetStage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,20 +22,15 @@ public class Login extends Application {
         stage.setMaxWidth(500);
         stage.show();
 // Test from User
-//        Parent root = FXMLLoader.load(getClass().getResource("/frmUserManagement/FXMLUserManagement.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("/frmUserManagement/Advance/FXMLAdvance.fxml"));
 //        Scene scene = new Scene(root);
 //        stage.setScene(scene);
 //        stage.setTitle("Hệ Thống Tiệc Cưới T&T");
 //        stage.initStyle(StageStyle.UTILITY);
-//        stage.setMaxWidth(645);
-//        stage.setMinWidth(645);
-//        stage.setMaxHeight(500);
-//        stage.setMinHeight(500);
-//        stage.show();
+//        SetStage.setStage(stage, scene, 600, 400);
     }
 
     public static void main(String[] args) {
-
         launch(args);
     }
 
