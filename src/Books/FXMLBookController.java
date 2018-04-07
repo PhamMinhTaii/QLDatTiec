@@ -6,11 +6,13 @@
 package Books;
 
 import BUS.BooksBUS;
+import CommonConstance.Alert;
 import entity.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -74,32 +76,63 @@ public class FXMLBookController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private void saveCustomerAction(ActionEvent event) {
-        String sex = null;
-        if (rdoNam.isSelected()) {
-            sex = "Nam";
+    private void setAlert(int kq) {
+        if (kq == -1) {
+            Alert.alert("Tên không đúng định dạng");
         }
-        if (rdoNu.isSelected()) {
-            sex = "Nữ";
+        if (kq == -2) {
+            Alert.alert("SĐT không đúng định dạng");
         }
-        Customer customer = new Customer("3", txtFirstName.getText(), txtLastName.getText(),
-                txtPhone.getText(), txtAddress.getText(), sex);
-        System.err.println(customer.getGender());
-        int kq = bookBus.addCustomer(customer);
+        if (kq == -3) {
+            Alert.alert("Địa chỉ không đúng định dạng");
+        }
         if (kq == 1) {
-            System.out.println("Them danh cong");
+            Alert.alert("Thêm khách hàng thành công!");
+            txtAddress.clear();
+            txtFirstName.clear();
+            txtLastName.clear();
+            txtPhone.clear();
         }
     }
 
-    // Load listview Menu
+    @FXML
+    private void saveCustomerAction(ActionEvent event) {
+        try {
+            // luu thong tin khach hang
+            String sex = null;
+            String id = UUID.randomUUID().toString();
+            if (rdoNam.isSelected()) {
+                sex = "Nam";
+            }
+            if (rdoNu.isSelected()) {
+                sex = "Nữ";
+            }
+            Customer customer = new Customer(id, txtFirstName.getText(),
+                    txtLastName.getText(), txtPhone.getText(), txtAddress.getText(), sex);
+            int kq = bookBus.addCustomer(customer);
+            setAlert(kq);
+            //--------//
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+// Load listview Menu
     private void loadLvMenu() {
+        double tongTien = 0;
+        int i=0;
+
         List<Menu> list = bookBus.loadListMenu();
         for (Menu mn : list) {
-            float money=Float.parseFloat(mn.getPrice()) ;
-            String giaTien=String.format("%0,3.0fVNĐ",money );
-            lvMenu.getItems().add(mn.getMenuName() + " - " + giaTien);
-        }       
+            i++;
+            float money = Float.parseFloat(mn.getPrice());
+            tongTien += money;
+            String giaTien = String.format("%0,3.0fVNĐ", money);
+            lvMenu.getItems().add(i+"-"+mn.getMenuName() + "   " + giaTien);
+
+        }
+       // String giaTien = String.format("%0,3.0fVNĐ", tongTien);
+       // lvMenu.getItems().add("Tổng Tiền:" + giaTien);
     }
 
 }

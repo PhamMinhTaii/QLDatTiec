@@ -93,25 +93,14 @@ public class MenuDAO {
 
     // Luu Checkbox chon mon
     public void update(Menu mn) {
-        try {          
+        try {
             connect();
-//            Session session=HibernateUtil.getSessionFactory().openSession();
-//            String hql="UPDATE Menu SET is_select = :is_select WHERE menu_id = :menu_id";  
-//            Query query=session.createQuery(hql);
-//            query.setParameter("is_select", select);
-//            query.setParameter("menu_id", mn);
-//            session.createQuery(hql);
-//           
-//            int result=query.executeUpdate();
-//java.lang.Boolean
-            // session=HibernateUtil.getSessionFactory().getCurrentSession();
-            //  sessionFactory.getCurrentSession().merge(mn);
-            // session.update(mn);
-            //transaction.commit();
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
+//            session = HibernateUtil.getSessionFactory().openSession();
+//            session.beginTransaction();
+//            session.update(mn);
+//            session.getTransaction().commit();
             session.update(mn);
-            session.getTransaction().commit();
+            transaction.commit();
 
         } catch (Exception ex) {
             //throw ex;
@@ -120,6 +109,41 @@ public class MenuDAO {
             session.close();
         }
 
+    }
+
+    //them mon an
+    public int addMenu(Menu mn) {
+        try {
+            connect();
+            session.save(mn);
+            transaction.commit();
+            return 1;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            session.close();
+        }
+    }
+
+    // lay titlemenu
+    public TitleMenu getTitleMenu(String id) {
+        try {
+            connect();
+            String hql = String.format("FROM TitleMenu WHERE titleId = '%s'", id);
+            Query query = session.createQuery(hql);
+            List<TitleMenu> list = query.list();
+            TitleMenu tm = new TitleMenu();
+            for (TitleMenu t : list) {
+                tm = t;
+                System.out.println(t.getTitleId() + " " + t.getTitleName());
+            }
+            return tm;
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+            return null;
+        } finally {
+            session.close();
+        }
     }
 
     // Reset isSelect 
