@@ -18,7 +18,7 @@
                   <Insets top="30.0" />
                </opaqueInsets>
             </Label>
-            <TextField fx:id="txtUser" promptText="Nhập User.." styleClass="txtcolor" />
+            <TextField fx:id="txtUser" promptText="Nhập User.." styleClass="txtcolor" text="Tình" />
          </children>
          <opaqueInsets>
             <Insets />
@@ -27,7 +27,7 @@
       <HBox prefHeight="44.0" prefWidth="509.0" styleClass="HBox-2">
          <children>
             <Label styleClass="Label" text="PASSWORD" />
-            <PasswordField fx:id="txtPassWord" promptText="Nhập Password.." styleClass="txtcolor" />
+            <PasswordField fx:id="txtPassWord" promptText="Nhập Password.." styleClass="txtcolor" text="pass" />
          </children>
       </HBox>
       <HBox prefHeight="42.0" prefWidth="509.0" styleClass="HBox-3">
