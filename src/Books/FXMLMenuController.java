@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import BUS.MenuBUS;
-import CommonConstance.Alert;
+import CommonConstance.*;
 import DAO.HibernateUtil;
 import entity.*;
 import java.io.File;
@@ -34,6 +34,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -265,15 +266,15 @@ public class FXMLMenuController implements Initializable {
         //---------------------Them Mon An-------------------//
         String id = UUID.randomUUID().toString();
         String ttmn = null;
-        String promptText=cbbLoaiMon.getPromptText();
+        String promptText = cbbLoaiMon.getPromptText();
 
         if (promptText.equals("Món Khai Vị")) {
             tmForAdd = menubus.getTitleMenu("KV");
         }
-        if (promptText.equals( "Món Tráng Miệng")) {
+        if (promptText.equals("Món Tráng Miệng")) {
             tmForAdd = menubus.getTitleMenu("TM");
         }
-        if (promptText.equals( "Đồ Uống")) {
+        if (promptText.equals("Đồ Uống")) {
             tmForAdd = menubus.getTitleMenu("N");
         }
         if (promptText.equals("Món Chính")) {
@@ -281,11 +282,11 @@ public class FXMLMenuController implements Initializable {
         }
         System.out.println(cbbLoaiMon.getPromptText());
         System.out.println(tmForAdd);
-            TitleMenu titleMenu = null;          
-            Menu mn = new Menu(id,tmForAdd ,//cbbLoaiMon.getItems(), 
-                    txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage, true, false);
-            int kq = menubus.addMenu(mn);
-            setAlert(kq);
+        TitleMenu titleMenu = null;
+        Menu mn = new Menu(id, tmForAdd,//cbbLoaiMon.getItems(), 
+                txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage, true, false);
+        int kq = menubus.addMenu(mn);
+        setAlert(kq);
         //---------------------Sua Mon An-------------------//
 //        Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
 //                txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
@@ -302,6 +303,7 @@ public class FXMLMenuController implements Initializable {
     @FXML
     private void themAction(ActionEvent event) {
         editAble(true);
+        textClear();
         txtMonAn.setPromptText("Nhập vào tên món ăn");
         txtGia.setPromptText("Nhập vào giá");
         txtMoTa.setPromptText("Thêm mô tả về món ăn này");
@@ -314,7 +316,7 @@ public class FXMLMenuController implements Initializable {
         String gia = txtGia.getText();
         gia = gia.replaceAll("[VNĐ,]", "");
         txtGia.setText(gia);
-        Optional<ButtonType> result = Alert.alertResult("Bạn có chắc chắn muốn xóa món: "
+        Optional<ButtonType> result = AlertOfMe.alertResult(Alert.AlertType.WARNING, "Bạn có chắc chắn muốn xóa món: "
                 + txtMonAn.getText());
         if (result.get() == ButtonType.OK) {
 //            Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
@@ -350,19 +352,17 @@ public class FXMLMenuController implements Initializable {
 
     private void setAlert(int kq) {
         if (kq == -1) {
-            Alert.alert("Tên món ăn không đúng định dạng");
+            AlertOfMe.alert("Tên món ăn không đúng định dạng");
         }
         if (kq == -2) {
-            Alert.alert("Giá tiền không đúng định dạng");
+            AlertOfMe.alert("Giá tiền không đúng định dạng");
         }
         if (kq == -3) {
-            Alert.alert("Mô tả không đúng định dạng");
+            AlertOfMe.alert("Mô tả không đúng định dạng");
         }
         if (kq == 1) {
-            Alert.alert("Thêm món ăn thành công!");
-            txtGia.clear();
-            txtMoTa.clear();
-            txtMonAn.clear();
+            AlertOfMe.alert("Thêm món ăn thành công!");
+           textClear();
             editAble(false);
             txtMonAn.setPromptText(null);
             txtGia.setPromptText(null);
@@ -388,6 +388,12 @@ public class FXMLMenuController implements Initializable {
         txtMonAn.setEditable(bool);
         txtGia.setEditable(bool);
         txtMoTa.setEditable(bool);
+    }
+
+    private void textClear() {
+        txtGia.clear();
+        txtMoTa.clear();
+        txtMonAn.clear();
     }
 
 //    class BooleanCell extends TableCell<Menu, Boolean> {
