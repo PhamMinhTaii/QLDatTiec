@@ -1,6 +1,7 @@
 package frmUserManagement;
 
 import BUS.UserBUS;
+import Common.Action.BackFrmUser;
 import Common.Action.Delete;
 import Common.Action.LogOut;
 import Common.Action.OpenAdd;
@@ -45,6 +46,8 @@ public class FXMLUserManagementController implements Initializable {
     @FXML
     private Button btnLogOut;
     @FXML
+    private Button btnBack;
+    @FXML
     private TextField txtKeyWord;
     @FXML
     private TableView<User> tbUsers;
@@ -58,6 +61,8 @@ public class FXMLUserManagementController implements Initializable {
     private TableColumn cRole;
     @FXML
     private TableColumn cActibe;
+    @FXML
+    private TextField txtUserSession;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,14 +74,16 @@ public class FXMLUserManagementController implements Initializable {
         btnEdit.setOnAction(new OpenEdit());
         btnDel.setOnAction(new DeleteUser());
         txtKeyWord.textProperty().addListener(e -> {
-              lsUsers.clear();
+            lsUsers.clear();
             loadUser(txtKeyWord.getText());
         });
         btnLogOut.setOnAction(new LogOut());
         btnAdvance.setOnAction(new OpenAdvance(lbUserSession));
+       // txtUserSession.setText(lbUserSession.getText());
+       // btnBack.setOnAction(new BackFrmUser(txtUserSession));
     }
 
-    public void loadUser(String keyWord) {      
+    public void loadUser(String keyWord) {
         lsUsers = FXCollections.observableArrayList();
         try {
             this.lsUsers.addAll(userBUS.findListUser(keyWord));

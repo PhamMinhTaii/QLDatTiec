@@ -8,7 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <TabPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLMainController">
    <tabs>
       <Tab text="Trang chủ">
@@ -20,7 +19,7 @@
                   <HBox layoutX="549.0" layoutY="4.0" prefHeight="42.0" prefWidth="177.0">
                      <children>
                         <Label fx:id="lbUserSession" alignment="CENTER" prefHeight="42.0" prefWidth="94.0" style="-fx-background-color: red;" styleClass="lbusername" textAlignment="CENTER" textFill="#221e1e" />
-                        <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="84.0" text="Đăng Xuất" />
+                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="41.0" prefWidth="84.0" text="Đăng Xuất" />
                      </children>
                   </HBox>
                   <Button layoutX="588.0" layoutY="71.0" mnemonicParsing="false" onAction="#moveUserForm" prefHeight="25.0" prefWidth="132.0" text="Quản Lý Tài Khoản" />
@@ -48,25 +47,25 @@
                         <Label text="Chiều" GridPane.rowIndex="3" />
                         <Label text="Trưa" GridPane.rowIndex="2" />
                         <Label text="Sáng" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <Label fx:id="lblA1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblA2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblB1" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lblB2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label fx:id="lblA3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblB3" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="lblA4" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblB4" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Label fx:id="lblC1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label fx:id="lblC2" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label fx:id="lblC4" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <Label fx:id="lblD1" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Label fx:id="lblD2" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <Label fx:id="lblC3" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label fx:id="lblD3" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <Label fx:id="lblD4" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-                  <DatePicker layoutX="96.0" layoutY="31.0" prefHeight="30.0" prefWidth="194.0" />
+                  <DatePicker fx:id="dpicker" layoutX="96.0" layoutY="31.0" prefHeight="24.0" prefWidth="194.0" />
                   <TextField layoutX="-1.0" layoutY="232.0" prefHeight="33.0" prefWidth="726.0" />
                   <TableView layoutX="2.0" layoutY="267.0" prefHeight="230.0" prefWidth="720.0">
                     <columns>
@@ -74,7 +73,7 @@
                       <TableColumn prefWidth="75.0" text="C2" />
                     </columns>
                   </TableView>
-                  <Label layoutX="16.0" layoutY="46.0" text="Chọn Ngày" />
+                  <Label layoutX="25.0" layoutY="35.0" text="Chọn Ngày" />
                </children>
             </Pane>
          </content>
