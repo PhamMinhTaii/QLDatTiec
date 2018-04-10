@@ -1,0 +1,46 @@
+
+
+.root{   
+     -fx-background-image: url("login.jpg");
+    -fx-background-size: cover,auto;
+    -fx-background-position: center;   
+    -fx-alignment: CENTER;   
+}
+.Text{
+
+    -fx-font-size: 60;
+    -fx-font-family:tahoma;
+    -fx-fill: #8EB0EA;
+    -fx-stroke:#7f9ed2;
+    -fx-stroke-width:2;
+}
+.Label{
+    -fx-font-size: 20;
+    -fx-font-family:tahoma;
+    -fx-text-fill:#4a4342;
+    -fx-stroke:#4a4342;
+    -fx-stroke-width:2;
+}
+.HBox-1{
+    -fx-alignment: bottom-center;
+    -fx-spacing: 65;    
+}
+.HBox-2{
+    -fx-alignment: center;
+    -fx-spacing: 10;    
+}
+.HBox-3{
+    -fx-alignment: center;
+    -fx-spacing: 20;    
+}
+.Button{
+    
+}
+.txtcolor{
+    -fx-background-color: #dce2dc;    
+}
+
+.login-status{
+    -fx-text-fill: red;
+    -fx-font-size: 24;         
+}
