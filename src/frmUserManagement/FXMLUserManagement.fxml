@@ -22,6 +22,7 @@
                         <Button fx:id="btnAdd" mnemonicParsing="false" text="Insert" />
                         <Button fx:id="btnEdit" mnemonicParsing="false" text="Edit" />
                         <Button fx:id="btnDel" mnemonicParsing="false" styleClass="btndel" text="Delete" />
+                        <Button fx:id="btnBack" mnemonicParsing="false" text="Back" />
                      </children>
                   </VBox>
                   <VBox prefHeight="100.0" prefWidth="154.0" styleClass="Vbox-2">
