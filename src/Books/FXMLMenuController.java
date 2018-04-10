@@ -116,7 +116,6 @@ public class FXMLMenuController implements Initializable {
     TitleMenu tmForAdd = null;
     boolean statusForUpdate = true;
     boolean isSelecrForUpdate = false;
-    int i = 0;
 
     // CheckBox cbChon = new CheckBox();
     /**
@@ -134,19 +133,19 @@ public class FXMLMenuController implements Initializable {
     // khoi tao ComboBox
     @FXML
     private void comboBoxAction(ActionEvent event) {
-        if (cbbLoaiMon.getValue().equals("Món khai vị")) {
+        if (cbbLoaiMon.getValue().equals("Món Khai Vị")) {
             cbbLoaiMon.getItems().clear();
             load("KV", "Món Khai Vị");
         }
-        if (cbbLoaiMon.getValue().equals("Món tráng miệng")) {
+        if (cbbLoaiMon.getValue().equals("Món Tráng Miệng")) {
             cbbLoaiMon.getItems().clear();
             load("TM", "Món Tráng Miệng");
         }
-        if (cbbLoaiMon.getValue().equals("Nước uống")) {
+        if (cbbLoaiMon.getValue().equals("Đồ Uống")) {
             cbbLoaiMon.getItems().clear();
             load("N", "Đồ Uống");
         }
-        if (cbbLoaiMon.getValue().equals("Món chính")) {
+        if (cbbLoaiMon.getValue().equals("Món Chính")) {
             cbbLoaiMon.getItems().clear();
             load("MC", "Món Chính");
         }
@@ -174,7 +173,6 @@ public class FXMLMenuController implements Initializable {
         List<Menu> list = menubus.loadMenu(title);
         lsMenu = FXCollections.observableArrayList();
         list.forEach((s) -> {
-            System.out.println(s.getMenuName());
             lsMenu.addAll(s);
         });
         tableMenu.setItems(lsMenu);
@@ -183,15 +181,13 @@ public class FXMLMenuController implements Initializable {
     // load dau tien 
     private void loadFirst() {
         List<Menu> listAll = menubus.loadMenuAll();
-        listAll.forEach((mn) -> {
+        for (Menu mn : listAll) {
             Menu mnTemp = new Menu(mn.getMenuId(), mn.getTitleMenu(),
                     mn.getMenuName(), mn.getPrice(), mn.getDescription(), mn.getImage(),
                     mn.getStatus(), false);
             menubus.update(mnTemp);
-            System.out.println(i);
-
-        });
-        load("KV", "Món khai vị");
+        }
+        load("KV", "Món Khai Vị");
     }
 
     // su kien click TableView
@@ -207,12 +203,15 @@ public class FXMLMenuController implements Initializable {
                     String money = String.format("%0,3.0fVNĐ", temp);
                     txtGia.setText(money);
                     txtMoTa.setText(mn.getDescription());
-                    imageMonAn.setImage(new Image(mn.getImage()));
+                   // imageMonAn.setImage(new Image(mn.getImage()));
                     idMenuForUpdate = mn.getMenuId();
                     tmForUpdate = mn.getTitleMenu();
                     statusForUpdate = mn.getStatus();
-                    isSelecrForUpdate = mn.getIsSelect();
-                    urlImage = mn.getImage();
+                    isSelecrForUpdate = mn.getIsSelect();                    
+                    if (mn.getImage() != null) {
+                        imageMonAn.setImage(new Image(mn.getImage()));
+                        urlImage = mn.getImage();
+                    }
                 }
             });
             return row;
@@ -264,12 +263,22 @@ public class FXMLMenuController implements Initializable {
     @FXML
     private void luuAction(ActionEvent event) throws IOException {
         //---------------------Them Mon An-------------------//
-        String id = UUID.randomUUID().toString();
-        String ttmn = null;
+        themMonAn();
+        //---------------------Sua Mon An-------------------//
+//        Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
+//                txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
+//                statusForUpdate, isSelecrForUpdate);
+//        menubus.update(updateMenu);
+        // setAlert(kq);
+    }
+
+    // Them mon an
+    private void themMonAn() {
+        String id = UUID.randomUUID().toString();     
         String promptText = cbbLoaiMon.getPromptText();
 
         if (promptText.equals("Món Khai Vị")) {
-            tmForAdd = menubus.getTitleMenu("KV");
+            tmForAdd = menubus.getTitleMenu("KV");          
         }
         if (promptText.equals("Món Tráng Miệng")) {
             tmForAdd = menubus.getTitleMenu("TM");
@@ -280,19 +289,11 @@ public class FXMLMenuController implements Initializable {
         if (promptText.equals("Món Chính")) {
             tmForAdd = menubus.getTitleMenu("MC");
         }
-        System.out.println(cbbLoaiMon.getPromptText());
-        System.out.println(tmForAdd);
-        TitleMenu titleMenu = null;
-        Menu mn = new Menu(id, tmForAdd,//cbbLoaiMon.getItems(), 
+        Menu mn = new Menu(id, tmForAdd,
                 txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage, true, false);
         int kq = menubus.addMenu(mn);
         setAlert(kq);
-        //---------------------Sua Mon An-------------------//
-//        Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
-//                txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
-//                statusForUpdate, isSelecrForUpdate);
-//        menubus.update(updateMenu);
-        // setAlert(kq);
+        load(tmForAdd.getTitleId(), promptText);
     }
 
     @FXML
@@ -306,34 +307,25 @@ public class FXMLMenuController implements Initializable {
         textClear();
         txtMonAn.setPromptText("Nhập vào tên món ăn");
         txtGia.setPromptText("Nhập vào giá");
-        txtMoTa.setPromptText("Thêm mô tả về món ăn này");
-        //----------------//
+        txtMoTa.setPromptText("Thêm mô tả về món ăn này");     
     }
 
     @FXML
-    private void xoaAction(ActionEvent event) {
-        Menu updateMenu = new Menu();
+    private void xoaAction(ActionEvent event) {   
         String gia = txtGia.getText();
         gia = gia.replaceAll("[VNĐ,]", "");
         txtGia.setText(gia);
         Optional<ButtonType> result = AlertOfMe.alertResult(Alert.AlertType.WARNING, "Bạn có chắc chắn muốn xóa món: "
                 + txtMonAn.getText());
         if (result.get() == ButtonType.OK) {
-//            Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
-//                    txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
-//                    false, false);
-            updateMenu.setMenuId(idMenuForUpdate);
-            updateMenu.setMenuName(txtMoTa.getText());
-            updateMenu.setTitleMenu(tmForUpdate);
-            updateMenu.setImage(urlImage);
-            updateMenu.setPrice(txtGia.getText());
-            updateMenu.setDescription(txtMoTa.getText());
-            updateMenu.setStatus(false);
-            updateMenu.setIsSelect(false);
+            Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
+                    txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
+                    Boolean.FALSE, false);
+            menubus.update(updateMenu);
 //            if (menubus.update(updateMenu) == 1) {
-//                Alert.alert("Xóa thành công!");
+//                AlertOfMe.alert("Xóa thành công!");
 //            }
-            //loadFirst();
+             loadFirst();
         }
     }
 
@@ -346,8 +338,6 @@ public class FXMLMenuController implements Initializable {
         String gia = txtGia.getText();
         gia = gia.replaceAll("[VNĐ,]", "");
         txtGia.setText(gia);
-        //-----//
-
     }
 
     private void setAlert(int kq) {
@@ -362,7 +352,7 @@ public class FXMLMenuController implements Initializable {
         }
         if (kq == 1) {
             AlertOfMe.alert("Thêm món ăn thành công!");
-           textClear();
+            textClear();
             editAble(false);
             txtMonAn.setPromptText(null);
             txtGia.setPromptText(null);
@@ -376,12 +366,10 @@ public class FXMLMenuController implements Initializable {
         FileChooser filechoi = new FileChooser();
         File file = filechoi.showOpenDialog(stage);
         if (file != null) {
-
-            urlImage = file.toString();
-            imageMonAn.setImage(new Image(urlImage));
+            urlImage = file.toURI().toString();
             System.out.println(urlImage);
+            imageMonAn.setImage(new Image(urlImage));
         }
-
     }
 
     private void editAble(Boolean bool) {
@@ -395,53 +383,4 @@ public class FXMLMenuController implements Initializable {
         txtMoTa.clear();
         txtMonAn.clear();
     }
-
-//    class BooleanCell extends TableCell<Menu, Boolean> {
-//
-//        private CheckBox checkBox;
-//
-//        public BooleanCell() {
-//            checkBox = new CheckBox();
-//            checkBox.setDisable(true);
-//            checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-//                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-//                    if (isEditing()) {
-//                        commitEdit(newValue == null ? false : newValue);
-//                    }
-//                }
-//            });
-//            this.setGraphic(checkBox);
-//            this.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//            this.setEditable(true);
-//        }
-//
-//        @Override
-//        public void startEdit() {
-//            super.startEdit();
-//            if (isEmpty()) {
-//                return;
-//            }
-//            checkBox.setDisable(false);
-//            checkBox.requestFocus();
-//        }
-//
-//        @Override
-//        public void cancelEdit() {
-//            super.cancelEdit();
-//            checkBox.setDisable(true);
-//        }
-//
-//        public void commitEdit(Boolean value) {
-//            super.commitEdit(value);
-//            checkBox.setDisable(true);
-//        }
-//
-//        @Override
-//        public void updateItem(Boolean item, boolean empty) {
-//            super.updateItem(item, empty);
-//            if (!isEmpty()) {
-//                checkBox.setSelected(item);
-//            }
-//        }
-//    }
 }

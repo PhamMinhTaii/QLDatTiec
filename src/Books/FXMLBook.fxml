@@ -16,34 +16,18 @@
             <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="167.0">
                <children>
                   <Label text="Ngày Đãi Tiệc" />
-                  <DatePicker editable="false" prefHeight="25.0" prefWidth="150.0" promptText="Chọn ngày đãi tiệc" />
                   <VBox alignment="TOP_CENTER" prefHeight="235.0" prefWidth="167.0">
-                     <children>
-                        <Label text="Chọn Thời Gian" />
-                        <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Sáng (8h - 11h)">
-                           <opaqueInsets>
-                              <Insets right="1.0" />
-                           </opaqueInsets>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="time" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Trưa (11h - 1h)" toggleGroup="$time">
-                           <opaqueInsets>
-                              <Insets top="10.0" />
-                           </opaqueInsets>
-                        </RadioButton>
-                        <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Chiều (1h - 15h)" toggleGroup="$time" />
-                        <RadioButton alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="17.0" prefWidth="112.0" text="Tối (18-22h)" toggleGroup="$time" />
-                        <Label text="Chọn Sảnh" />
-                        <CheckBox mnemonicParsing="false" text="Sảnh A (Lớn)" />
-                        <CheckBox mnemonicParsing="false" text="Sảnh B (Nhỏ)" />
-                        <CheckBox mnemonicParsing="false" text="Sảnh C (Vừa)" />
-                        <CheckBox mnemonicParsing="false" text="Sảnh D (VIP)" />
-                     </children>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <children>
+                        <Label text="Chọn Ngày" />
+                        <DatePicker prefHeight="25.0" prefWidth="149.0" />
+                        <Label text="Chọn Sảnh" />
+                        <ComboBox prefWidth="150.0" />
+                        <Label text="'" />
+                        <ComboBox prefWidth="150.0" />
+                     </children>
                   </VBox>
                </children>
             </VBox>

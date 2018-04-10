@@ -29,9 +29,7 @@ public class MenuDAO {
     private Session session;
     private Transaction transaction;
 
-    public MenuDAO() {
-        //  connect();
-    }
+  
 
     public void connect() {
         session = sessionFactory.openSession();
@@ -41,19 +39,19 @@ public class MenuDAO {
     public List<Menu> loadMenu(String titleMenu) {
         try {
             connect();
-            Session session = HibernateUtil.getSessionFactory().openSession();
+           // Session session = HibernateUtil.getSessionFactory().openSession();
 //            Criteria cr = session.createCriteria(Menu.class);            
 //            Menu mn=new Menu();
 //            cr.add(Restrictions.eq(mn.getTitleMenu().toString(),"TM"));            
 //            return cr.list();
 
-            String hql = "FROM Menu mn WHERE mn.titleMenu = '" + titleMenu + "' AND status=1";
+            String hql =String.format("FROM Menu WHERE titleMenu = '%s' AND status=1",titleMenu);
             Query query = session.createQuery(hql);
             List<Menu> listMenu = query.list();
 
             return listMenu;
         } catch (Exception ex) {
-            return null;
+            throw ex;
         } finally {
             session.close();
         }
@@ -63,13 +61,13 @@ public class MenuDAO {
     public List<Menu> loadAllMenu() {
         try {
             connect();
-            Session session = HibernateUtil.getSessionFactory().openSession();
+            //Session session = HibernateUtil.getSessionFactory().openSession();
             String hql = "FROM Menu WHERE status=1";
             Query query = session.createQuery(hql);
             List<Menu> listMenu = query.list();
             return listMenu;
         } catch (Exception ex) {
-            return null;
+            throw ex;
         } finally {
             session.close();
         }
@@ -79,7 +77,7 @@ public class MenuDAO {
     public List<TitleMenu> loadTitleMenu() {
         try {
             connect();
-            Session session = HibernateUtil.getSessionFactory().openSession();
+           // Session session = HibernateUtil.getSessionFactory().openSession();
             String hql = "FROM TitleMenu";
             Query query = session.createQuery(hql);
             List<TitleMenu> listMenu = query.list();
@@ -100,11 +98,10 @@ public class MenuDAO {
 //            session.update(mn);
 //            session.getTransaction().commit();
             session.update(mn);
-            transaction.commit();
-
+            transaction.commit();           
         } catch (Exception ex) {
-            //throw ex;
-            System.out.println(ex.toString());
+            //throw ex;            
+            System.out.println(ex.toString());           
         } finally {
             session.close();
         }
@@ -134,8 +131,7 @@ public class MenuDAO {
             List<TitleMenu> list = query.list();
             TitleMenu tm = new TitleMenu();
             for (TitleMenu t : list) {
-                tm = t;
-                System.out.println(t.getTitleId() + " " + t.getTitleName());
+                tm = t;              
             }
             return tm;
         } catch (Exception ex) {
