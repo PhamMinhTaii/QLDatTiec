@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -58,11 +60,28 @@ public class FXMLMainController implements Initializable {
     private Label lblD3;
     @FXML
     private Label lblD4;
+    @FXML
+    private Label lblToi;
+    @FXML
+    private Label lblChieu;
+    @FXML
+    private Label lblTrua;
+    @FXML
+    private Label lblSang;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnLogout.setOnAction(new LogOut());
+        formatLabel();
 
+    }
+    
+    private void formatLabel(){     
+        lblSang.setGraphic(new ImageView(new Image("Images/m.png")));
+        lblTrua.setGraphic(new ImageView(new Image("Images/ch.png")));
+        lblChieu.setGraphic(new ImageView(new Image("Images/tr.png")));
+        lblToi.setGraphic(new ImageView(new Image("Images/t.png")));
+        
     }
 
     @FXML
