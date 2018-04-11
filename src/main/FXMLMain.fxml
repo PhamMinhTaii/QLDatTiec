@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -12,18 +13,18 @@
    <tabs>
       <Tab text="Trang chủ">
          <content>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="726.0">
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="726.0" styleClass="Pane" stylesheets="@fxmlmain.css">
                <children>
                   <VBox />
                   <VBox GridPane.columnIndex="1" />
-                  <HBox layoutX="549.0" layoutY="4.0" prefHeight="42.0" prefWidth="177.0">
+                  <HBox layoutX="378.0" layoutY="4.0" prefHeight="18.0" prefWidth="348.0" style="-fx-border-color: #b6d4e0;">
                      <children>
-                        <Label fx:id="lbUserSession" alignment="CENTER" prefHeight="42.0" prefWidth="94.0" style="-fx-background-color: red;" styleClass="lbusername" textAlignment="CENTER" textFill="#221e1e" />
-                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="41.0" prefWidth="84.0" text="Đăng Xuất" />
+                        <Label fx:id="lbUserSession" alignment="CENTER" prefHeight="31.0" prefWidth="214.0" style="-fx-background-color: #b6d4e0;" styleClass="lbusername" text="Tinh" textAlignment="CENTER" textFill="#221e1e" />
+                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="18.0" prefWidth="136.0" style="-fx-border-color: #b6d4e0; -fx-border-width: 2;" styleClass="Button" text="Đăng Xuất" />
                      </children>
                   </HBox>
-                  <Button layoutX="588.0" layoutY="71.0" mnemonicParsing="false" onAction="#moveUserForm" prefHeight="25.0" prefWidth="132.0" text="Quản Lý Tài Khoản" />
-                  <GridPane layoutX="16.0" layoutY="61.0" prefHeight="171.0" prefWidth="307.0">
+                  <Button layoutX="495.0" layoutY="61.0" mnemonicParsing="false" onAction="#moveUserForm" prefHeight="29.0" prefWidth="232.0" styleClass="Button" text="Quản Lý Tài Khoản" />
+                  <GridPane layoutX="16.0" layoutY="61.0" prefHeight="171.0" prefWidth="479.0" styleClass="GridPane">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="79.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="0.0" prefWidth="64.0" />
@@ -39,52 +40,56 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Sảnh B" GridPane.columnIndex="2" />
-                        <Label text="Sảnh D" GridPane.columnIndex="4" />
-                        <Label text="Sảnh A" GridPane.columnIndex="1" />
-                        <Label text="Sảnh B" GridPane.columnIndex="3" />
-                        <Label text="Tối" GridPane.rowIndex="4" />
-                        <Label text="Chiều" GridPane.rowIndex="3" />
-                        <Label text="Trưa" GridPane.rowIndex="2" />
-                        <Label text="Sáng" GridPane.rowIndex="1" />
-                        <Label fx:id="lblA1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="lblA2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="lblB1" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label fx:id="lblB2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Label fx:id="lblA3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="lblB3" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Label fx:id="lblA4" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="lblB4" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <Label fx:id="lblC1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label fx:id="lblC2" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Label fx:id="lblC4" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                        <Label fx:id="lblD1" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                        <Label fx:id="lblD2" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                        <Label fx:id="lblC3" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <Label fx:id="lblD3" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Label fx:id="lblD4" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <Label prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #a0dbc7; -fx-text-fill: black;" styleClass="Label" text="Sảnh B" GridPane.columnIndex="2" />
+                        <Label prefHeight="37.0" prefWidth="99.0" style="-fx-background-color: #dba9a0; -fx-text-fill: black;" styleClass="Label" text="Sảnh D" GridPane.columnIndex="4" />
+                        <Label prefHeight="40.0" prefWidth="94.0" style="-fx-background-color: #a0d2db; -fx-text-fill: black;" styleClass="Label" text="Sảnh A" GridPane.columnIndex="1" />
+                        <Label prefHeight="35.0" prefWidth="89.0" style="-fx-background-color: #a0dbc7; -fx-text-fill: black;" styleClass="Label" text="Sảnh C" GridPane.columnIndex="3" />
+                        <Label fx:id="lblToi" prefHeight="30.0" prefWidth="108.0" style="-fx-font-style: bold; -fx-: bold;" styleClass="Label" text="Tối" GridPane.rowIndex="4" />
+                        <Label fx:id="lblChieu" prefHeight="30.0" prefWidth="109.0" style="-fx-font-style: bold;" styleClass="Label" text="Chiều" GridPane.rowIndex="3" />
+                        <Label fx:id="lblTrua" prefHeight="30.0" prefWidth="108.0" style="-fx-font-style: bold;" styleClass="Label" text="Trưa" GridPane.rowIndex="2" />
+                        <Label fx:id="lblSang" prefHeight="30.0" prefWidth="109.0" style="-fx-font-size: bold;" styleClass="Label" text="Sáng" GridPane.rowIndex="1" />
+                        <Label fx:id="lblA1" styleClass="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblA2" prefHeight="30.0" prefWidth="94.0" styleClass="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblB1" styleClass="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lblB2" styleClass="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label fx:id="lblA3" styleClass="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblB3" styleClass="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="lblA4" styleClass="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblB4" styleClass="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Label fx:id="lblC1" styleClass="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label fx:id="lblC2" styleClass="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label fx:id="lblC4" styleClass="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <Label fx:id="lblD1" styleClass="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Label fx:id="lblD2" styleClass="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <Label fx:id="lblC3" styleClass="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label fx:id="lblD3" styleClass="Label" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <Label fx:id="lblD4" styleClass="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <Label styleClass="Label" text="Đã đặt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <DatePicker fx:id="dpicker" layoutX="96.0" layoutY="31.0" prefHeight="24.0" prefWidth="194.0" />
-                  <TextField layoutX="-1.0" layoutY="232.0" prefHeight="33.0" prefWidth="726.0" />
-                  <TableView layoutX="2.0" layoutY="267.0" prefHeight="230.0" prefWidth="720.0">
+                  <DatePicker fx:id="dpicker" layoutX="124.0" layoutY="28.0" prefHeight="29.0" prefWidth="253.0" style="-fx-border-color: #b6d4e0;" />
+                  <TextField layoutX="-1.0" layoutY="237.0" prefHeight="30.0" prefWidth="726.0" promptText="  Tìm kiếm . . ." />
+                  <TableView layoutX="-4.0" layoutY="267.0" prefHeight="230.0" prefWidth="734.0" styleClass="TableView">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />
                     </columns>
                   </TableView>
-                  <Label layoutX="25.0" layoutY="35.0" text="Chọn Ngày" />
+                  <Label layoutX="14.0" layoutY="29.0" style="-fx-text-fill: black;" styleClass="Label" text="Chọn Ngày" />
+                  <Label layoutX="495.0" layoutY="135.0" prefHeight="23.0" prefWidth="127.0" style="-fx-background-color: #a0d2db;" text="Sảnh nhỏ" />
+                  <Label layoutX="495.0" layoutY="170.0" prefHeight="23.0" prefWidth="127.0" style="-fx-background-color: #a0dbc7;" text="Sảng vừa" />
+                  <Label layoutX="495.0" layoutY="209.0" prefHeight="23.0" prefWidth="127.0" style="-fx-background-color: #dba9a0;" text="Sảnh VIP" />
                </children>
             </Pane>
          </content>
       </Tab>
-      <Tab text="Tra cứu">
+      <Tab text="Đặt Tiệc">
          <content>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="Pane" stylesheets="@fxmlmain.css">
                <children>
-                  <Button layoutX="29.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Thống Kê " />
-                  <Button layoutX="26.0" layoutY="48.0" mnemonicParsing="false" onAction="#datTiecCuoiAction" prefHeight="25.0" prefWidth="119.0" text="Đặt Tiệc Cưới" />
-                  <StackedBarChart layoutX="226.0" layoutY="83.0">
+                  <Button layoutX="440.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" styleClass="Button" text="Thống Kê " />
+                  <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#datTiecCuoiAction" prefHeight="25.0" prefWidth="233.0" styleClass="Button" text="Đặt Tiệc Cưới" />
+                  <StackedBarChart layoutX="47.0" layoutY="83.0" prefHeight="403.0" prefWidth="651.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -92,8 +97,8 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </StackedBarChart>
-                  <ComboBox layoutX="562.0" layoutY="71.0" prefWidth="150.0" />
-                  <Button layoutX="29.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Thống Kê Quý" />
+                  <ComboBox layoutX="531.0" layoutY="58.0" prefHeight="25.0" prefWidth="181.0" style="-fx-background-color: #b6d4e0;" />
+                  <Button layoutX="590.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" styleClass="Button" text="Thống Kê Quý" />
                </children>
             </Pane>
          </content>
