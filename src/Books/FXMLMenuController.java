@@ -12,6 +12,7 @@ import BUS.MenuBUS;
 import CommonConstance.*;
 import DAO.HibernateUtil;
 import entity.*;
+import static java.awt.SystemColor.window;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Optional;
 import java.util.UUID;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -32,6 +34,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -57,6 +60,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import org.hibernate.Session;
 import sun.plugin2.main.server.LiveConnectSupport;
@@ -116,7 +120,7 @@ public class FXMLMenuController implements Initializable {
     TitleMenu tmForAdd = null;
     boolean statusForUpdate = true;
     boolean isSelecrForUpdate = false;
-    int i = 0;
+    String addOrUpdate = null;
 
     // CheckBox cbChon = new CheckBox();
     /**
@@ -136,32 +140,30 @@ public class FXMLMenuController implements Initializable {
     private void comboBoxAction(ActionEvent event) {
         if (cbbLoaiMon.getValue().equals("Món khai vị")) {
             cbbLoaiMon.getItems().clear();
-            load("KV", "Món Khai Vị");
+            load("KV", "Món khai vị");
         }
         if (cbbLoaiMon.getValue().equals("Món tráng miệng")) {
             cbbLoaiMon.getItems().clear();
-            load("TM", "Món Tráng Miệng");
+            load("TM", "Món tráng miệng");
         }
         if (cbbLoaiMon.getValue().equals("Nước uống")) {
             cbbLoaiMon.getItems().clear();
-            load("N", "Đồ Uống");
+            load("N", "Đồ uống");
         }
         if (cbbLoaiMon.getValue().equals("Món chính")) {
             cbbLoaiMon.getItems().clear();
-            load("MC", "Món Chính");
+            load("MC", "Món chính");
         }
     }
 
     // Form Load
     private void load(String title, String promptText) {
-        txtMonAn.setEditable(false);
-        txtGia.setEditable(false);
-        txtMoTa.setEditable(false);
-        imageMonAn.setFitHeight(230);
-        imageMonAn.setFitWidth(360);
-        imageMonAn.setPreserveRatio(true);
+        editAble(false);
+        textClear();
+        btnChonHinh.setVisible(false);
         // load ComboBox
         cbbLoaiMon.setPromptText(promptText);
+        cbbLoaiMon.getItems().clear();
         List<TitleMenu> listTitle = menubus.loadTitleMenu();
         for (TitleMenu titlemenu : listTitle) {
             cbbLoaiMon.getItems().add(titlemenu.getTitleName());
@@ -188,7 +190,6 @@ public class FXMLMenuController implements Initializable {
                     mn.getMenuName(), mn.getPrice(), mn.getDescription(), mn.getImage(),
                     mn.getStatus(), false);
             menubus.update(mnTemp);
-            System.out.println(i);
 
         });
         load("KV", "Món khai vị");
@@ -205,9 +206,11 @@ public class FXMLMenuController implements Initializable {
                     // dinh dang so tien
                     float temp = Float.parseFloat(mn.getPrice());
                     String money = String.format("%0,3.0fVNĐ", temp);
+                    if(mn.getImage()!=null){
+                        imageMonAn.setImage(new Image(mn.getImage()));
+                    }
                     txtGia.setText(money);
-                    txtMoTa.setText(mn.getDescription());
-                    imageMonAn.setImage(new Image(mn.getImage()));
+                    txtMoTa.setText(mn.getDescription());                                        
                     idMenuForUpdate = mn.getMenuId();
                     tmForUpdate = mn.getTitleMenu();
                     statusForUpdate = mn.getStatus();
@@ -259,40 +262,19 @@ public class FXMLMenuController implements Initializable {
 //        } else {
 //            System.out.println("Danh sach rong");
 //        }
+       // ((((Node) (e.getSource())).getScene()).getWindow()).hide();
+       
     }
 
     @FXML
     private void luuAction(ActionEvent event) throws IOException {
-        //---------------------Them Mon An-------------------//
-        String id = UUID.randomUUID().toString();
-        String ttmn = null;
-        String promptText = cbbLoaiMon.getPromptText();
-
-        if (promptText.equals("Món Khai Vị")) {
-            tmForAdd = menubus.getTitleMenu("KV");
+        System.out.println(addOrUpdate);
+        if (addOrUpdate.equals("add")) {
+            themMonAn();
         }
-        if (promptText.equals("Món Tráng Miệng")) {
-            tmForAdd = menubus.getTitleMenu("TM");
+        if (addOrUpdate.equals("update")) {
+            suaMonAn();;
         }
-        if (promptText.equals("Đồ Uống")) {
-            tmForAdd = menubus.getTitleMenu("N");
-        }
-        if (promptText.equals("Món Chính")) {
-            tmForAdd = menubus.getTitleMenu("MC");
-        }
-        System.out.println(cbbLoaiMon.getPromptText());
-        System.out.println(tmForAdd);
-        TitleMenu titleMenu = null;
-        Menu mn = new Menu(id, tmForAdd,//cbbLoaiMon.getItems(), 
-                txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage, true, false);
-        int kq = menubus.addMenu(mn);
-        setAlert(kq);
-        //---------------------Sua Mon An-------------------//
-//        Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
-//                txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
-//                statusForUpdate, isSelecrForUpdate);
-//        menubus.update(updateMenu);
-        // setAlert(kq);
     }
 
     @FXML
@@ -301,53 +283,21 @@ public class FXMLMenuController implements Initializable {
     }
 
     @FXML
-    private void themAction(ActionEvent event) {
-        editAble(true);
-        textClear();
-        txtMonAn.setPromptText("Nhập vào tên món ăn");
-        txtGia.setPromptText("Nhập vào giá");
-        txtMoTa.setPromptText("Thêm mô tả về món ăn này");
-        //----------------//
-    }
-
-    @FXML
     private void xoaAction(ActionEvent event) {
-        Menu updateMenu = new Menu();
         String gia = txtGia.getText();
         gia = gia.replaceAll("[VNĐ,]", "");
         txtGia.setText(gia);
         Optional<ButtonType> result = AlertOfMe.alertResult(Alert.AlertType.WARNING, "Bạn có chắc chắn muốn xóa món: "
                 + txtMonAn.getText());
         if (result.get() == ButtonType.OK) {
-//            Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
-//                    txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
-//                    false, false);
-            updateMenu.setMenuId(idMenuForUpdate);
-            updateMenu.setMenuName(txtMoTa.getText());
-            updateMenu.setTitleMenu(tmForUpdate);
-            updateMenu.setImage(urlImage);
-            updateMenu.setPrice(txtGia.getText());
-            updateMenu.setDescription(txtMoTa.getText());
-            updateMenu.setStatus(false);
-            updateMenu.setIsSelect(false);
-//            if (menubus.update(updateMenu) == 1) {
-//                Alert.alert("Xóa thành công!");
-//            }
-            //loadFirst();
+            Menu menuUpdate = new Menu(idMenuForUpdate, tmForUpdate,
+                    txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
+                    false, false);
+            menubus.update(menuUpdate);
+            AlertOfMe.alert("Xóa thành công!");
         }
-    }
-
-    @FXML
-    private void suaAction(ActionEvent event) {
-        editAble(true);
-        txtMonAn.setPromptText("Sửa tên món ăn");
-        txtGia.setPromptText("Sửa giá");
-        txtMoTa.setPromptText("Sửa mô tả về món ăn này");
-        String gia = txtGia.getText();
-        gia = gia.replaceAll("[VNĐ,]", "");
-        txtGia.setText(gia);
-        //-----//
-
+        load(tmForUpdate.getTitleId(),
+                tmForUpdate.getTitleName());
     }
 
     private void setAlert(int kq) {
@@ -362,7 +312,7 @@ public class FXMLMenuController implements Initializable {
         }
         if (kq == 1) {
             AlertOfMe.alert("Thêm món ăn thành công!");
-           textClear();
+            textClear();
             editAble(false);
             txtMonAn.setPromptText(null);
             txtGia.setPromptText(null);
@@ -385,6 +335,11 @@ public class FXMLMenuController implements Initializable {
     }
 
     private void editAble(Boolean bool) {
+        if (bool == false) {
+            txtGia.setPromptText(null);
+            txtMoTa.setPromptText(null);
+            txtMonAn.setPromptText(null);
+        }
         txtMonAn.setEditable(bool);
         txtGia.setEditable(bool);
         txtMoTa.setEditable(bool);
@@ -396,52 +351,57 @@ public class FXMLMenuController implements Initializable {
         txtMonAn.clear();
     }
 
-//    class BooleanCell extends TableCell<Menu, Boolean> {
-//
-//        private CheckBox checkBox;
-//
-//        public BooleanCell() {
-//            checkBox = new CheckBox();
-//            checkBox.setDisable(true);
-//            checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-//                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-//                    if (isEditing()) {
-//                        commitEdit(newValue == null ? false : newValue);
-//                    }
-//                }
-//            });
-//            this.setGraphic(checkBox);
-//            this.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//            this.setEditable(true);
-//        }
-//
-//        @Override
-//        public void startEdit() {
-//            super.startEdit();
-//            if (isEmpty()) {
-//                return;
-//            }
-//            checkBox.setDisable(false);
-//            checkBox.requestFocus();
-//        }
-//
-//        @Override
-//        public void cancelEdit() {
-//            super.cancelEdit();
-//            checkBox.setDisable(true);
-//        }
-//
-//        public void commitEdit(Boolean value) {
-//            super.commitEdit(value);
-//            checkBox.setDisable(true);
-//        }
-//
-//        @Override
-//        public void updateItem(Boolean item, boolean empty) {
-//            super.updateItem(item, empty);
-//            if (!isEmpty()) {
-//                checkBox.setSelected(item);
-//            }
-//        }
-//    }
+    @FXML
+    private void themAction(ActionEvent event) {
+        addOrUpdate = "add";
+        editAble(true);
+        btnChonHinh.setVisible(true);
+        textClear();
+        txtMonAn.setPromptText("Nhập vào tên món ăn");
+        txtGia.setPromptText("Nhập vào giá");
+        txtMoTa.setPromptText("Thêm mô tả về món ăn này");
+    }
+
+    private void themMonAn() {
+        String id = UUID.randomUUID().toString();
+        String promptText = cbbLoaiMon.getPromptText();
+        if (promptText.equals("Món khai vị")) {
+            tmForAdd = menubus.getTitleMenu("KV");
+        }
+        if (promptText.equals("Món tráng miệng")) {
+            tmForAdd = menubus.getTitleMenu("TM");
+        }
+        if (promptText.equals("Đồ uống")) {
+            tmForAdd = menubus.getTitleMenu("N");
+        }
+        if (promptText.equals("Món chính")) {
+            tmForAdd = menubus.getTitleMenu("MC");
+        }
+        Menu mn = new Menu(id, tmForAdd, txtMonAn.getText(),
+                txtGia.getText(), txtMoTa.getText(), urlImage, true, false);
+        int kq = menubus.addMenu(mn);
+        setAlert(kq);
+        load(tmForAdd.getTitleId(), promptText);
+    }
+
+    private void suaMonAn() {
+        Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
+                txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
+                statusForUpdate, isSelecrForUpdate);
+        menubus.update(updateMenu);
+        AlertOfMe.alert("Sửa món ăn thành công!");
+        loadFirst();
+    }
+
+    @FXML
+    private void suaAction(ActionEvent event) {
+        addOrUpdate = "update";
+        editAble(true);
+        txtMonAn.setPromptText("Sửa tên món ăn");
+        txtGia.setPromptText("Sửa giá");
+        txtMoTa.setPromptText("Sửa mô tả về món ăn này");
+        String gia = txtGia.getText();
+        gia = gia.replaceAll("[VNĐ,]", "");
+        txtGia.setText(gia);
+    }
 }
