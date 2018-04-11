@@ -89,8 +89,8 @@
                <children>
                   <Button fx:id="btnDrawBarChart" layoutX="440.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" styleClass="Button" text="Thống Kê " />
                   <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#datTiecCuoiAction" prefHeight="25.0" prefWidth="233.0" styleClass="Button" text="Đặt Tiệc Cưới" />
-                  <ComboBox layoutX="531.0" layoutY="58.0" prefHeight="25.0" prefWidth="181.0" style="-fx-background-color: #b6d4e0;" />
-                  <Button layoutX="590.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" styleClass="Button" text="Thống Kê Quý" />
+                  <ComboBox fx:id="cbYears" layoutX="531.0" layoutY="58.0" prefHeight="25.0" prefWidth="181.0" style="-fx-background-color: #b6d4e0;" />
+                  <Button fx:id="btnDrawPieChart" layoutX="590.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" styleClass="Button" text="Thống Kê Quý" />
                   <BarChart fx:id="salaryBooking" layoutX="4.0" layoutY="105.0" prefHeight="385.0" prefWidth="719.0" visible="false">
                     <xAxis>
                       <CategoryAxis label="Months" side="BOTTOM" />
@@ -99,6 +99,38 @@
                       <NumberAxis label="Numbers" prefHeight="323.0" prefWidth="43.0" side="LEFT" />
                     </yAxis>
                   </BarChart>
+                  <PieChart fx:id="pieChart" layoutX="253.0" layoutY="138.0" prefHeight="345.0" prefWidth="459.0" visible="false" />
+                  <GridPane fx:id="Numbers" alignment="CENTER" layoutX="25.0" layoutY="232.0" prefHeight="169.0" prefWidth="170.0" visible="false">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="42.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="58.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="71.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="40.0" text="Quý" />
+                        <Label text="Số Lượng" GridPane.columnIndex="1" />
+                        <Label text="I" GridPane.rowIndex="1" />
+                        <Label text="II" GridPane.rowIndex="2" />
+                        <Label text="III" GridPane.rowIndex="3" />
+                        <Label text="IV" GridPane.rowIndex="4" />
+                        <Label text="Phần Trăm" GridPane.columnIndex="2" />
+                        <Label fx:id="lblQuantity_I" alignment="CENTER" prefHeight="36.0" prefWidth="52.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblQuantity_II" alignment="CENTER" layoutX="51.0" layoutY="44.0" prefHeight="36.0" prefWidth="52.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblQuantity_III" alignment="CENTER" layoutX="51.0" layoutY="78.0" prefHeight="36.0" prefWidth="52.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblQuantity_IV" alignment="CENTER" prefHeight="36.0" prefWidth="52.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblPercent_I" alignment="CENTER" prefHeight="36.0" prefWidth="52.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lblPercent_II" alignment="CENTER" prefHeight="36.0" prefWidth="52.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label fx:id="lblPercent_III" alignment="CENTER" prefHeight="36.0" prefWidth="52.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="lblPercent_IV" alignment="CENTER" prefHeight="36.0" prefWidth="52.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                     </children>
+                  </GridPane>
                </children>
             </Pane>
          </content>
