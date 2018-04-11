@@ -23,26 +23,31 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.Business.DrawBarChart;
+import main.Business.DrawChart;
 import main.Business.VisibleRoom;
 
 public class FXMLMainController implements Initializable {
 
     protected final RoomBUS roomBUS = new RoomBUS();
-    private List<Booking> result = null;
+    private List<Booking> listBooking = null;
     @FXML
     private Label lbUserSession;
     @FXML
     private Button btnLogout;
     @FXML
     private Button btnDrawBarChart;
+    @FXML
+    private Button btnDrawPieChart;
     @FXML
     private DatePicker dpicker;
     @FXML
@@ -85,25 +90,60 @@ public class FXMLMainController implements Initializable {
     private Label lblTrua;
     @FXML
     private Label lblSang;
-     @FXML
+    @FXML
     private BarChart<?, ?> salaryBooking;
-    private  int[] months; //= new int[12];
+    private int[] months; //= new int[12];
+    private int[] quarter;// =  new int[4];
+    @FXML
+    private PieChart pieChart;
+    @FXML
+    private GridPane Numbers;
+    @FXML
+    private ComboBox cbYears;
+
+    ///-----set label girdview
+    @FXML
+    private Label lblQuantity_I;
+    @FXML
+    private Label lblQuantity_II;
+    @FXML
+    private Label lblQuantity_III;
+    @FXML
+    private Label lblQuantity_IV;
+    @FXML
+    private Label lblPercent_I;
+    @FXML
+    private Label lblPercent_II;
+    @FXML
+    private Label lblPercent_III;
+    @FXML
+    private Label lblPercent_IV;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         formatLabel();
-        result = findListBooking();
+        listBooking = findListBooking();
         dpicker.setValue(LocalDate.now());
-        setGridView(result);
+        setGridViewBooking(listBooking);
         dpicker.setOnAction(y -> {
-            setGridView(result);
+            setGridViewBooking(listBooking);
         });
-        btnDrawBarChart.setOnAction((event) -> {
-          
-            DrawBarChart.drawBarChar(salaryBooking, result, months);
-        });
+        DrawChart.setComBoxYears(listBooking, cbYears); // khởi tạo combobox  chọn năm
 
-        btnLogout.setOnAction(new LogOut());
+        btnDrawBarChart.setOnAction((event) -> {
+            pieChart.setVisible(false);
+            Numbers.setVisible(false);
+            int yearSelected = Integer.parseInt(cbYears.getValue().toString());
+            DrawChart.drawBarChar(salaryBooking, listBooking, months, yearSelected);
+        });
+        btnDrawPieChart.setOnAction((event) -> {
+            salaryBooking.setVisible(false);
+            Numbers.setVisible(true);
+            int yearSelected = Integer.parseInt(cbYears.getValue().toString());
+            quarter = DrawChart.drawPieChar(pieChart, listBooking, quarter, yearSelected);
+            setGridViewChart(quarter);
+            btnLogout.setOnAction(new LogOut());
+        });
     }
 
     private void formatLabel() {
@@ -135,17 +175,17 @@ public class FXMLMainController implements Initializable {
         stage.initStyle(StageStyle.UTILITY);
         SetStage.setStage(stage, scene, 645, 550);
     }
-    
-    public List<Booking> findListBooking(){
+
+    public List<Booking> findListBooking() {
         try {
-         return roomBUS.findListRoomID();   
+            return roomBUS.findListRoomID();
         } catch (Exception e) {
             AlertOfMe.alert("Lỗi Hệ Thống");
         }
-         return null;
+        return null;
     }
-    
-    public void setGridView(List<Booking> list) {
+
+    public void setGridViewBooking(List<Booking> list) {
 
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -179,7 +219,22 @@ public class FXMLMainController implements Initializable {
             Logger.getLogger(FXMLMainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void setGridViewChart(int[] quarter) {
+        int total = quarter[0] + quarter[1] + quarter[2] + quarter[3]; // tính tổng để tính %
+        //--set lbl số lượng
+        lblQuantity_I.setText(String.valueOf(quarter[0]));
+        lblQuantity_II.setText(String.valueOf(quarter[1]));
+        lblQuantity_III.setText(String.valueOf(quarter[2]));
+        lblQuantity_IV.setText(String.valueOf(quarter[3]));        
+        //--set lbl phần trăm
+        lblPercent_I.setText(perCent(quarter[0], total));
+        lblPercent_II.setText(perCent(quarter[1], total));
+        lblPercent_III.setText(perCent(quarter[2], total));
+        lblPercent_IV.setText(perCent(quarter[3], total));
+
+    }
+
     public void clear() {
         lblA1.setText(null);
         lblA2.setText(null);
@@ -198,6 +253,10 @@ public class FXMLMainController implements Initializable {
         lblD3.setText(null);
         lblD4.setText(null);
 
+    }
+
+    public String perCent(int count, int total) {
+        return String.format("%.2f", ((double) count / total) * 100);
     }
 
     public void getsessionUser(String userSession) {
