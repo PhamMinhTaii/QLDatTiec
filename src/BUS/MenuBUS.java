@@ -36,18 +36,11 @@ public class MenuBUS {
         return menuDAO.loadTitleMenu();
     }
 
-    // Luu checkBox chon mon
+    // update
     public void update(Menu mn) {
 
         try {
-            menuDAO.update(mn);
-
-//            if (ktraMenu(mn.getMenuName(), mn.getPrice(), mn.getDescription()) == 1) {
-//                menuDAO.update(mn);
-//               //return 1;
-//            }
-            //return ktraMenu(mn.getMenuName(), mn.getPrice(), mn.getDescription());
-            //menuDAO.update(mn);
+             menuDAO.update(mn);                       
         } catch (Exception ex) {
             throw ex;
         }
