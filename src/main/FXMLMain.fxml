@@ -64,7 +64,7 @@
                         <Label fx:id="lblC3" styleClass="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                         <Label fx:id="lblD3" styleClass="Label" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                         <Label fx:id="lblD4" styleClass="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                        <Label styleClass="Label" text="Đã đặt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label styleClass="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <DatePicker fx:id="dpicker" layoutX="124.0" layoutY="28.0" prefHeight="29.0" prefWidth="253.0" style="-fx-border-color: #b6d4e0;" />
@@ -87,18 +87,18 @@
          <content>
             <Pane prefHeight="200.0" prefWidth="200.0" styleClass="Pane" stylesheets="@fxmlmain.css">
                <children>
-                  <Button layoutX="440.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" styleClass="Button" text="Thống Kê " />
+                  <Button fx:id="btnDrawBarChart" layoutX="440.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" styleClass="Button" text="Thống Kê " />
                   <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#datTiecCuoiAction" prefHeight="25.0" prefWidth="233.0" styleClass="Button" text="Đặt Tiệc Cưới" />
-                  <StackedBarChart layoutX="47.0" layoutY="83.0" prefHeight="403.0" prefWidth="651.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </StackedBarChart>
                   <ComboBox layoutX="531.0" layoutY="58.0" prefHeight="25.0" prefWidth="181.0" style="-fx-background-color: #b6d4e0;" />
                   <Button layoutX="590.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" styleClass="Button" text="Thống Kê Quý" />
+                  <BarChart fx:id="salaryBooking" layoutX="4.0" layoutY="105.0" prefHeight="385.0" prefWidth="719.0" visible="false">
+                    <xAxis>
+                      <CategoryAxis label="Months" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Numbers" prefHeight="323.0" prefWidth="43.0" side="LEFT" />
+                    </yAxis>
+                  </BarChart>
                </children>
             </Pane>
          </content>
