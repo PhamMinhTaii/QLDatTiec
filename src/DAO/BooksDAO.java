@@ -47,7 +47,6 @@ public class BooksDAO {
         }
     }
 
-    // load listview Menu
     public List<Menu> loadListMenu() {
         try {
             connect();
@@ -66,4 +65,80 @@ public class BooksDAO {
             session.close();
         }
     }
+    // load combobox concept
+
+    public List<Concept> loadConcept() {
+        try {
+            connect();
+            String hql = "FROM Concept";
+            Query query = session.createQuery(hql);
+            List<Concept> listConcept = query.list();
+            return listConcept;
+        } catch (Exception ex) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    // su ly combobox
+    public List<Concept> loadConceptForText(String name) {
+        try {
+            connect();
+            String hql = String.format("FROM Concept WHERE Color = '%s'", name);
+            Query query = session.createQuery(hql);
+            List<Concept> listConcept = query.list();
+            return listConcept;
+        } catch (Exception ex) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+    // load combobox room
+    public List<Room> loadCbbRom() {
+        try {
+            connect();
+            String hql = String.format("FROM Room");
+            Query query = session.createQuery(hql);
+            List<Room> listRoom = query.list();
+            return listRoom;
+        } catch (Exception ex) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+    // load room id
+     public Room getRomId(String nameRoom) {
+        try {
+            connect();
+            String hql = String.format("FROM Room WHERE roomName = '%s'",nameRoom);
+            Query query = session.createQuery(hql);
+            List<Room> list = query.list();
+            Room rm = new Room();
+            for (Room r : list) {
+                rm = r;
+            }
+            return rm;
+        } catch (Exception ex) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+    // add book
+     public void addBook(Booking b){
+         try {
+            connect();
+            session.save(b);
+            transaction.commit();            
+        } catch (Exception ex) {
+            System.out.println(ex.toString());           
+        } finally {
+            session.close();
+        }
+     }
+    
+
 }

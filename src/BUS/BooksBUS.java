@@ -60,4 +60,38 @@ public class BooksBUS {
         }
     }
 
+    // load combobox concept
+    public List<Concept> loadConcept() {
+        try {
+            return booksDao.loadConcept();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+    // su ly combobox
+
+    public List<Concept> loadConceptForText(String name) {
+        try {
+            return booksDao.loadConceptForText(name);
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+    // load combobox room
+    public List<Room> loadCbbRom() {
+        try {
+            return booksDao.loadCbbRom();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+    // load room id
+     public Room getRomId(String nameRoom) {
+         return booksDao.getRomId(nameRoom);
+     }
+     // add book
+      private void addBook(Booking b){
+          booksDao.addBook(b);
+      }
+
 }
