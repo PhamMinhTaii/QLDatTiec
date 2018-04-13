@@ -65,7 +65,7 @@ public class UserDAO {
         }
     }
 
-    public User findUserName(String userName) {
+    public User findUser(String userName) {
         connettion();
         Criteria cr = session.createCriteria(User.class);
 
@@ -76,6 +76,22 @@ public class UserDAO {
 
         } catch (NoSuchElementException e) {
             return null;
+        } finally {
+            session.close();
+        }
+    }
+    
+    public String findUserName(String userID) {
+        connettion();
+        Criteria criteria = session.createCriteria(User.class);
+        try {
+            Criterion id = Restrictions.eq("id", userID);
+            criteria.add(id);
+            return ((User) criteria.list().stream().findFirst().get()).getFirstName() + " "
+                    + ((User) criteria.list().stream().findFirst().get()).getLastName();
+        } catch (HibernateException e) {
+            trans.rollback();
+            throw e;
         } finally {
             session.close();
         }
@@ -98,7 +114,7 @@ public class UserDAO {
     }
 
     public User Login(String userName) {
-        return findUserName(userName);
+        return findUser(userName);
     }
 
     public int insertUser(User entity) {
