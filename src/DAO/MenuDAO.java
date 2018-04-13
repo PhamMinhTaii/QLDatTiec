@@ -43,8 +43,8 @@ public class MenuDAO {
 //            cr.add(Restrictions.eq(mn.getTitleMenu().toString(),"TM"));            
 //            return cr.list();
 
-            String hql = String.format("FROM Menu WHERE titleMenu = '%s' AND status=1", titleMenu);
-            Query query = session.createQuery(hql);
+            String hql =String.format("FROM Menu WHERE titleMenu = '%s' AND status=1",titleMenu);            
+            Query query = session.createQuery(hql);            
             List<Menu> listMenu = query.list();
 
             return listMenu;

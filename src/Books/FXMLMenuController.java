@@ -12,7 +12,6 @@ import BUS.MenuBUS;
 import CommonConstance.*;
 import DAO.HibernateUtil;
 import entity.*;
-import static java.awt.SystemColor.window;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,7 +59,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Callback;
 import org.hibernate.Session;
 import sun.plugin2.main.server.LiveConnectSupport;
@@ -176,7 +174,6 @@ public class FXMLMenuController implements Initializable {
         List<Menu> list = menubus.loadMenu(title);
         lsMenu = FXCollections.observableArrayList();
         list.forEach((s) -> {
-            System.out.println(s.getMenuName());
             lsMenu.addAll(s);
         });
         tableMenu.setItems(lsMenu);
@@ -206,11 +203,11 @@ public class FXMLMenuController implements Initializable {
                     // dinh dang so tien
                     float temp = Float.parseFloat(mn.getPrice());
                     String money = String.format("%0,3.0fVNĐ", temp);
-                    if(mn.getImage()!=null){
+                    if (mn.getImage() != null) {
                         imageMonAn.setImage(new Image(mn.getImage()));
                     }
                     txtGia.setText(money);
-                    txtMoTa.setText(mn.getDescription());                                        
+                    txtMoTa.setText(mn.getDescription());
                     idMenuForUpdate = mn.getMenuId();
                     tmForUpdate = mn.getTitleMenu();
                     statusForUpdate = mn.getStatus();
@@ -254,16 +251,36 @@ public class FXMLMenuController implements Initializable {
     }
 
     @FXML
-    private void datmonAction(ActionEvent event) {
-//        if (listChonMon != null) {
-//            listChonMon.forEach(s -> {
-//                System.err.println(s.getMenuName() + " " + s.getPrice());
-//            });
-//        } else {
-//            System.out.println("Danh sach rong");
-//        }
-       // ((((Node) (e.getSource())).getScene()).getWindow()).hide();
-       
+    private void datmonAction(ActionEvent event) throws IOException {
+        // dong form menu
+//        Parent root = FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
+//        Stage stage = new Stage();
+//        stage.setScene(new Scene(root));
+       // stage = (Stage) btnDatMon.getScene().getWindow();
+        //stage.close();
+        // dong form book
+        //-----------//     
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLBook.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage = (Stage) btnDatMon.getScene().getWindow();
+        stage.close();
+        // chuyen du lieu
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXMLBook.fxml"));
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            throw ex;
+        }
+        FXMLBookController bookController = loader.getController();
+        bookController.loadLvMenu(listChonMon);
+        bookController.isClosed(true);
+        root = loader.getRoot();        
+        stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
     @FXML
@@ -273,7 +290,7 @@ public class FXMLMenuController implements Initializable {
             themMonAn();
         }
         if (addOrUpdate.equals("update")) {
-            suaMonAn();;
+            suaMonAn();
         }
     }
 
