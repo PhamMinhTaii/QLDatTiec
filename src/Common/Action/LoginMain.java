@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import main.FXMLMainController;
 
 public class LoginMain {
@@ -25,6 +26,8 @@ public class LoginMain {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setTitle("Hệ Thống Tiệc Cưới T&T");
+            stage.initStyle(StageStyle.UTILITY);
             stage.show();
 
         } catch (IOException ex) {

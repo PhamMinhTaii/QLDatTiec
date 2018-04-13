@@ -1,9 +1,9 @@
 package frmUserManagement;
 
 import BUS.UserBUS;
-import Common.Action.BackFrmUser;
 import Common.Action.Delete;
 import Common.Action.LogOut;
+import Common.Action.LoginMain;
 import Common.Action.OpenAdd;
 import Common.Action.OpenAdvance;
 import Common.Action.OpenEditFrm;
@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 public class FXMLUserManagementController implements Initializable {
 
     private final UserBUS userBUS = new UserBUS();
+     private final LoginMain login = new LoginMain();
     private String userNameDel;
     private ObservableList<User> lsUsers;
     @FXML
@@ -79,8 +80,7 @@ public class FXMLUserManagementController implements Initializable {
         });
         btnLogOut.setOnAction(new LogOut());
         btnAdvance.setOnAction(new OpenAdvance(lbUserSession));
-       // txtUserSession.setText(lbUserSession.getText());
-       // btnBack.setOnAction(new BackFrmUser(txtUserSession));
+        btnBack.setOnAction(new BackFormMain());
     }
 
     public void loadUser(String keyWord) {
@@ -134,6 +134,16 @@ public class FXMLUserManagementController implements Initializable {
                 lsUsers.clear();
                 loadUser("");
             }
+        }
+    }
+    
+    class BackFormMain implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent e) {
+            login.login(lbUserSession.getText());
+            ((((Node) (e.getSource())).getScene()).getWindow()).hide();
+
         }
     }
 
