@@ -29,6 +29,12 @@ public class BookingDetail  implements java.io.Serializable {
        this.menu = menu;
        this.discount = discount;
     }
+    public BookingDetail( Booking booking, Menu menu, String discount) {
+       
+       this.booking = booking;
+       this.menu = menu;
+       this.discount = discount;
+    }
    
     public BookingDetailId getId() {
         return this.id;

@@ -36,8 +36,8 @@ public class Customer implements java.io.Serializable {
 
     public Customer(String id, String text, String text0, String text1, String text2, String sex) {
         this.customterId = id;
-        this.firstName = text0;
-        this.lastName = text1;
+        this.firstName = text;
+        this.lastName = text0;
         this.phone = text1;
         this.address = text2;
         this.gender = sex;

@@ -95,6 +95,7 @@ public class BooksDAO {
             session.close();
         }
     }
+
     // load combobox room
     public List<Room> loadCbbRom() {
         try {
@@ -109,11 +110,12 @@ public class BooksDAO {
             session.close();
         }
     }
+
     // load room id
-     public Room getRomId(String nameRoom) {
+    public Room getRomId(String nameRoom) {
         try {
             connect();
-            String hql = String.format("FROM Room WHERE roomName = '%s'",nameRoom);
+            String hql = String.format("FROM Room WHERE roomName = '%s'", nameRoom);
             Query query = session.createQuery(hql);
             List<Room> list = query.list();
             Room rm = new Room();
@@ -127,18 +129,69 @@ public class BooksDAO {
             session.close();
         }
     }
+
     // add book
-     public void addBook(Booking b){
-         try {
+    public void addBook(Booking b) {
+        try {
             connect();
             session.save(b);
-            transaction.commit();            
+            transaction.commit();
         } catch (Exception ex) {
-            System.out.println(ex.toString());           
+            System.out.println(ex.toString());
         } finally {
             session.close();
         }
-     }
-    
+    }
+
+    // get concept
+    public Concept getConcept(String idConcept) {
+        try {
+            connect();
+            String hql = String.format("FROM Concept WHERE conceptId = '%s'", idConcept);
+            Query query = session.createQuery(hql);
+            List<Concept> list = query.list();
+            Concept rm = new Concept();
+            for (Concept r : list) {
+                rm = r;
+            }
+            return rm;
+        } catch (Exception ex) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    // get menu
+    public void addBookDetail(BookingDetail bd) {
+        try {
+            connect();
+            session.save(bd);
+            transaction.commit();
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    // get user
+    public User getUSer(String userName) {
+        try {
+            connect();
+            String hql = String.format("FROM User WHERE userName = '%s'", userName);
+            Query query = session.createQuery(hql);
+            List<User> list = query.list();
+            User us = new User();
+            for (User u : list) {
+                us = u;
+            }
+            return us;
+        } catch (Exception ex) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
 
 }

@@ -40,6 +40,17 @@ public class Booking  implements java.io.Serializable {
        this.shift = shift;
        this.bookingDetails = bookingDetails;
     }
+     public Booking(String bookingId, Concept concept, Customer customer, Room room, User user, String description, Date bookingDate, String shift) {
+       this.bookingId = bookingId;
+       this.concept = concept;
+       this.customer = customer;
+       this.room = room;
+       this.user = user;
+       this.description = description;
+       this.bookingDate = bookingDate;
+       this.shift = shift;
+      
+    }
    
     public String getBookingId() {
         return this.bookingId;

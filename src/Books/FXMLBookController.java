@@ -8,9 +8,13 @@ package Books;
 import BUS.BooksBUS;
 import CommonConstance.*;
 import entity.*;
+import frmUserManagement.FXMLUserManagementController;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -104,9 +108,13 @@ public class FXMLBookController implements Initializable {
     StringProperty stringp = new SimpleStringProperty();
 
     String idConcept = null;
-    List<String> idMenu = new ArrayList<>();
+    List<Menu> menu = new ArrayList<>();
     String idRoom = null;
     String isShift = null;
+    Date dateBook = null;
+    Room room = null;
+    int soBan = 0;
+    double tongTienListMenu = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -134,18 +142,18 @@ public class FXMLBookController implements Initializable {
 
 // Load listview Menu
     public void loadLvMenu(List<Menu> mn) {
-        double tongTien = 0;
+        menu = mn;
+        
         int i = 0;
         // List<Menu> list = bookBus.loadListMenu();
         for (Menu m : mn) {
             i++;
             tienAn = Float.parseFloat(m.getPrice());
-            tongTien += tienAn;
+            tongTienListMenu += tienAn;
             String giaTien = String.format("%0,3.0fVNĐ", tienAn);
             lvMenu.getItems().add(i + "-" + m.getMenuName() + "   " + giaTien);
-            idMenu.add(m.getMenuId());
         }
-        String giaTien = String.format("%0,3.0fVNĐ", tongTien);
+        String giaTien = String.format("%0,3.0fVNĐ", tongTienListMenu);
         lvMenu.getItems().add("-------------------------------------------");
         lvMenu.getItems().add("Tổng Tiền: " + giaTien);
         lblTienDoAn.setText(giaTien);
@@ -175,6 +183,10 @@ public class FXMLBookController implements Initializable {
         }
     }
 
+    private void getUser(String userName) {
+
+    }
+
     private void loadCCBRoom() {
         ccSanh.getItems().clear();
         List<Room> listRoom = bookBus.loadCbbRom();
@@ -184,77 +196,108 @@ public class FXMLBookController implements Initializable {
     }
 
     @FXML
-    private void chonSanhAction(ActionEvent event) {
-        if (ccSanh.getValue().equals("Sảnh A")) {
-            Room r = bookBus.getRomId("Sảnh A");
-            idRoom = r.getRoomId();
+    private void chonSanhAction(ActionEvent event) {       
+        double tongTienDoAn =tongTienListMenu;         
+        if (ccSanh.getValue().equals("A")) {
+            Room r = bookBus.getRomId("A");
+            room = r;
+            soBan = 20;
         }
-        if (ccSanh.getValue().equals("Sảnh B")) {
-            Room r = bookBus.getRomId("Sảnh B");
-            idRoom = r.getRoomId();
+        if (ccSanh.getValue().equals("B")) {
+            Room r = bookBus.getRomId("B");
+            room = r;
+            soBan = 30;
         }
-        if (ccSanh.getValue().equals("Sảnh C")) {
-            Room r = bookBus.getRomId("Sảnh C");
-            idRoom = r.getRoomId();
+        if (ccSanh.getValue().equals("C")) {
+            Room r = bookBus.getRomId("C");
+            room = r;
+            soBan = 30;
         }
-        if (ccSanh.getValue().equals("Sảnh D")) {
-            Room r = bookBus.getRomId("Sảnh D");
-            idRoom = r.getRoomId();
+        if (ccSanh.getValue().equals("D")) {
+            Room r = bookBus.getRomId("D");
+            room = r;
+            soBan = 50;
         }
+        tienPhong = Float.parseFloat(room.getPrice());
+        String giaTien = String.format("%0,3.0fVNĐ", tienPhong);
+        lblDatPhong.setText(giaTien + "   (" + soBan + "bàn)");
+        
+        tongTienDoAn*=soBan;
+        String tienTong = String.format("%0,3.0fVNĐ", tongTienDoAn);
+        lblTienDoAn.setText(tienTong);
     }
 
     @FXML
-    private void dateAction(ActionEvent event) {
+    private void dateAction(ActionEvent event) throws ParseException {
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        dateBook = date.parse(dateDatTiec.getValue().toString());
+        Concept c = new Concept();
     }
 
     @FXML
     private void chonCaAction(ActionEvent event) {
         if (ccCa.getValue().equals("8h Sáng")) {
-            isShift = "8h Sáng";
+            isShift = "8";
         }
         if (ccCa.getValue().equals("11h Trưa")) {
-            isShift = "11h Trưa";
+            isShift = "11";
         }
         if (ccCa.getValue().equals("15h Chiều")) {
-            isShift = "15h Chiều";
+            isShift = "15";
         }
         if (ccCa.getValue().equals("18h Tối")) {
-            isShift = "18h Tối";
+            isShift = "18";
         }
     }
 
     //---------------Phan CUSTOMER-----------------//
     @FXML
     private void saveCustomerAction(ActionEvent event) {
-        String bookId = UUID.randomUUID().toString();
-        System.out.println("----------------------");
-        System.out.println(idConcept);
-        for (String s : idMenu) {
-            System.out.println(s);
-        }
-        System.out.println(isShift);
-        System.out.println(idRoom);
-
+        String idBook = UUID.randomUUID().toString();
         try {
-            // luu thong tin khach hang
-            String sex = null;
-            String id = UUID.randomUUID().toString();
-            if (rdoNam.isSelected()) {
-                sex = "Nam";
+            if (menu.isEmpty()) {
+                AlertOfMe.alert("Bạn chưa chọn món ăn!");
+            } else {
+                // luu thong tin khach hang
+                String sex = null;
+                String idCustomer = UUID.randomUUID().toString();
+                if (rdoNam.isSelected()) {
+                    sex = "Nam";
+                }
+                if (rdoNu.isSelected()) {
+                    sex = "Nữ";
+                }
+                Customer c = new Customer(idCustomer, txtFirstName.getText(),
+                        txtLastName.getText(), txtPhone.getText(), txtAddress.getText(), sex);
+                int kq1 = bookBus.ktraCustomer(c.getFirstName(), c.getLastName(), c.getPhone(), c.getAddress());
+
+                // luu thong tin booking
+                Concept concept = bookBus.getConcept(idConcept);
+                //User user=bookBus.getUSer(userName);
+                Booking b = new Booking(idBook, concept, c, room, null, "Mo Ta",
+                        dateBook, isShift);
+                int kq2 = bookBus.ktraBook(b.getRoom(), b.getBookingDate(), b.getShift());
+                if (kq1 == 1 && kq2 == 1) {
+                    bookBus.addCustomer(c);
+                    bookBus.addBook(b);
+
+                    for (Menu mn : menu) {
+                        BookingDetailId idBD = new BookingDetailId(b.getBookingId(), mn.getMenuId());
+                        BookingDetail bd = new BookingDetail(idBD, b, mn, null);
+                        bookBus.addBookDetail(bd);
+                        cleanFinal();
+                    }
+                    cleanFinal();
+                }
+                // luu danh sach mon an
+
             }
-            if (rdoNu.isSelected()) {
-                sex = "Nữ";
-            }
-            Customer customer = new Customer(id, txtFirstName.getText(),
-                    txtLastName.getText(), txtPhone.getText(), txtAddress.getText(), sex);
-            int kq = bookBus.addCustomer(customer);
-            setAlert(kq);
         } catch (Exception ex) {
             throw ex;
         }
     }
 
-    //---------------Phan CONCEPT-----------------//
+//---------------Phan CONCEPT-----------------//
     private void getCCBConcept() {
         ccbConcept.getItems().clear();
         List<Concept> listConcept = bookBus.loadConcept();
@@ -276,7 +319,6 @@ public class FXMLBookController implements Initializable {
 
     private void ccbForText(String name) {
         ccbConcept.getItems().clear();
-
         List<Concept> listConcept = bookBus.loadConceptForText(name);
         for (Concept c : listConcept) {
             //ccbConcept.getItems().clear();
@@ -290,31 +332,28 @@ public class FXMLBookController implements Initializable {
             lblTienConcept.setText(giaTien);
             lblTrangTri.setText(giaTien);
             idConcept = c.getConceptId();
-
         }
         getCCBConcept();
         ccbConcept.setPromptText(name);
-
     }
 
-    private void setAlert(int kq) {
-
-        if (kq == -1) {
-            AlertOfMe.alert("Tên không đúng định dạng");
-        }
-        if (kq == -2) {
-            AlertOfMe.alert("SĐT không đúng định dạng");
-        }
-        if (kq == -3) {
-            AlertOfMe.alert("Địa chỉ không đúng định dạng");
-        }
-        if (kq == 1) {
-            AlertOfMe.alert("Thêm khách hàng thành công!");
-            txtAddress.clear();
-            txtFirstName.clear();
-            txtLastName.clear();
-            txtPhone.clear();
-        }
+    private void cleanFinal() {
+        txtAddress.clear();
+        txtFirstName.clear();
+        txtLastName.clear();
+        txtPhone.clear();
+        dateDatTiec.setValue(null);
+        ccCa.setPromptText(null);
+        ccSanh.setPromptText(null);
+        ccbConcept.setPromptText(null);
+        menu.clear();
+        txtBackground.clear();
+        txtFlower.clear();
+        txtTable.clear();
+        lblTienConcept.setText("");
+        lblTrangTri.setText("");
+        lblDatPhong.setText("");
+        lblTongTien.setText("");
+        lblTienDoAn.setText("");
     }
-
 }
