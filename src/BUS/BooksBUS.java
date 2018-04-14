@@ -5,9 +5,11 @@
  */
 package BUS;
 
+import CommonConstance.AlertOfMe;
 import CommonConstance.ReplaceString;
 import DAO.BooksDAO;
 import entity.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,16 +42,18 @@ public class BooksBUS {
         lastName = ReplaceString.UserName(lastName);
         String regexName = "[\\p{L}\\s]+";
         if (!firstName.matches(regexName) || !lastName.matches(regexName)) {
+             AlertOfMe.alert("Tên khách hàng không đúng định dạng");
             return -1;
         }
-        if (!phone.matches("\\d{10,13}")) {
+        if (!phone.matches("\\d{9,15}")) {
+             AlertOfMe.alert("SĐT không đúng định dạng");
             return -2;
         }
         if (!address.matches("[\\p{L}\\s\\d/]+")) {
+             AlertOfMe.alert("Địa chỉ không đúng định dạng");
             return -3;
         }
         return 1;
-
     }
 
     public List<Menu> loadListMenu() {
@@ -68,8 +72,8 @@ public class BooksBUS {
             throw ex;
         }
     }
-    // su ly combobox
 
+    // su ly combobox concept
     public List<Concept> loadConceptForText(String name) {
         try {
             return booksDao.loadConceptForText(name);
@@ -77,6 +81,7 @@ public class BooksBUS {
             throw ex;
         }
     }
+
     // load combobox room
     public List<Room> loadCbbRom() {
         try {
@@ -85,13 +90,70 @@ public class BooksBUS {
             throw ex;
         }
     }
-    // load room id
-     public Room getRomId(String nameRoom) {
-         return booksDao.getRomId(nameRoom);
-     }
-     // add book
-      private void addBook(Booking b){
-          booksDao.addBook(b);
-      }
 
+    // load room id
+    public Room getRomId(String nameRoom) {
+        try {
+            return booksDao.getRomId(nameRoom);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    // add book
+    public int addBook(Booking b) {
+        try {
+            if (ktraBook(b.getRoom(), b.getBookingDate(), b.getShift()) == 1) {
+                booksDao.addBook(b);
+                return 1;
+            }
+            return ktraBook(b.getRoom(), b.getBookingDate(), b.getShift());
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    //kiem tra booking    
+    public int ktraBook(Room room, Date dateBook, String isShift) {
+        if (room == null) {      
+              AlertOfMe.alert("Bạn chưa chọn Sảnh đặt tiệc!");
+            return -4;
+        }
+        if (dateBook == null) { 
+              AlertOfMe.alert("Bạn chưa chọn ngày đặt tiệc!");
+            return -5;
+        }
+        if (isShift == null) {    
+            AlertOfMe.alert("Bạn chưa chọn giờ đãi tiệc!");
+            return -6;
+        }
+        return 1;
+    }
+
+    //get concept
+    public Concept getConcept(String idConcept) {
+        try {
+            return booksDao.getConcept(idConcept);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    // add bookDetail
+    public void addBookDetail(BookingDetail bd) {
+        try {
+            booksDao.addBookDetail(bd);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    // get user
+    public User getUSer(String userName) {
+        try {
+            return booksDao.getUSer(userName);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

@@ -143,15 +143,15 @@
                 <Label text="Thuế" GridPane.rowIndex="1" />
                 <Label text="Giảm giá" GridPane.rowIndex="2" />
                 <Label text="Tiền dịch vụ giải trí" GridPane.rowIndex="3" />
-                <Label text="Tiền đồ ăn" GridPane.rowIndex="4" />
+                <Label text="Tiền đồ ăn (x số bàn)" GridPane.rowIndex="4" />
                 <Label text="Tiền trang trí" GridPane.rowIndex="5" />
                 <Label text="Tiền đặt phòng" />
-                <Label fx:id="lblTienDoAn" prefHeight="24.0" prefWidth="83.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Label fx:id="lblDatPhong" text="Label" GridPane.columnIndex="1" />
+                <Label fx:id="lblTienDoAn" prefHeight="24.0" prefWidth="187.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label fx:id="lblDatPhong" text="0" GridPane.columnIndex="1" />
                 <Label text="10%" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label fx:id="lblGiamGia" text="label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Label fx:id="lblTrangTri" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <Label fx:id="lblTongTien" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <Label fx:id="lblGiamGia" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label fx:id="lblTrangTri" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label fx:id="lblTongTien" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 <Button mnemonicParsing="false" onAction="#saveCustomerAction" prefHeight="33.0" prefWidth="259.0" styleClass="Button" text="Lưu" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <font>
                         <Font size="14.0" />
