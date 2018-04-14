@@ -57,6 +57,7 @@
                               <TextArea fx:id="txtMoTa" prefHeight="104.0" prefWidth="304.0" styleClass="TextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
+                  <Label fx:id="lbUserSession" text="Label" />
                         <Button fx:id="btnDatMon" mnemonicParsing="false" onAction="#datmonAction" prefHeight="50.0" prefWidth="124.0" styleClass="Button-DatMon" text="Đặt Món" />
                         <HBox prefHeight="42.0" prefWidth="362.0" styleClass="HBox">
                            <children>

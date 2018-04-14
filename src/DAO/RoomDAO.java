@@ -69,8 +69,8 @@ public class RoomDAO extends Connettion {
             session.close();
         }
     }
-    
-    public double priceMenu(String menuId){
+
+    public double priceMenu(String menuId) {
         try {
             connettion();
             Criteria criteria = session.createCriteria(Menu.class);
@@ -83,6 +83,22 @@ public class RoomDAO extends Connettion {
         } finally {
             session.close();
         }
+    }
+
+    public double takeQuantity(String roomId) {
+        try {
+            connettion();
+            Criteria criteria = session.createCriteria(Room.class);
+            Criterion id = Restrictions.eq("roomId", roomId);
+            criteria.add(id);
+            String quan = ((Room) criteria.list().stream().findFirst().get()).getQuantityTable();
+            return Double.parseDouble(quan);
+        } catch (NumberFormatException | HibernateException e) {
+            throw e;
+        } finally {
+            session.close();
+        }
+
     }
 
 }

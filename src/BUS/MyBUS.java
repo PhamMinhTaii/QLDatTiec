@@ -30,7 +30,8 @@ public class MyBUS extends Connettion {
                 double priceConcept = conceptBUS.priceConcept(idConcept);
                 double priceRoom = roomBUS.priceRoom(idRoom);
                 double countPriceMenu = roomBUS.countPriceMenu(e.getBookingId());
-                 
+                double quantity = roomBUS.takeQuantity(idRoom);
+                countPriceMenu *= quantity;
                 countTotal = priceConcept + priceRoom + countPriceMenu;
                 String money = String.format("%0,3.0f", countTotal);
                 String userName = userBUS.findUserName(idUser);
