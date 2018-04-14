@@ -1,5 +1,5 @@
 package entity;
-// Generated Apr 13, 2018 11:49:02 AM by Hibernate Tools 4.3.1
+// Generated Apr 14, 2018 3:16:17 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,6 +17,7 @@ public class Room  implements java.io.Serializable {
      private String price;
      private String description;
      private Boolean status;
+     private String quantityTable;
      private Set bookings = new HashSet(0);
 
     public Room() {
@@ -26,13 +27,14 @@ public class Room  implements java.io.Serializable {
     public Room(String roomId) {
         this.roomId = roomId;
     }
-    public Room(String roomId, String roomName, String location, String price, String description, Boolean status, Set bookings) {
+    public Room(String roomId, String roomName, String location, String price, String description, Boolean status, String quantityTable, Set bookings) {
        this.roomId = roomId;
        this.roomName = roomName;
        this.location = location;
        this.price = price;
        this.description = description;
        this.status = status;
+       this.quantityTable = quantityTable;
        this.bookings = bookings;
     }
    
@@ -77,6 +79,13 @@ public class Room  implements java.io.Serializable {
     
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+    public String getQuantityTable() {
+        return this.quantityTable;
+    }
+    
+    public void setQuantityTable(String quantityTable) {
+        this.quantityTable = quantityTable;
     }
     public Set getBookings() {
         return this.bookings;
