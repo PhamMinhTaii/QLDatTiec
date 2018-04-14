@@ -214,29 +214,27 @@ public class FXMLBookController implements Initializable {
         double tongTienDoAn = tongTienListMenu;
         if (ccSanh.getValue().equals("A")) {
             Room r = bookBus.getRomId("A");
-            room = r;
-            soBan = 20;
+            room = r;           
         }
         if (ccSanh.getValue().equals("B")) {
             Room r = bookBus.getRomId("B");
-            room = r;
-            soBan = 30;
+            room = r;            
         }
         if (ccSanh.getValue().equals("C")) {
             Room r = bookBus.getRomId("C");
-            room = r;
-            soBan = 30;
+            room = r;           
         }
         if (ccSanh.getValue().equals("D")) {
             Room r = bookBus.getRomId("D");
             room = r;
-            soBan = 50;
+           
         }
+        soBan=Integer.parseInt(room.getQuantityTable());
+        
         tienPhong = Float.parseFloat(room.getPrice());
         String giaTien = String.format("%0,3.0fVNĐ", tienPhong);
         tienBan = giaTien;
         lblDatPhong.setText(giaTien + "   (" + soBan + "bàn)");
-
         tongTienDoAn *= soBan;
         String tienTong = String.format("%0,3.0fVNĐ", tongTienDoAn);
         lblTienDoAn.setText(tienTong);
