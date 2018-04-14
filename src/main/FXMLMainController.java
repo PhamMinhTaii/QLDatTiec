@@ -2,6 +2,7 @@ package main;
 
 import BUS.MyBUS;
 import BUS.RoomBUS;
+import Books.FXMLBookController;
 import Common.Action.LogOut;
 import CommonConstance.AlertOfMe;
 import CommonConstance.ReplaceString;
@@ -46,7 +47,7 @@ import main.Business.DrawChart;
 import main.Business.VisibleRoom;
 
 public class FXMLMainController implements Initializable {
-    
+
     private final RoomBUS roomBUS = new RoomBUS();
     private final MyBUS myBUS = new MyBUS();
     private List<Booking> listBooking = null;
@@ -143,7 +144,7 @@ public class FXMLMainController implements Initializable {
     private TableColumn cPrice;
     @FXML
     private TableColumn cDate;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         formatLabel();
@@ -161,25 +162,34 @@ public class FXMLMainController implements Initializable {
         btnMoveUser.setOnAction(new MoveFormUser());
         btnLogout.setOnAction(new LogOut());
     }
-    
+
     private void formatLabel() {
         lblSang.setGraphic(new ImageView(new Image("Images/m.png")));
         lblTrua.setGraphic(new ImageView(new Image("Images/ch.png")));
         lblChieu.setGraphic(new ImageView(new Image("Images/tr.png")));
         lblToi.setGraphic(new ImageView(new Image("Images/t.png")));
     }
-    
+
     @FXML
     private void datTiecCuoiAction(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/Books/FXMLBook.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("/Books/FXMLBook.fxml"));
+//        Scene scene = new Scene(root);
+//        Stage stage = new Stage();
+//        stage.setScene(scene);
+//        stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Books/FXMLBook.fxml"));
+        Parent root = loader.load();
+        FXMLBookController display = loader.getController();
+        display.getsessionUser(lbUserSession.getText()); // đưa lên cho books
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
+        Stage stage = (Stage) (((Node) (event.getSource())).getScene()).getWindow();
         stage.setScene(scene);
         stage.show();
+
     }
-    
+
     class MoveFormUser implements EventHandler<ActionEvent> {
-        
+
         @Override
         public void handle(ActionEvent event) {
             try {
@@ -190,15 +200,15 @@ public class FXMLMainController implements Initializable {
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) (((Node) (event.getSource())).getScene()).getWindow();
                 stage.setScene(scene);
-               
+
                 SetStage.setStage(stage, scene, 645, 550);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLMainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
-    
+
     public List<Booking> findListBooking() {
         try {
             return roomBUS.findListRoomID();
@@ -207,16 +217,16 @@ public class FXMLMainController implements Initializable {
         }
         return null;
     }
-    
+
     public void setGridViewBooking(List<Booking> list) {
-        
+
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         try {
             clear();
             Date dateNow = f.parse(dpicker.getValue().toString());
-            
+
             for (Booking book : list) {
-                
+
                 Date date = f.parse(book.getBookingDate().toString());
                 if (date.equals(dateNow)) {
                     String roomName = roomBUS.findRoomName(book.getRoom().getRoomId());
@@ -242,7 +252,7 @@ public class FXMLMainController implements Initializable {
             Logger.getLogger(FXMLMainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void setGridViewChart(int[] quarter) {
         int total = quarter[0] + quarter[1] + quarter[2] + quarter[3]; // tính tổng để tính %
         //--set lbl số lượng
@@ -255,9 +265,9 @@ public class FXMLMainController implements Initializable {
         lblPercent_II.setText(perCent(quarter[1], total));
         lblPercent_III.setText(perCent(quarter[2], total));
         lblPercent_IV.setText(perCent(quarter[3], total));
-        
+
     }
-    
+
     public void clear() {
         lblA1.setText(null);
         lblA2.setText(null);
@@ -275,24 +285,24 @@ public class FXMLMainController implements Initializable {
         lblD2.setText(null);
         lblD3.setText(null);
         lblD4.setText(null);
-        
+
     }
-    
+
     public String perCent(int count, int total) {
         return String.format("%.2f", ((double) count / total) * 100);
     }
-    
+
     public void loadListBooking() {
         lsMyClass = FXCollections.observableArrayList();
         try {
             this.lsMyClass.addAll(myBUS.findListMyClass());
         } catch (Exception e) {
-            AlertOfMe.alert("Lỗi Load Dữ Liệu");
+            AlertOfMe.alert("Lỗi Load Dữ Liệu Booking");
         }
         tbListBooking.setItems(lsMyClass);
         setTableView();
     }
-    
+
     public void setTableView() {
         cUser.setCellValueFactory(new PropertyValueFactory("userName"));
         cCustomer.setCellValueFactory(new PropertyValueFactory("custommerName"));
@@ -300,13 +310,13 @@ public class FXMLMainController implements Initializable {
         cDate.setCellValueFactory(new PropertyValueFactory("date"));
         cPrice.setCellValueFactory(new PropertyValueFactory("money"));
     }
-    
+
     public void getsessionUser(String userSession) {
-        lbUserSession.setText(ReplaceString.UserName(userSession));
+        lbUserSession.setText(ReplaceString.UserName(userSession)); // nhận từ login
     }
-    
+
     class DrawPieChart implements EventHandler<ActionEvent> {
-        
+
         @Override
         public void handle(ActionEvent event) {
             salaryBooking.setVisible(false);
@@ -315,11 +325,11 @@ public class FXMLMainController implements Initializable {
             quarter = DrawChart.drawPieChar(pieChart, listBooking, quarter, yearSelected);
             setGridViewChart(quarter);
         }
-        
+
     }
-    
+
     class DrawBarChart implements EventHandler<ActionEvent> {
-        
+
         @Override
         public void handle(ActionEvent event) {
             pieChart.setVisible(false);
@@ -327,7 +337,7 @@ public class FXMLMainController implements Initializable {
             int yearSelected = Integer.parseInt(cbYears.getValue().toString());
             DrawChart.drawBarChar(salaryBooking, listBooking, months, yearSelected);
         }
-        
+
     }
-    
+
 }

@@ -8,7 +8,6 @@ package Books;
 import BUS.BooksBUS;
 import CommonConstance.*;
 import entity.*;
-import frmUserManagement.FXMLUserManagementController;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -108,7 +107,7 @@ public class FXMLBookController implements Initializable {
     StringProperty stringp = new SimpleStringProperty();
 
     String idConcept = null;
-    String tienBan= null;
+    String tienBan = null;
     List<Menu> menu = new ArrayList<>();
     String idRoom = null;
     String isShift = null;
@@ -116,6 +115,9 @@ public class FXMLBookController implements Initializable {
     Room room = null;
     int soBan = 0;
     double tongTienListMenu = 0;
+
+    @FXML
+    private Label lbUserSession;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -133,11 +135,19 @@ public class FXMLBookController implements Initializable {
 
     @FXML
     private void selectAction(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
+//        Scene scene = new Scene(root);
+//        Stage stage = new Stage();
+//        stage.setScene(scene);
+//        stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMenu.fxml"));
+        Parent root = loader.load();
+        FXMLMenuController display = loader.getController();
+        display.getsessionUser(lbUserSession.getText()); // đưa lên cho menu
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
 
     }
 
@@ -187,6 +197,9 @@ public class FXMLBookController implements Initializable {
     private void getUser(String userName) {
 
     }
+    public void getsessionUser(String userSession) {
+        lbUserSession.setText(userSession); // nhận từ main
+    }
 
     private void loadCCBRoom() {
         ccSanh.getItems().clear();
@@ -221,7 +234,7 @@ public class FXMLBookController implements Initializable {
         }
         tienPhong = Float.parseFloat(room.getPrice());
         String giaTien = String.format("%0,3.0fVNĐ", tienPhong);
-        tienBan=giaTien;
+        tienBan = giaTien;
         lblDatPhong.setText(giaTien + "   (" + soBan + "bàn)");
 
         tongTienDoAn *= soBan;
@@ -361,10 +374,10 @@ public class FXMLBookController implements Initializable {
 
     @FXML
     private void tongTienAction(ActionEvent event) {
-        float sumConcept=0;
-        float sumMenu=0;
-        float sumRoom=0;
-        double sum=0;
+        float sumConcept = 0;
+        float sumMenu = 0;
+        float sumRoom = 0;
+        double sum = 0;
         String gia = lblTrangTri.getText();
         gia = gia.replaceAll("[VNĐ,]", "");
         sumConcept = Float.parseFloat(gia);
@@ -373,12 +386,12 @@ public class FXMLBookController implements Initializable {
         gia = gia.replaceAll("[VNĐ,]", "");
         sumMenu = Float.parseFloat(gia);
 
-        gia =tienBan;
+        gia = tienBan;
         gia = gia.replaceAll("[VNĐ,]", "");
         sumRoom = Float.parseFloat(gia);
 
         sum = sumConcept + sumMenu + sumRoom;
-        sum+=(sum*0.1);
+        sum += (sum * 0.1);
         String tienTong = String.format("%0,3.0fVNĐ", sum);
         lblTongTien.setText(tienTong);
 

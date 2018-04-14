@@ -57,5 +57,13 @@ public class RoomBUS {
             throw e;
         }
     }
+    
+     public double takeQuantity(String roomId){
+         try {
+             return roomDAO.takeQuantity(roomId);
+         } catch (Exception e) {
+             throw e;
+         }
+     }
 
 }

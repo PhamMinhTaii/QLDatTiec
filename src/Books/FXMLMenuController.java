@@ -42,6 +42,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -106,6 +107,8 @@ public class FXMLMenuController implements Initializable {
     private Button btnChonHinh;
     @FXML
     private Pane pane;
+    @FXML
+    private Label lbUserSession;
 
     MenuBUS menubus = new MenuBUS();
     ObservableList<Menu> lsMenu;
@@ -256,7 +259,7 @@ public class FXMLMenuController implements Initializable {
 //        Parent root = FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
 //        Stage stage = new Stage();
 //        stage.setScene(new Scene(root));
-       // stage = (Stage) btnDatMon.getScene().getWindow();
+        // stage = (Stage) btnDatMon.getScene().getWindow();
         //stage.close();
         // dong form book
         //-----------//     
@@ -275,8 +278,9 @@ public class FXMLMenuController implements Initializable {
         }
         FXMLBookController bookController = loader.getController();
         bookController.loadLvMenu(listChonMon);
+         bookController.getsessionUser(lbUserSession.getText()); // trả usersession về cho book
         bookController.isClosed(true);
-        root = loader.getRoot();        
+        root = loader.getRoot();
         stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -420,5 +424,9 @@ public class FXMLMenuController implements Initializable {
         String gia = txtGia.getText();
         gia = gia.replaceAll("[VNĐ,]", "");
         txtGia.setText(gia);
+    }
+
+    public void getsessionUser(String userSession) {
+        lbUserSession.setText(ReplaceString.UserName(userSession)); // nhận từ book
     }
 }
