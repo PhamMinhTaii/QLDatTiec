@@ -139,7 +139,6 @@
         </VBox>
         <GridPane alignment="TOP_RIGHT" prefHeight="246.0" prefWidth="940.0" styleClass="GridPane1">
             <children>
-                <Label text="Tổng tiền" GridPane.rowIndex="6" />
                 <Label text="Thuế" GridPane.rowIndex="1" />
                 <Label text="Giảm giá" GridPane.rowIndex="2" />
                 <Label text="Tiền dịch vụ giải trí" GridPane.rowIndex="3" />
@@ -162,6 +161,7 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
+            <Button mnemonicParsing="false" onAction="#tongTienAction" prefHeight="30.0" prefWidth="150.0" styleClass="Button1" text="Tính tổng tiền" GridPane.rowIndex="6" />
             </children>
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="452.0" minWidth="10.0" prefWidth="153.0" />

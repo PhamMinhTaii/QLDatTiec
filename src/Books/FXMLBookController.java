@@ -104,10 +104,11 @@ public class FXMLBookController implements Initializable {
     private Label lblDatPhong;
     @FXML
     private Label lblGiamGia;
-    float tienAn, tienTrangTri, tienPhong, sum = 0;
+    float tienAn, tienTrangTri, tienPhong;
     StringProperty stringp = new SimpleStringProperty();
 
     String idConcept = null;
+    String tienBan= null;
     List<Menu> menu = new ArrayList<>();
     String idRoom = null;
     String isShift = null;
@@ -143,7 +144,7 @@ public class FXMLBookController implements Initializable {
 // Load listview Menu
     public void loadLvMenu(List<Menu> mn) {
         menu = mn;
-        
+
         int i = 0;
         // List<Menu> list = bookBus.loadListMenu();
         for (Menu m : mn) {
@@ -196,8 +197,8 @@ public class FXMLBookController implements Initializable {
     }
 
     @FXML
-    private void chonSanhAction(ActionEvent event) {       
-        double tongTienDoAn =tongTienListMenu;         
+    private void chonSanhAction(ActionEvent event) {
+        double tongTienDoAn = tongTienListMenu;
         if (ccSanh.getValue().equals("A")) {
             Room r = bookBus.getRomId("A");
             room = r;
@@ -220,9 +221,10 @@ public class FXMLBookController implements Initializable {
         }
         tienPhong = Float.parseFloat(room.getPrice());
         String giaTien = String.format("%0,3.0fVNĐ", tienPhong);
+        tienBan=giaTien;
         lblDatPhong.setText(giaTien + "   (" + soBan + "bàn)");
-        
-        tongTienDoAn*=soBan;
+
+        tongTienDoAn *= soBan;
         String tienTong = String.format("%0,3.0fVNĐ", tongTienDoAn);
         lblTienDoAn.setText(tienTong);
     }
@@ -355,5 +357,30 @@ public class FXMLBookController implements Initializable {
         lblDatPhong.setText("");
         lblTongTien.setText("");
         lblTienDoAn.setText("");
+    }
+
+    @FXML
+    private void tongTienAction(ActionEvent event) {
+        float sumConcept=0;
+        float sumMenu=0;
+        float sumRoom=0;
+        double sum=0;
+        String gia = lblTrangTri.getText();
+        gia = gia.replaceAll("[VNĐ,]", "");
+        sumConcept = Float.parseFloat(gia);
+
+        gia = lblTienDoAn.getText();
+        gia = gia.replaceAll("[VNĐ,]", "");
+        sumMenu = Float.parseFloat(gia);
+
+        gia =tienBan;
+        gia = gia.replaceAll("[VNĐ,]", "");
+        sumRoom = Float.parseFloat(gia);
+
+        sum = sumConcept + sumMenu + sumRoom;
+        sum+=(sum*0.1);
+        String tienTong = String.format("%0,3.0fVNĐ", sum);
+        lblTongTien.setText(tienTong);
+
     }
 }
