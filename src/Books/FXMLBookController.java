@@ -108,7 +108,7 @@ public class FXMLBookController implements Initializable {
 
     String idConcept = null;
     String tienBan = null;
-    List<Menu> menu = new ArrayList<>();
+    List<Menu> menu =new ArrayList<>();
     String idRoom = null;
     String isShift = null;
     Date dateBook = null;
@@ -147,7 +147,7 @@ public class FXMLBookController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
 
     }
 
@@ -165,7 +165,7 @@ public class FXMLBookController implements Initializable {
             lvMenu.getItems().add(i + "-" + m.getMenuName() + "   " + giaTien);
         }
         String giaTien = String.format("%0,3.0fVNĐ", tongTienListMenu);
-        lvMenu.getItems().add("-------------------------------------------");
+        lvMenu.getItems().add("     --------------------------------------");
         lvMenu.getItems().add("Tổng Tiền: " + giaTien);
         lblTienDoAn.setText(giaTien);
     }
@@ -286,8 +286,8 @@ public class FXMLBookController implements Initializable {
 
                 // luu thong tin booking
                 Concept concept = bookBus.getConcept(idConcept);
-                //User user=bookBus.getUSer(userName);
-                Booking b = new Booking(idBook, concept, c, room, null, "Mo Ta",
+                User user=bookBus.getUSer(lbUserSession.getText());
+                Booking b = new Booking(idBook, concept, c, room, user, null,
                         dateBook, isShift);
                 int kq2 = bookBus.ktraBook(b.getRoom(), b.getBookingDate(), b.getShift());
                 if (kq1 == 1 && kq2 == 1) {
@@ -297,9 +297,9 @@ public class FXMLBookController implements Initializable {
                     for (Menu mn : menu) {
                         BookingDetailId idBD = new BookingDetailId(b.getBookingId(), mn.getMenuId());
                         BookingDetail bd = new BookingDetail(idBD, b, mn, null);
-                        bookBus.addBookDetail(bd);
-                        cleanFinal();
+                        bookBus.addBookDetail(bd);                  
                     }
+                    AlertOfMe.alert("Lưu đơn đặt tiệc thành công!");
                     cleanFinal();
                 }
                 // luu danh sach mon an
@@ -359,7 +359,7 @@ public class FXMLBookController implements Initializable {
         ccCa.setPromptText(null);
         ccSanh.setPromptText(null);
         ccbConcept.setPromptText(null);
-        menu.clear();
+        menu=null;
         txtBackground.clear();
         txtFlower.clear();
         txtTable.clear();

@@ -232,22 +232,18 @@ public class FXMLMenuController implements Initializable {
 
                 CheckBox cbChon = new CheckBox();
                 cbChon.selectedProperty().setValue(mn.getIsSelect());
-//-------------------------------------------------------------------------------//     
                 cbChon.setOnMouseClicked((MouseEvent e) -> {
                     Menu mnCheckBox = new Menu(mn.getMenuId(), mn.getTitleMenu(),
                             mn.getMenuName(), mn.getPrice(), mn.getDescription(), mn.getImage(),
                             mn.getStatus(), mn.getIsSelect());
                     if (cbChon.isSelected()) {
-                        listChonMon.add(mnCheckBox);
                         mnCheckBox.setIsSelect(true);
                         menubus.update(mnCheckBox);
                     } else {
-                        listChonMon.remove(mnCheckBox);
                         mnCheckBox.setIsSelect(false);
                         menubus.update(mnCheckBox);
                     }
                 });
-//-------------------------------------------------------------------------------//            
                 return new SimpleObjectProperty<CheckBox>(cbChon);
             }
         });
@@ -256,13 +252,18 @@ public class FXMLMenuController implements Initializable {
     @FXML
     private void datmonAction(ActionEvent event) throws IOException {
         // dong form menu
-//        Parent root = FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
-//        Stage stage = new Stage();
-//        stage.setScene(new Scene(root));
-        // stage = (Stage) btnDatMon.getScene().getWindow();
-        //stage.close();
-        // dong form book
-        //-----------//     
+//        Parent root1 = FXMLLoader.load(getClass().getResource("FXMLMenu.fxml"));
+//        
+//        Stage stage1 = new Stage();
+//        stage1.setScene(new Scene(root1));
+//        stage1 = (Stage) btnDatMon.getScene().getWindow();
+//        stage1.close();
+
+        List<Menu> listIsSelect = menubus.loadMenuisSelect();
+        for (Menu mn : listIsSelect) {
+            listChonMon.add(mn);
+        }
+
         Parent root = FXMLLoader.load(getClass().getResource("FXMLBook.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -278,7 +279,7 @@ public class FXMLMenuController implements Initializable {
         }
         FXMLBookController bookController = loader.getController();
         bookController.loadLvMenu(listChonMon);
-         bookController.getsessionUser(lbUserSession.getText()); // trả usersession về cho book
+        bookController.getsessionUser(lbUserSession.getText()); // trả usersession về cho book
         bookController.isClosed(true);
         root = loader.getRoot();
         stage = new Stage();

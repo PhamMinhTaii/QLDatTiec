@@ -133,6 +133,25 @@ public class MenuDAO {
             session.close();
         }
     }
+    // load menu isSelect
+     public List<Menu> loadMenuisSelect() {
+        try {
+            connect();
+            List<Menu> list = null;
+            String hql = "FROM Menu WHERE status = 1 AND isSelect = 1";
+            Query query = session.createQuery(hql);
+            list = query.list();
+            for (Menu mn : list) {
+                System.out.println(mn.getMenuName() + " " + mn.getPrice());
+            }
+            return query.list();
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+            return null;
+        } finally {
+            session.close();
+        }
+    }
 
     // Reset isSelect 
     public void resetSelect() {

@@ -78,5 +78,9 @@ public class MenuBUS {
     public TitleMenu getTitleMenu(String id) {
         return menuDAO.getTitleMenu(id);
     }
+     // load menu isSelect
+     public List<Menu> loadMenuisSelect() {
+         return menuDAO.loadMenuisSelect();
+     }
 
 }
