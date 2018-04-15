@@ -4,22 +4,54 @@ import java.util.Date;
 
 public class MyClass {
 
+    /**
+     * @return the vat
+     */
+    public String getVat() {
+        return vat;
+    }
+
+    /**
+     * @param vat the vat to set
+     */
+    public void setVat(String vat) {
+        this.vat = vat;
+    }
+
+    /**
+     * @return the totalMoney
+     */
+    public String getTotalMoney() {
+        return totalMoney;
+    }
+
+    /**
+     * @param totalMoney the totalMoney to set
+     */
+    public void setTotalMoney(String totalMoney) {
+        this.totalMoney = totalMoney;
+    }
+
     private String userName;
     private String roomName;
     private String custommerName;
     private Date date;
     private String money;
+    private String vat;
+    private String totalMoney;
 
     public MyClass() {
 
     }
 
-    public MyClass(String userName, String roomName, String custommerName, Date date, String money) {
+    public MyClass(String userName, String roomName, String custommerName, Date date, String count, String vat, String total) {
         this.userName = userName;
         this.roomName = roomName;
         this.custommerName = custommerName;
         this.date = date;
-        this.money = money;
+        this.money = count;
+        this.vat = vat;
+        this.totalMoney = total;
     }
 
     /**

@@ -4,6 +4,9 @@ import entity.Booking;
 import entity.BookingDetail;
 import entity.Room;
 import entity.Menu;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -11,12 +14,28 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 public class RoomDAO extends Connettion {
+    private Date dateNow;
+    private String keyWord;
 
-    public List<Booking> findListRoomID() {
+    
+    public List<Booking> findListRoomID(String key) throws ParseException {
         connettion();
 
         try {
             Criteria criteria = session.createCriteria(Booking.class);
+            if (key.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                if (!key.isEmpty()) {
+                    SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                    String keyWord = key;
+                    dateNow = f.parse(keyWord);
+                    Criterion c = Restrictions.eq("bookingDate", dateNow);
+                    criteria.add(c);
+                }
+            }
+            else{
+                
+            }
+
             return criteria.list();
         } catch (HibernateException e) {
             trans.rollback();
