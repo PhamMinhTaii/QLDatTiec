@@ -2,6 +2,7 @@ package Common.Action;
 
 import BUS.UserBUS;
 import CommonConstance.AlertOfMe;
+import CommonConstance.SetStage;
 import Login.FXMLLoginController;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -28,7 +29,7 @@ public class LoginMain {
             stage.setScene(scene);
             stage.setTitle("Hệ Thống Tiệc Cưới T&T");
             stage.initStyle(StageStyle.UTILITY);
-            stage.show();
+            SetStage.setStage(stage, scene, 725, 525);
 
         } catch (IOException ex) {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);

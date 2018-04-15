@@ -3,6 +3,7 @@ package BUS;
 import DAO.RoomDAO;
 import entity.Booking;
 import entity.BookingDetail;
+import java.text.ParseException;
 import java.util.List;
 
 public class RoomBUS {
@@ -11,10 +12,10 @@ public class RoomBUS {
     private final ConceptBUS conceptBUS = new ConceptBUS();
     double count;
 
-    public List<Booking> findListRoomID() {
+    public List<Booking> findListRoomID(String key) throws ParseException {
         try {
-            return roomDAO.findListRoomID();
-        } catch (Exception e) {
+            return roomDAO.findListRoomID(key);
+        } catch (ParseException e) {
             throw e;
         }
     }

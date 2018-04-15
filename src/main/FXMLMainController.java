@@ -38,9 +38,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import main.Business.DrawChart;
@@ -144,14 +147,20 @@ public class FXMLMainController implements Initializable {
     private TableColumn cPrice;
     @FXML
     private TableColumn cDate;
+    @FXML
+    private TableColumn cVAT;
+    @FXML
+    private TableColumn cTotal;
+    @FXML
+    private TextField txtkeyWord;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         formatLabel();
-        listBooking = findListBooking();
+        listBooking = findListBooking("");
         dpicker.setValue(LocalDate.now());
         setGridViewBooking(listBooking); // set gridview lúc voà main
-        loadListBooking(); // load danh sách booking
+        loadListBooking(""); // load danh sách booking
         dpicker.setOnAction(y -> { // set grid view khi click dpicker
             setGridViewBooking(listBooking);
         });
@@ -161,6 +170,7 @@ public class FXMLMainController implements Initializable {
         btnDrawPieChart.setOnAction(new DrawPieChart()); // vẽ piechart
         btnMoveUser.setOnAction(new MoveFormUser());
         btnLogout.setOnAction(new LogOut());
+        txtkeyWord.setOnKeyPressed(new KeyWord());
     }
 
     private void formatLabel() {
@@ -168,6 +178,17 @@ public class FXMLMainController implements Initializable {
         lblTrua.setGraphic(new ImageView(new Image("Images/ch.png")));
         lblChieu.setGraphic(new ImageView(new Image("Images/tr.png")));
         lblToi.setGraphic(new ImageView(new Image("Images/t.png")));
+    }
+
+    class KeyWord implements EventHandler<KeyEvent> {
+
+        @Override
+        public void handle(KeyEvent e) {
+            if (e.getCode().equals(KeyCode.ENTER)) {
+                String key = txtkeyWord.getText();
+                loadListBooking(key);
+            }
+        }
     }
 
     @FXML
@@ -209,9 +230,9 @@ public class FXMLMainController implements Initializable {
 
     }
 
-    public List<Booking> findListBooking() {
+    public List<Booking> findListBooking(String key) {
         try {
-            return roomBUS.findListRoomID();
+            return roomBUS.findListRoomID(key);
         } catch (Exception e) {
             AlertOfMe.alert("Lỗi Hệ Thống");
         }
@@ -292,10 +313,10 @@ public class FXMLMainController implements Initializable {
         return String.format("%.2f", ((double) count / total) * 100);
     }
 
-    public void loadListBooking() {
+    public void loadListBooking(String key) {
         lsMyClass = FXCollections.observableArrayList();
         try {
-            this.lsMyClass.addAll(myBUS.findListMyClass());
+            this.lsMyClass.addAll(myBUS.findListMyClass(key));
         } catch (Exception e) {
             AlertOfMe.alert("Lỗi Load Dữ Liệu Booking");
         }
@@ -309,6 +330,8 @@ public class FXMLMainController implements Initializable {
         cRoom.setCellValueFactory(new PropertyValueFactory("roomName"));
         cDate.setCellValueFactory(new PropertyValueFactory("date"));
         cPrice.setCellValueFactory(new PropertyValueFactory("money"));
+        cVAT.setCellValueFactory(new PropertyValueFactory("vat"));
+        cTotal.setCellValueFactory(new PropertyValueFactory("totalMoney"));
     }
 
     public void getsessionUser(String userSession) {
