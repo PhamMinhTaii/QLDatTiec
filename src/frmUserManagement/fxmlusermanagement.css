@@ -1,0 +1,55 @@
+
+.mainFxmlClass {
+
+}
+
+.VboxMain {
+    -fx-background-color: #afb5bf;  
+}
+
+.Vbox{
+    -fx-spacing: 10;
+}
+.txtname{
+    -fx-font-size : 35;
+    -fx-font-family:tahoma;
+    -fx-fill: #cc9412;
+    -fx-stroke: red;
+    -fx-stroke-width:1;
+}
+.txtkeywork{
+    -fx-max-width: 300;
+    
+}
+.txtdanhsach{
+     -fx-font-size : 20;
+    -fx-font-family:tahoma;
+    -fx-fill: #0f31c6;
+    
+}
+
+.Vbox-1{
+    -fx-alignment: CENTER;
+    -fx-spacing: 5;
+}
+.Vbox-1 Button{
+    -fx-min-width: 90;
+}
+.btndel:hover{
+    -fx-background-color: red;
+}
+
+.Vbox-2{
+    -fx-alignment: CENTER;
+    -fx-spacing: 5;
+}
+
+.Vbox-2 Button{
+    -fx-min-width: 100;
+}
+
+.lbsession{
+    -fx-background-color:  #ebefea;
+    -fx-text-fill: #e10808;
+    -fx-alignment: CENTER;
+}

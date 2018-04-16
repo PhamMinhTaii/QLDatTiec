@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 13, 2018 11:49:03 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Concept" table="concept" catalog="qltieccuoi" optimistic-lock="version">
+        <id name="conceptId" type="string">
+            <column name="concept_id" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="color" type="string">
+            <column name="color" length="45" />
+        </property>
+        <property name="table" type="string">
+            <column name="table" length="45" />
+        </property>
+        <property name="background" type="string">
+            <column name="background" length="65535" />
+        </property>
+        <property name="folower" type="string">
+            <column name="folower" length="45" />
+        </property>
+        <property name="price" type="string">
+            <column name="price" length="13" />
+        </property>
+        <set name="bookings" table="booking" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="concept_id" length="50" />
+            </key>
+            <one-to-many class="entity.Booking" />
+        </set>
+    </class>
+</hibernate-mapping>
