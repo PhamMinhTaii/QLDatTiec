@@ -40,8 +40,10 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javax.persistence.Convert;
+import main.FXMLMainController;
 
 /**
  * FXML Controller class
@@ -108,7 +110,7 @@ public class FXMLBookController implements Initializable {
 
     String idConcept = null;
     String tienBan = null;
-    List<Menu> menu =new ArrayList<>();
+    List<Menu> menu = new ArrayList<>();
     String idRoom = null;
     String isShift = null;
     Date dateBook = null;
@@ -118,6 +120,8 @@ public class FXMLBookController implements Initializable {
 
     @FXML
     private Label lbUserSession;
+    @FXML
+    private Button btnThoat;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -197,6 +201,7 @@ public class FXMLBookController implements Initializable {
     private void getUser(String userName) {
 
     }
+
     public void getsessionUser(String userSession) {
         lbUserSession.setText(userSession); // nhận từ main
     }
@@ -214,23 +219,23 @@ public class FXMLBookController implements Initializable {
         double tongTienDoAn = tongTienListMenu;
         if (ccSanh.getValue().equals("A")) {
             Room r = bookBus.getRomId("A");
-            room = r;           
+            room = r;
         }
         if (ccSanh.getValue().equals("B")) {
             Room r = bookBus.getRomId("B");
-            room = r;            
+            room = r;
         }
         if (ccSanh.getValue().equals("C")) {
             Room r = bookBus.getRomId("C");
-            room = r;           
+            room = r;
         }
         if (ccSanh.getValue().equals("D")) {
             Room r = bookBus.getRomId("D");
             room = r;
-           
+
         }
-        soBan=Integer.parseInt(room.getQuantityTable());
-        
+        soBan = Integer.parseInt(room.getQuantityTable());
+
         tienPhong = Float.parseFloat(room.getPrice());
         String giaTien = String.format("%0,3.0fVNĐ", tienPhong);
         tienBan = giaTien;
@@ -286,7 +291,7 @@ public class FXMLBookController implements Initializable {
 
                 // luu thong tin booking
                 Concept concept = bookBus.getConcept(idConcept);
-                User user=bookBus.getUSer(lbUserSession.getText());
+                User user = bookBus.getUSer(lbUserSession.getText());
                 Booking b = new Booking(idBook, concept, c, room, user, null,
                         dateBook, isShift);
                 int kq2 = bookBus.ktraBook(b.getRoom(), b.getBookingDate(), b.getShift());
@@ -297,7 +302,7 @@ public class FXMLBookController implements Initializable {
                     for (Menu mn : menu) {
                         BookingDetailId idBD = new BookingDetailId(b.getBookingId(), mn.getMenuId());
                         BookingDetail bd = new BookingDetail(idBD, b, mn, null);
-                        bookBus.addBookDetail(bd);                  
+                        bookBus.addBookDetail(bd);
                     }
                     AlertOfMe.alert("Lưu đơn đặt tiệc thành công!");
                     cleanFinal();
@@ -359,7 +364,7 @@ public class FXMLBookController implements Initializable {
         ccCa.setPromptText(null);
         ccSanh.setPromptText(null);
         ccbConcept.setPromptText(null);
-        menu=null;
+        menu = null;
         txtBackground.clear();
         txtFlower.clear();
         txtTable.clear();
@@ -392,6 +397,27 @@ public class FXMLBookController implements Initializable {
         sum += (sum * 0.1);
         String tienTong = String.format("%0,3.0fVNĐ", sum);
         lblTongTien.setText(tienTong);
+
+    }
+
+    @FXML
+    private void thoatAction(ActionEvent event) throws IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("FXMLBook.fxml"));   
+        Stage stage1 = new Stage();
+        stage1.setScene(new Scene(root1));
+        stage1 = (Stage) btnThoat.getScene().getWindow();
+        stage1.close();
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/FXMLMain.fxml"));
+        Parent root = loader.load();
+        FXMLMainController display = loader.getController();
+        display.getsessionUser(lbUserSession.getText());
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Hệ Thống Tiệc Cưới T&T");
+        stage.initStyle(StageStyle.UTILITY);
+        SetStage.setStage(stage, scene, 725, 525);
 
     }
 }
