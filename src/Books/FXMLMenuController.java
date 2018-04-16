@@ -307,6 +307,8 @@ public class FXMLMenuController implements Initializable {
     @FXML
     private void xoaAction(ActionEvent event) {
         String gia = txtGia.getText();
+        String idLoad=tmForUpdate.getTitleId();
+        String promptLoad=cbbLoaiMon.getPromptText();
         gia = gia.replaceAll("[VNĐ,]", "");
         txtGia.setText(gia);
         Optional<ButtonType> result = AlertOfMe.alertResult(Alert.AlertType.WARNING, "Bạn có chắc chắn muốn xóa món: "
@@ -318,8 +320,8 @@ public class FXMLMenuController implements Initializable {
             menubus.update(menuUpdate);
             AlertOfMe.alert("Xóa thành công!");
         }
-        load(tmForUpdate.getTitleId(),
-                tmForUpdate.getTitleName());
+        
+        load(idLoad,promptLoad);
     }
 
     private void setAlert(int kq) {
@@ -407,12 +409,14 @@ public class FXMLMenuController implements Initializable {
     }
 
     private void suaMonAn() {
+        String idLoad=tmForUpdate.getTitleId();
+        String promptLoad=cbbLoaiMon.getPromptText();
         Menu updateMenu = new Menu(idMenuForUpdate, tmForUpdate,
                 txtMonAn.getText(), txtGia.getText(), txtMoTa.getText(), urlImage,
                 statusForUpdate, isSelecrForUpdate);
         menubus.update(updateMenu);
         AlertOfMe.alert("Sửa món ăn thành công!");
-        loadFirst();
+         load(idLoad,promptLoad);
     }
 
     @FXML

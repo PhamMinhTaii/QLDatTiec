@@ -61,10 +61,10 @@
                         <Button fx:id="btnDatMon" mnemonicParsing="false" onAction="#datmonAction" prefHeight="50.0" prefWidth="124.0" styleClass="Button-DatMon" text="Đặt Món" />
                         <HBox prefHeight="42.0" prefWidth="362.0" styleClass="HBox">
                            <children>
-                              <Button fx:id="btnThemMon" mnemonicParsing="false" onAction="#themAction" styleClass="Button" text="Thêm món" />
-                              <Button fx:id="btnSuaMon" mnemonicParsing="false" onAction="#suaAction" styleClass="Button" text="Sửa thông tin" />
-                              <Button fx:id="btnXoaMon" mnemonicParsing="false" onAction="#xoaAction" styleClass="Button" text="Xóa món" />
-                              <Button fx:id="btnLuu" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#luuAction" styleClass="Button" text="Lưu">
+                              <Button fx:id="btnThemMon" mnemonicParsing="false" onAction="#themAction" prefHeight="29.0" prefWidth="92.0" styleClass="Button" text="Thêm món" />
+                              <Button fx:id="btnSuaMon" mnemonicParsing="false" onAction="#suaAction" prefHeight="29.0" prefWidth="94.0" styleClass="Button" text="Sửa thông tin" />
+                              <Button fx:id="btnXoaMon" mnemonicParsing="false" onAction="#xoaAction" prefHeight="29.0" prefWidth="87.0" styleClass="Button" text="Xóa món" />
+                              <Button fx:id="btnLuu" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#luuAction" prefHeight="29.0" prefWidth="75.0" styleClass="Button" text="Lưu">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
