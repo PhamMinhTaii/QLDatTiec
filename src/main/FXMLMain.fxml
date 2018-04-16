@@ -44,10 +44,10 @@
                         <Label prefHeight="37.0" prefWidth="99.0" style="-fx-background-color: #dba9a0; -fx-text-fill: black;" styleClass="Label" text="Sảnh D" GridPane.columnIndex="4" />
                         <Label prefHeight="40.0" prefWidth="94.0" style="-fx-background-color: #a0d2db; -fx-text-fill: black;" styleClass="Label" text="Sảnh A" GridPane.columnIndex="1" />
                         <Label prefHeight="35.0" prefWidth="89.0" style="-fx-background-color: #a0dbc7; -fx-text-fill: black;" styleClass="Label" text="Sảnh C" GridPane.columnIndex="3" />
-                        <Label fx:id="lblToi" prefHeight="30.0" prefWidth="108.0" style="-fx-font-style: bold; -fx-: bold;" styleClass="Label" text="Tối" GridPane.rowIndex="4" />
-                        <Label fx:id="lblChieu" prefHeight="30.0" prefWidth="109.0" style="-fx-font-style: bold;" styleClass="Label" text="Chiều" GridPane.rowIndex="3" />
-                        <Label fx:id="lblTrua" prefHeight="30.0" prefWidth="108.0" style="-fx-font-style: bold;" styleClass="Label" text="Trưa" GridPane.rowIndex="2" />
-                        <Label fx:id="lblSang" prefHeight="30.0" prefWidth="109.0" style="-fx-font-size: bold;" styleClass="Label" text="Sáng" GridPane.rowIndex="1" />
+                        <Label fx:id="lblToi" prefHeight="30.0" prefWidth="108.0" styleClass="Label" text="Tối" GridPane.rowIndex="4" />
+                        <Label fx:id="lblChieu" prefHeight="30.0" prefWidth="109.0" styleClass="Label" text="Chiều" GridPane.rowIndex="3" />
+                        <Label fx:id="lblTrua" prefHeight="30.0" prefWidth="108.0" styleClass="Label" text="Trưa" GridPane.rowIndex="2" />
+                        <Label fx:id="lblSang" prefHeight="30.0" prefWidth="109.0" styleClass="Label" text="Sáng" GridPane.rowIndex="1" />
                         <Label fx:id="lblA1" styleClass="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="lblA2" prefHeight="30.0" prefWidth="94.0" styleClass="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="lblB1" styleClass="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
